@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import HelpTicket from './HelpTicket';
-import type { ticketType } from '../actions/tickets';
+import type { ticketType } from '../actions/tickets-actions';
 
 class HelpTicketPanel extends Component {
   props: {

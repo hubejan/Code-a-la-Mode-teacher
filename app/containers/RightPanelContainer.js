@@ -2,10 +2,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HelpTicketPanel from '../components/HelpTicketPanel';
+import type { ticketType } from '../actions/tickets-actions';
 
 function mapStateToProps(state) {
   return {
-    currentView: state.currentView,
+    panelView: state.panelView,
     tickets: state.tickets
   };
 }
@@ -16,17 +17,17 @@ function mapStateToProps(state) {
 
 class RightPanelContainer extends Component {
   props: {
-    currentView: string,
-    tickets: Array<{question: string}>
+    panelView: string,
+    tickets: Array<ticketType>
   };
 
   render() {
-    const { currentView, tickets } = this.props;
+    const { panelView, tickets } = this.props;
 
     return (
       <div>
         {() => {
-          switch (currentView) {
+          switch (panelView) {
             case 'HelpTickets':
               return <HelpTicketPanel tickets={tickets} />;
             default:

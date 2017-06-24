@@ -1,10 +1,6 @@
 // @flow
-import { ADD_TICKET, SELECT_TICKET, REMOVE_TICKET } from '../actions/tickets';
-import type { ticketType } from '../actions/tickets';
-
-export type counterStateType = {
-  counter: number
-};
+import { ADD_TICKET, SELECT_TICKET, REMOVE_TICKET } from '../actions/tickets-actions';
+import type { ticketType } from '../actions/tickets-actions';
 
 type actionType = {
   type: string,
@@ -25,7 +21,6 @@ type stateType = {
 const defaultTickets = {
   selectedTicket: {}
 };
-
 
 export default function tickets(state: stateType = defaultTickets, action: actionType) {
   switch (action.type) {
