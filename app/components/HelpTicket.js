@@ -1,13 +1,13 @@
 // @flow
 import React from 'react';
 
-type ticketType = {
+type TicketType = {
   question: string
 };
 
-const HelpTicket = ({ ticket }: {ticket: ticketType}) => (
+const HelpTicket = ({ ticket }: {ticket: TicketType}) => (
   <div>
-    <pre>{ticket.question}</pre>
+    <pre>{`${ticket.question}`}</pre>
   </div>
 );
 
