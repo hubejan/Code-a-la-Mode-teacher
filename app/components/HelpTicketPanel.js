@@ -1,14 +1,11 @@
 // @flow
 import React, { Component } from 'react';
 import HelpTicket from './HelpTicket';
-
-type TicketType = {
-  question: string
-};
+import type { ticketType } from '../actions/tickets';
 
 class HelpTicketPanel extends Component {
   props: {
-    tickets: Array<TicketType> // what else does a ticket object have in it?
+    tickets: Array<ticketType>
   };
 
   render() {

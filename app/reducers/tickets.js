@@ -1,14 +1,9 @@
 // @flow
 import { ADD_TICKET, SELECT_TICKET, REMOVE_TICKET } from '../actions/tickets';
+import type { ticketType } from '../actions/tickets';
 
 export type counterStateType = {
   counter: number
-};
-
-type ticketType = {
-  id: number,
-  question: string,
-  codeState?: string
 };
 
 type actionType = {
@@ -35,11 +30,20 @@ const defaultTickets = {
 export default function tickets(state: stateType = defaultTickets, action: actionType) {
   switch (action.type) {
     case ADD_TICKET:
-      return Object.assign({}, state, { [action.id]: action.ticket });
+      return {
+        ...state,
+        [action.id]: action.ticket
+      };
     case SELECT_TICKET:
-      return Object.assign({}, state, { selectedTicket: state[action.id] });
+      return {
+        ...state,
+        selectedTicket: state[action.id]
+      };
     case REMOVE_TICKET:
-      return Object.assign({}, state, { [action.id]: undefined });
+      return {
+        state,
+        [action.id]: undefined
+      };
     default:
       return state;
   }

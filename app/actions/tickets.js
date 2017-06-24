@@ -6,7 +6,8 @@ export const REMOVE_TICKET = 'REMOVE_TICKET';
 // codestate subject to change- still unsure how we are storing
 // current state of code
 // student-side will need some form of create-ticket
-type ticketType = {
+// discussion: what kinds of props should a ticket have?
+export type ticketType = {
   id: number,
   question: string,
   codeState?: string
