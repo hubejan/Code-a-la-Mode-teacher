@@ -19,7 +19,11 @@ type removeAction = { type: typeof REMOVE_TICKET, id: number };
 type Action =
   | addAction
   | selectAction
-  | removeAction;
+  | removeAction
+  | { type: $Subtype<string> };
+  // $Subtype<string> prevents runtime flow errors from init-related redux actions
+  // { type: string } would our more specific action types less useful, but this
+  // subtype will let us have nice action typing for different switch cases
 
 const defaultTickets = {
   selectedTicket: {}
