@@ -17,8 +17,8 @@ const defaultFiletree = {
 export default function filetree(state: filetreeStateType = defaultFiletree, action: actionType) {
   switch (action.type) {
     case GOT_USERNAME:
-      return Object.assign(state, { username: action.username });
-      // return { ...state, username: action.username };
+      // return Object.assign({}, state, { username: action.username });
+      return { ...state, username: action.username };
 
     default:
       return state;
