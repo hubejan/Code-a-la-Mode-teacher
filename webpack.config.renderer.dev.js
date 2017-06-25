@@ -36,29 +36,15 @@ export default merge.smart(baseConfig, {
 
   target: 'electron-renderer',
 
-  entry: {
-    app: [
-      'react-hot-loader/patch',
-      `webpack-dev-server/client?http://localhost:${port}/`,
-      'webpack/hot/only-dev-server',
-      path.join(__dirname, 'app/index.js')
-    ],
-    server: [
-      'react-hot-loader/patch',
-      `webpack-dev-server/client?http://localhost:${port}/`,
-      'webpack/hot/only-dev-server',
-      path.join(__dirname, 'app/app-server/server.js')
-    ]
-  },
-
-  // Option set so we can send files from socket server (Temporary fix for now)
-  node: {
-    __dirname: false
-  },
+  entry: [
+    'react-hot-loader/patch',
+    `webpack-dev-server/client?http://localhost:${port}/`,
+    'webpack/hot/only-dev-server',
+    path.join(__dirname, 'app/index.js'),
+  ],
 
   output: {
-    publicPath: `http://localhost:${port}/dist/`,
-    filename: '[name]-bundle.js'
+    publicPath: `http://localhost:${port}/dist/`
   },
 
   module: {
