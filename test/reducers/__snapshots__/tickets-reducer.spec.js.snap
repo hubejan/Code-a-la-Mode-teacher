@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tickets reducer should handle ADD_TICKET 1`] = `
+Object {
+  "1": Object {
+    "id": 1,
+    "question": "is the first ticket here?",
+  },
+  "2": Object {
+    "id": 2,
+    "question": "is this ticket reducer test passing?",
+  },
+  "selectedTicket": Object {},
+}
+`;
+
+exports[`tickets reducer should handle REMOVE_TICKET 1`] = `
+Object {
+  "1": undefined,
+  "state": Object {
+    "1": Object {
+      "id": 1,
+      "question": "is the first ticket here?",
+    },
+    "selectedTicket": Object {},
+  },
+}
+`;
+
+exports[`tickets reducer should handle SELECT_TICKET 1`] = `
+Object {
+  "1": Object {
+    "id": 1,
+    "question": "is the first ticket here?",
+  },
+  "selectedTicket": Object {
+    "id": 1,
+    "question": "is the first ticket here?",
+  },
+}
+`;
+
+exports[`tickets reducer should handle initial state 1`] = `
+Object {
+  "1": Object {
+    "id": 1,
+    "question": "How Can Mirrors Be Real If Our Eyes Arent Real.",
+  },
+  "2": Object {
+    "id": 2,
+    "question": "What are tests???",
+  },
+  "selectedTicket": Object {},
+}
+`;

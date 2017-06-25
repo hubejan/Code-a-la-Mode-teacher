@@ -11,6 +11,8 @@ const testTicket = {
 // the next time the test is run, a diff is run against the snapshot
 // if they do not match, an error is thrown and you are prompted to
 // either update the snapshot, or change your code to match the old snapshot
+// pretty useful for UI components and things like action creators, which should
+// generate a very obvious object structure
 
 // take a look at './__snapshots__/tickets-actions.spec.js.snap' to see
 // the snapshot these created actions
