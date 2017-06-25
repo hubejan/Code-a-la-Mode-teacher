@@ -1,23 +1,23 @@
 // @flow
 import React, { Component } from 'react';
 import HelpTicket from './HelpTicket';
+import type { ticketsStateType } from '../reducers/tickets-reducer';
 
-type TicketType = {
-  question: string
-};
 
 class HelpTicketPanel extends Component {
   props: {
-    tickets: Array<TicketType> // what else does a ticket object have in it?
+    ticketsState: ticketsStateType
   };
 
   render() {
-    const { tickets } = this.props;
+    const { selectedTicket, ...tickets } = this.props.ticketsState;
     return (
       <div>
-        { tickets.map(ticket => <HelpTicket ticket={ticket} />) }
+        <h4>HelpTicketPanel Component</h4>
+        { Object.keys(tickets).map(id => <HelpTicket ticket={tickets[id]} />) }
       </div>
     );
   }
 }
+
 export default HelpTicketPanel;

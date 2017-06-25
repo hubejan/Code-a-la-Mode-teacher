@@ -6,7 +6,8 @@ export const REMOVE_TICKET = 'REMOVE_TICKET';
 // codestate subject to change- still unsure how we are storing
 // current state of code
 // student-side will need some form of create-ticket
-type ticketType = {
+// discussion: what kinds of props should a ticket have?
+export type ticketType = {
   id: number,
   question: string,
   codeState?: string
@@ -14,7 +15,7 @@ type ticketType = {
 
 // actions set up such that tickets can be selected/removed by ID
 // should allow simple add/click/remove later on
-export function addTicket(ticket: ticketType) {
+export function add(ticket: ticketType) {
   return {
     type: ADD_TICKET,
     id: ticket.id,
@@ -22,14 +23,14 @@ export function addTicket(ticket: ticketType) {
   };
 }
 
-export function selectTicket(ticket: ticketType) {
+export function select(ticket: ticketType) {
   return {
     type: SELECT_TICKET,
     id: ticket.id
   };
 }
 
-export function removeTicket(ticket: ticketType) {
+export function remove(ticket: ticketType) {
   return {
     type: REMOVE_TICKET,
     id: ticket.id
