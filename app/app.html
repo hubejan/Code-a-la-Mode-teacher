@@ -42,5 +42,38 @@
         );
       }
     </script>
+    <button id="openFile" onclick="openFile();">Open</button>
+
+    <button id="saveFile">Save</button><br />
+
+    <br />
+
+    <textarea id="editor" style="width: 400px; height: 300px;"></textarea>
+
+    <script>
+
+      const {dialog} = require('electron').remote;
+
+      var fs = require('fs');
+
+      let content = "Some text to save into the file";
+
+      // You can obviously give a direct path without use the dialog (C:/Program Files/path/myfileexample.txt)
+      dialog.showOpenDialog(null, {title: 'test', properties: ['openDirectory', 'createDirectory']}, (fileName) => {
+          if (fileName === undefined){
+              console.log("You didn't open the file");
+              return;
+          }
+
+          // fileName is a string that contains the path and filename created in the save file dialog.
+          // fs.writeFile(fileName, content, (err) => {
+          //     if(err){
+          //         alert("An error ocurred creating the file "+ err.message)
+          //     }
+
+          //     alert("The file has been succesfully saved");
+          // });
+      });
+    </script>
   </body>
 </html>

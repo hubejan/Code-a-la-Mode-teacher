@@ -2,40 +2,58 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HelpTicketPanel from '../components/HelpTicketPanel';
+import { add, select, remove } from '../actions/tickets-actions';
+import type { ticketsStateType } from '../reducers/tickets-reducer';
 
 function mapStateToProps(state) {
   return {
-    currentView: state.currentView,
-    tickets: state.tickets
+    panelView: state.panelView,
+    ticketsState: state.tickets
   };
 }
 
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators(CounterActions, dispatch);
-// }
+function mapDispatchToProps(dispatch: *) {
+  return {
+    addTicket(ticket) {
+      dispatch(add(ticket));
+    },
+    selectTicket(ticket) {
+      dispatch(select(ticket));
+    },
+    removeTicket(ticket) {
+      dispatch(remove(ticket));
+    }
+  };
+}
 
 class RightPanelContainer extends Component {
   props: {
-    currentView: string,
-    tickets: Array<{question: string}>
+    panelView: string,
+    ticketsState: ticketsStateType,
+    addTicket: () => void,
+    selectTicket: () => void,
+    removeTicket: () => void
   };
 
   render() {
-    const { currentView, tickets } = this.props;
+    const { panelView, ticketsState, addTicket, selectTicket, removeTicket } = this.props;
 
     return (
       <div>
-        {() => {
-          switch (currentView) {
-            case 'HelpTickets':
-              return <HelpTicketPanel tickets={tickets} />;
-            default:
-              return <HelpTicketPanel tickets={tickets} />;
-          }
-        }}
+        <h1>RIGHT PANEL CONTAINER</h1>
+        {
+          panelView === 'HelpTickets'
+            ? <HelpTicketPanel
+              ticketsState={ticketsState}
+              addTicket={addTicket}
+              selectTicket={selectTicket}
+              removeTicket={removeTicket}
+            />
+            : null // fill with History later
+        }
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps)(RightPanelContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(RightPanelContainer);
