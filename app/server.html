@@ -2,21 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Hello Electron React!</title>
-    <script>
-      (function() {
-        if (!process.env.HOT) {
-          const link = document.createElement('link');
-          link.rel = 'stylesheet';
-          link.href = './dist/style.css';
-          // HACK: Writing the script path should be done with webpack
-          document.getElementsByTagName('head')[0].appendChild(link);
-        }
-      }());
-    </script>
   </head>
   <body>
-    <div id="root"></div>
     <script>
       {
         const scripts = [];
@@ -31,11 +18,9 @@
         const port = process.env.PORT || 1212;
         scripts.push(
           (process.env.HOT)
-            ? 'http://localhost:' + port + '/dist/app-bundle.js'
-            : './dist/app-bundle.js'
+            ? 'http://localhost:' + port + '/dist/server-bundle.js'
+            : './dist/server-bundle.js'
         );
-
-        console.log(scripts);
 
         document.write(
           scripts
