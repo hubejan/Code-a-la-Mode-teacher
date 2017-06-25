@@ -23,7 +23,8 @@ function setup(initialState) {
   };
 }
 
-describe('containers', () => {
+// boilerplate test changed to skip- keep for reference
+describe.skip('containers', () => {
   describe('App', () => {
     it('should display initial count', () => {
       const { p } = setup();

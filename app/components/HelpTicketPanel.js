@@ -14,7 +14,7 @@ class HelpTicketPanel extends Component {
     return (
       <div>
         <h4>HelpTicketPanel Component</h4>
-        { Object.keys(tickets).map(id => <HelpTicket ticket={tickets[id]} />) }
+        { Object.keys(tickets).map(id => <HelpTicket key={id} ticket={tickets[id]} />) }
       </div>
     );
   }
