@@ -1,3 +1,17 @@
+.Home__container__1sK25 {
+  position: absolute;
+  top: 30%;
+  left: 10px;
+  text-align: center;
+}
+
+.Home__container__1sK25 h2 {
+  font-size: 5rem;
+}
+
+.Home__container__1sK25 a {
+  font-size: 1.4rem;
+}
 .Counter__backButton__4lvfc {
   position: absolute;
 }

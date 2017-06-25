@@ -11,7 +11,6 @@ export default class Home extends Component {
           <h2>Home</h2>
           <Link to="/counter">to Counter</Link><br />
           <Link to="/panelView">test the Question/History panel</Link>
-          <Link to="/editor">Editor</Link>
         </div>
       </div>
     );
