@@ -1,7 +1,8 @@
 import { spy } from 'sinon';
 import * as actions from '../../app/actions/counter';
 
-describe('actions', () => {
+// boilerplate tests skipped- unskip if you want to see it in action
+describe.skip('actions', () => {
   it('should increment should create increment action', () => {
     expect(actions.increment()).toMatchSnapshot();
   });

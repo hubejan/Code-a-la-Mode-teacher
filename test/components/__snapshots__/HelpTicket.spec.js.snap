@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HelpTicket component should display the a ticket question 1`] = `
+<div>
+  <pre>
+    is this question being rendered?
+  </pre>
+</div>
+`;
