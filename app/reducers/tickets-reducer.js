@@ -1,10 +1,10 @@
 // @flow
 import { ADD_TICKET, SELECT_TICKET, REMOVE_TICKET } from '../actions/tickets-actions';
-import type { ticketType } from '../actions/tickets-actions';
+import type { ticketType, ticketsType } from '../actions/tickets-actions';
 
 type actionType = {
   type: string,
-  id: number,
+  id?: number,
   ticket?: ticketType
 };
 
@@ -13,16 +13,12 @@ type actionType = {
 // state is an object that will be used as a map
 //   this map can have numbers as keys (ticket_id is for semantic documentation)
 //   this map can have values of ticketType
-type stateType = {
-  selectedTicket: {} | ticketType,
-  [ticket_id: number]: ticketType
-};
 
 const defaultTickets = {
   selectedTicket: {}
 };
 
-export default function tickets(state: stateType = defaultTickets, action: actionType) {
+export default function tickets(state: ticketsType = defaultTickets, action: actionType) {
   switch (action.type) {
     case ADD_TICKET:
       return {
@@ -32,7 +28,7 @@ export default function tickets(state: stateType = defaultTickets, action: actio
     case SELECT_TICKET:
       return {
         ...state,
-        selectedTicket: state[action.id]
+        selectedTicket: action.id ? state[action.id] : {}
       };
     case REMOVE_TICKET:
       return {

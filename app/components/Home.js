@@ -9,7 +9,7 @@ export default class Home extends Component {
       <div>
         <div className={styles.container} data-tid="container">
           <h2>Home</h2>
-          <Link to="/counter">to Counter</Link>
+          <Link to="/counter">to Counter</Link><br />
           <Link to="/panelView">test the Question/History panel</Link>
         </div>
       </div>

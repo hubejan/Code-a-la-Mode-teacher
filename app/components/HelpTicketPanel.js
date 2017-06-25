@@ -1,20 +1,22 @@
 // @flow
 import React, { Component } from 'react';
 import HelpTicket from './HelpTicket';
-import type { ticketType } from '../actions/tickets-actions';
+import type { ticketsType } from '../actions/tickets-actions';
+
 
 class HelpTicketPanel extends Component {
   props: {
-    tickets: Array<ticketType>
+    ticketsState: ticketsType
   };
 
   render() {
-    const { tickets } = this.props;
+    const { selectedTicket, ...tickets } = this.props.ticketsState;
     return (
       <div>
-        { tickets.map(ticket => <HelpTicket ticket={ticket} />) }
+        { Object.keys(tickets).map(id => <HelpTicket ticket={tickets[id]} />) }
       </div>
     );
   }
 }
+
 export default HelpTicketPanel;

@@ -2,36 +2,60 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HelpTicketPanel from '../components/HelpTicketPanel';
-import type { ticketType } from '../actions/tickets-actions';
+import { add, select, remove } from '../actions/tickets-actions';
+import type { ticketsType } from '../actions/tickets-actions';
 
 function mapStateToProps(state) {
   return {
     panelView: state.panelView,
-    tickets: state.tickets
+    ticketsState: state.tickets
   };
 }
 
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators(CounterActions, dispatch);
-// }
+function mapDispatchToProps(dispatch: *) {
+  return {
+    addTicket(ticket) {
+      dispatch(add(ticket));
+    },
+    selectTicket(ticket) {
+      dispatch(select(ticket));
+    },
+    removeTicket(ticket) {
+      dispatch(remove(ticket));
+    }
+  };
+}
 
 class RightPanelContainer extends Component {
   props: {
     panelView: string,
-    tickets: Array<ticketType>
+    ticketsState: ticketsType,
+    addTicket: () => void,
+    selectTicket: () => void,
+    removeTicket: () => void
   };
 
   render() {
-    const { panelView, tickets } = this.props;
+    const { panelView, ticketsState, addTicket, selectTicket, removeTicket } = this.props;
 
     return (
       <div>
         {() => {
           switch (panelView) {
             case 'HelpTickets':
-              return <HelpTicketPanel tickets={tickets} />;
+              return (<HelpTicketPanel
+                ticketsState={ticketsState}
+                addTicket={addTicket}
+                selectTicket={selectTicket}
+                removeTicket={removeTicket}
+              />);
             default:
-              return <HelpTicketPanel tickets={tickets} />;
+              return (<HelpTicketPanel
+                ticketsState={ticketsState}
+                addTicket={addTicket}
+                selectTicket={selectTicket}
+                removeTicket={removeTicket}
+              />);
           }
         }}
       </div>
@@ -39,4 +63,4 @@ class RightPanelContainer extends Component {
   }
 }
 
-export default connect(mapStateToProps)(RightPanelContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(RightPanelContainer);
