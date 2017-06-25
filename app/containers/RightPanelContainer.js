@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HelpTicketPanel from '../components/HelpTicketPanel';
 import { add, select, remove } from '../actions/tickets-actions';
-import type { ticketsType } from '../actions/tickets-actions';
+import type { ticketsStateType } from '../reducers/tickets-reducer';
 
 function mapStateToProps(state) {
   return {
@@ -29,7 +29,7 @@ function mapDispatchToProps(dispatch: *) {
 class RightPanelContainer extends Component {
   props: {
     panelView: string,
-    ticketsState: ticketsType,
+    ticketsState: ticketsStateType,
     addTicket: () => void,
     selectTicket: () => void,
     removeTicket: () => void
@@ -40,24 +40,17 @@ class RightPanelContainer extends Component {
 
     return (
       <div>
-        {() => {
-          switch (panelView) {
-            case 'HelpTickets':
-              return (<HelpTicketPanel
-                ticketsState={ticketsState}
-                addTicket={addTicket}
-                selectTicket={selectTicket}
-                removeTicket={removeTicket}
-              />);
-            default:
-              return (<HelpTicketPanel
-                ticketsState={ticketsState}
-                addTicket={addTicket}
-                selectTicket={selectTicket}
-                removeTicket={removeTicket}
-              />);
-          }
-        }}
+        <h1>RIGHT PANEL CONTAINER</h1>
+        {
+          panelView === 'HelpTickets'
+            ? <HelpTicketPanel
+              ticketsState={ticketsState}
+              addTicket={addTicket}
+              selectTicket={selectTicket}
+              removeTicket={removeTicket}
+            />
+            : null // fill with History later
+        }
       </div>
     );
   }

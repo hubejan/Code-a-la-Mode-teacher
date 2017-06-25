@@ -25,8 +25,20 @@ type Action =
   // { type: string } would our more specific action types less useful, but this
   // subtype will let us have nice action typing for different switch cases
 
+const ticket1 = {
+  id: 1,
+  question: 'How Can Mirrors Be Real If Our Eyes Arent Real.'
+};
+
+const ticket2 = {
+  id: 2,
+  question: 'What are tests???'
+};
+
 const defaultTickets = {
-  selectedTicket: {}
+  selectedTicket: {},
+  [ticket1.id]: ticket1,
+  [ticket2.id]: ticket2
 };
 
 export default function tickets(state: ticketsStateType = defaultTickets, action: Action) {
