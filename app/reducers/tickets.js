@@ -35,11 +35,11 @@ const defaultTickets = {
 export default function tickets(state: stateType = defaultTickets, action: actionType) {
   switch (action.type) {
     case ADD_TICKET:
-      return Object.assign(state, { [action.id]: action.ticket });
+      return Object.assign({}, state, { [action.id]: action.ticket });
     case SELECT_TICKET:
-      return Object.assign(state, { selectedTicket: state[action.id] });
+      return Object.assign({}, state, { selectedTicket: state[action.id] });
     case REMOVE_TICKET:
-      return Object.assign(state, { [action.id]: undefined });
+      return Object.assign({}, state, { [action.id]: undefined });
     default:
       return state;
   }
