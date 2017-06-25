@@ -56,7 +56,7 @@ export default function tickets(state: ticketsStateType = defaultTickets, action
       };
     case REMOVE_TICKET:
       return {
-        state,
+        ...state,
         [action.id]: undefined
       };
     default:

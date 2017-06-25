@@ -10,6 +10,10 @@ Object {
     "id": 2,
     "question": "is this ticket reducer test passing?",
   },
+  "3": Object {
+    "id": 3,
+    "question": "is three too many?",
+  },
   "selectedTicket": Object {},
 }
 `;
@@ -17,13 +21,11 @@ Object {
 exports[`tickets reducer should handle REMOVE_TICKET 1`] = `
 Object {
   "1": undefined,
-  "state": Object {
-    "1": Object {
-      "id": 1,
-      "question": "is the first ticket here?",
-    },
-    "selectedTicket": Object {},
+  "2": Object {
+    "id": 2,
+    "question": "is this ticket reducer test passing?",
   },
+  "selectedTicket": Object {},
 }
 `;
 
@@ -32,6 +34,10 @@ Object {
   "1": Object {
     "id": 1,
     "question": "is the first ticket here?",
+  },
+  "2": Object {
+    "id": 2,
+    "question": "is this ticket reducer test passing?",
   },
   "selectedTicket": Object {
     "id": 1,
