@@ -25,6 +25,7 @@ type Action =
   // { type: string } would our more specific action types less useful, but this
   // subtype will let us have nice action typing for different switch cases
 
+// dummy tickets for testing the view
 const ticket1 = {
   id: 1,
   question: 'How Can Mirrors Be Real If Our Eyes Arent Real.'
@@ -55,7 +56,7 @@ export default function tickets(state: ticketsStateType = defaultTickets, action
       };
     case REMOVE_TICKET:
       return {
-        state,
+        ...state,
         [action.id]: undefined
       };
     default:

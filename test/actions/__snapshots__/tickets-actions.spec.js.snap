@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`action creators should create a removeAction 1`] = `
+Object {
+  "id": 1,
+  "type": "REMOVE_TICKET",
+}
+`;
+
+exports[`action creators should create a selectAction 1`] = `
+Object {
+  "id": 1,
+  "type": "SELECT_TICKET",
+}
+`;
+
+exports[`action creators should create an addAction 1`] = `
+Object {
+  "id": 1,
+  "ticket": Object {
+    "id": 1,
+    "question": "Is this test passing?",
+  },
+  "type": "ADD_TICKET",
+}
+`;
