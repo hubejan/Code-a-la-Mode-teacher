@@ -6,7 +6,10 @@ import type { ticketsStateType } from '../reducers/tickets-reducer';
 
 class HelpTicketPanel extends Component {
   props: {
-    ticketsState: ticketsStateType
+    ticketsState: ticketsStateType,
+    addTicket: () => void,
+    selectTicket: () => void,
+    removeTicket: () => void
   };
 
   render() {
