@@ -10,10 +10,15 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
+import path from 'path';
+
 import MenuBuilder from './menu';
 
+// Global reference of window objects so garbage collection does not close it automatically
+// TODO: Store multiple window references into an array
 let mainWindow = null;
+let serverWindow = null;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -22,7 +27,6 @@ if (process.env.NODE_ENV === 'production') {
 
 if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
   require('electron-debug')();
-  const path = require('path');
   const p = path.join(__dirname, '..', 'app', 'node_modules');
   require('module').globalPaths.push(p);
 }
@@ -73,6 +77,7 @@ app.on('ready', async () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
+
     mainWindow.show();
     mainWindow.focus();
   });
@@ -81,6 +86,41 @@ app.on('ready', async () => {
     mainWindow = null;
   });
 
+    // Renderer process handling socket server
+  serverWindow = new BrowserWindow({
+    show: false,
+    width: 1000,
+    height: 700
+  });
+
+  serverWindow.loadURL(`file://${__dirname}/server.html`);
+
+  serverWindow.webContents.on('did-finish-load', () => {
+    if (!serverWindow) {
+      throw new Error('"serverWindow" is not defined');
+    }
+
+    console.log('Server window loaded...');
+  });
+
+  serverWindow.on('closed', () => {
+    serverWindow = null;
+  });
+
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
+});
+
+ipcMain.on('server-start', (event, arg) => {
+  console.log('Socket server started...', arg);
+});
+
+ipcMain.on('server-connection', (event, arg) => {
+  console.log(`User ${arg} connected to server...`);
+});
+
+// Message received when editor changes
+ipcMain.on('editor-change', (event, arg) => {
+  console.log('Editor value is now...', arg);
+  serverWindow.webContents.send('editor-change', arg);
 });
