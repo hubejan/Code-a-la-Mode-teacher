@@ -26,10 +26,14 @@ try {
   });
 
   io.on('connection', (socket) => {
-    ipcRenderer.send('server-start', `SOCKET IO ${socket.id}`);
+    ipcRenderer.send('server-connection', socket.id);
+
+    socket.on('disconnect', () => {
+      ipcRenderer.send('server-disconnect', socket.id);
+    });
   });
 } catch (e) {
-  ipcRenderer.send('server-start', `ERROR ... ${e}`);
+  ipcRenderer.send('server-error', e);
 }
 
 // TODO: On instructor's editor change, emit the new state of editor value
@@ -40,4 +44,6 @@ try {
 ipcRenderer.on('editor-change', (event, editorValue) => {
   // Temporary fix to see if server actually got the right stuff
   ipcRenderer.send('server-start', `Editor value: ${editorValue} `);
+
+  io.emit('editorChanges', editorValue);
 });
