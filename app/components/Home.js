@@ -19,8 +19,11 @@ export default class Home extends Component {
         <FiletreeContainer className={styles.container} />
         <div style={tempStyle} data-tid="container" >
           <h2>Home</h2>
-          <Link to="/counter">to Counter</Link><br />
+          <Link to="/counter">to Counter</Link>
+          <br />
           <Link to="/panelView">test the Question/History panel</Link>
+          <br />
+          <Link to="/editor">Editor</Link>
         </div>
       </div>
     );

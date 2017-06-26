@@ -5,6 +5,7 @@ import App from './containers/App';
 import HomePage from './containers/HomePage';
 import CounterPage from './containers/CounterPage';
 import RightPanel from './containers/RightPanelContainer';
+import EditorPage from './containers/EditorPage';
 
 
 export default () => (
@@ -12,6 +13,7 @@ export default () => (
     <Switch>
       <Route path="/counter" component={CounterPage} />
       <Route path="/panelView" component={RightPanel} />
+      <Route path="/editor" component={EditorPage} />
       <Route path="/" component={HomePage} />
     </Switch>
   </App>

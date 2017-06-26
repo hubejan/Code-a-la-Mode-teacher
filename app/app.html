@@ -31,9 +31,11 @@
         const port = process.env.PORT || 1212;
         scripts.push(
           (process.env.HOT)
-            ? 'http://localhost:' + port + '/dist/bundle.js'
-            : './dist/bundle.js'
+            ? 'http://localhost:' + port + '/dist/app-bundle.js'
+            : './dist/app-bundle.js'
         );
+
+        console.log(scripts);
 
         document.write(
           scripts
@@ -59,21 +61,21 @@
       let content = "Some text to save into the file";
 
       // You can obviously give a direct path without use the dialog (C:/Program Files/path/myfileexample.txt)
-      dialog.showOpenDialog(null, {title: 'test', properties: ['openDirectory', 'createDirectory']}, (fileName) => {
-          if (fileName === undefined){
-              console.log("You didn't open the file");
-              return;
-          }
+      // dialog.showOpenDialog(null, {title: 'test', properties: ['openDirectory', 'createDirectory']}, (fileName) => {
+      //     if (fileName === undefined){
+      //         console.log("You didn't open the file");
+      //         return;
+      //     }
 
-          // fileName is a string that contains the path and filename created in the save file dialog.
-          // fs.writeFile(fileName, content, (err) => {
-          //     if(err){
-          //         alert("An error ocurred creating the file "+ err.message)
-          //     }
+      //     // fileName is a string that contains the path and filename created in the save file dialog.
+      //     // fs.writeFile(fileName, content, (err) => {
+      //     //     if(err){
+      //     //         alert("An error ocurred creating the file "+ err.message)
+      //     //     }
 
-          //     alert("The file has been succesfully saved");
-          // });
-      });
+      //     //     alert("The file has been succesfully saved");
+      //     // });
+      // });
     </script>
   </body>
 </html>
