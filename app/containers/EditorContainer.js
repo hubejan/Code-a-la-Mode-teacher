@@ -5,7 +5,7 @@ import Editor from '../components/Editor';
 
 function mapStateToProps(state) {
   return {
-    value: state.value
+    contents: state.editor.contents
   };
 }
 

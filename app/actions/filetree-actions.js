@@ -1,26 +1,30 @@
+import Username from 'username';
+import { readFile } from '../utils/FileSystemUtils';
+
 export const GOT_USERNAME = 'GOT_USERNAME';
+export const OPEN_FILE = 'OPEN_FILE';
 
 type actionType = {
   type: string
 };
 
 export const gotUsername = username => ({ type: GOT_USERNAME, username });
-const username = require('username');
+export const openFile = contents => ({ type: OPEN_FILE, contents });
 
 export function getUsername() {
   return (dispatch: (action: actionType) => void) => {
-    username().then(name => dispatch(gotUsername(name)))
+    Username().then(name => dispatch(gotUsername(name)))
       .catch(console.error);
   };
 }
-
-// export const driverSave = (filePath, code, isNewFile) => (dispatch) => {
-//   return writeFile(filePath, code)
-//     .then(() => {
-//       const file = { filePath, text: code }
-//       if (isNewFile) dispatch(saveNewFile(file))
-//       dispatch(updateOpenFiles(file))
-//       return file
-//     })
-//     .then(file => dispatch(setActiveFileAndReturnFileAndIndex(file)))
-// }
+export function loadFile(selectedFile) {
+  console.log('loadFile selecteeFile: ', selectedFile);
+  return (dispatch: (action: actionType) => void) => {
+    readFile(selectedFile.filePath).then(contents => {
+      const text = contents.toString();
+      console.log('read file, contents are: ', text);
+      return dispatch(openFile(text));
+    })
+      .catch(console.error);
+  };
+}

@@ -35,8 +35,6 @@
             : './dist/app-bundle.js'
         );
 
-        console.log(scripts);
-
         document.write(
           scripts
             .map(script => '<script defer src="' + script + '"><\/script>')

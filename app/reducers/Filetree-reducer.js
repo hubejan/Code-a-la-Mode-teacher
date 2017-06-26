@@ -10,14 +10,14 @@ type actionType = {
   username?: string
 };
 
-const defaultFiletree = {
+const defaultFiletreeState = {
   username: ''
 };
 
-export default function filetree(state: filetreeStateType = defaultFiletree, action: actionType) {
+export default function filetree(state: filetreeStateType = defaultFiletreeState,
+  action: actionType) {
   switch (action.type) {
     case GOT_USERNAME:
-      // return Object.assign({}, state, { username: action.username });
       return { ...state, username: action.username };
 
     default:

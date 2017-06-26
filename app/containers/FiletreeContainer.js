@@ -1,9 +1,6 @@
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Filetree from '../components/Filetree';
 import * as FiletreeActions from '../actions/filetree-actions';
-import { getUsername } from '../actions/filetree-actions';
-
 
 function mapStateToProps(state) {
   return {
@@ -13,7 +10,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatchGetUsername: () => dispatch(getUsername()),
+    dispatchGetUsername: () => dispatch(FiletreeActions.getUsername()),
     loadInEditor: (selectedFile) => dispatch(FiletreeActions.loadFile(selectedFile))
   };
 }
