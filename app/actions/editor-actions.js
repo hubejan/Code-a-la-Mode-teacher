@@ -9,7 +9,6 @@ type actionType = {
 };
 
 export function changeEditor(contents: string) {
-  ipcRenderer.send('editor-change', contents);
   console.log('changeEditor contents: ', contents);
   return (dispatch: (action: actionType) => void) => {
     dispatch(editorChange(contents));

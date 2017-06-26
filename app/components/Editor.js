@@ -7,12 +7,15 @@ import 'brace/mode/javascript';
 import 'brace/theme/solarized_dark';
 import styles from './Home.css';
 import FiletreeContainer from '../containers/FiletreeContainer';
+import { ipcRenderer } from 'electron';
 
 class Editor extends Component {
   props: {
     changeEditor: () => void
   };
-
+  componentWillReceiveProps(nextProps) {
+    ipcRenderer.send('editor-change', nextProps.contents);
+  }
   render() {
     const { changeEditor } = this.props;
 
