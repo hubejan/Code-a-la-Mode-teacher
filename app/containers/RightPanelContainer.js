@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import HelpTicketPanel from '../components/HelpTicketPanel';
 import { add, select, remove } from '../actions/tickets-actions';
@@ -40,6 +41,9 @@ class RightPanelContainer extends Component {
 
     return (
       <div>
+        <Link to="/">
+          <i className="fa fa-arrow-left fa-3x" />
+        </Link>
         <h1>RIGHT PANEL CONTAINER</h1>
         {
           panelView === 'HelpTickets'
