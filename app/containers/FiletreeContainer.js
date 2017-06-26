@@ -6,8 +6,6 @@ import { getUsername } from '../actions/filetree-actions';
 
 
 function mapStateToProps(state) {
-  console.log('when mapping Filetreecontainer to props, state.filetree.username  is:', state.filetree.username, ' . its empty as you can see. BUT if you click-to-expand this next object (state.filetree), it will show that it later becomes the correct username, yet react doesnt re-render the connected component!', state.filetree);
-
   return {
     username: state.filetree.username
   };
@@ -15,7 +13,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatchGetUsername() { dispatch(getUsername()); }
+    dispatchGetUsername: () => dispatch(getUsername()),
+    loadInEditor: (selectedFile) => dispatch(FiletreeActions.loadFile(selectedFile))
   };
 }
 

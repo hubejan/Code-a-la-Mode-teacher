@@ -6,7 +6,6 @@ import AceEditor from 'react-ace';
 import 'brace/mode/javascript';
 import 'brace/theme/solarized_dark';
 
-
 class Editor extends Component {
   props: {
     changeEditor: () => void

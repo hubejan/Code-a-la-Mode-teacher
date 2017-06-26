@@ -13,7 +13,6 @@ const tempStyle = {
 
 export default class Home extends Component {
   render() {
-    console.log('reached /components/home.js');
     return (
       <div>
         <FiletreeContainer className={styles.container} />

@@ -9,23 +9,6 @@ const app = express();
 // Node HTTP server
 const server = require('http').Server(app);
 
-// try {
-//   require.resolve('http');
-//   ipcRenderer.send('server-start', require.resolve('http'));
-// } catch (e) {
-//   ipcRenderer.send('server-start', 'HTTP NOT FOUND');
-// }
-
-
-// CONNECTION THIS TO HTTP SERVER IS BREAKING EVERYTHING
-// !!!!!!!!!!!!!!!!!!! ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!
-// try {
-//   const io = require('socket.io')(server, {
-//     serveClient: false
-//   });
-// } catch (e) {
-//   ipcRenderer.send('server-start', `${e.stack}`);
-// }
 const io = require('socket.io')(server, {
   serveClient: false
 });
