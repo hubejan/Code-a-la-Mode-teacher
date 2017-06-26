@@ -36,14 +36,6 @@ try {
   ipcRenderer.send('server-error', e);
 }
 
-// TODO: On instructor's editor change, emit the new state of editor value
-//       Performance-wise, might be best to just bounce messages through main process
-
-
-// Hook this up to io.emit
 ipcRenderer.on('editor-change', (event, editorValue) => {
-  // Temporary fix to see if server actually got the right stuff
-  ipcRenderer.send('server-start', `Editor value: ${editorValue} `);
-
   io.emit('editorChanges', editorValue);
 });
