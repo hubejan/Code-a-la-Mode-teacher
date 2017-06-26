@@ -116,7 +116,15 @@ ipcMain.on('server-start', (event, arg) => {
 });
 
 ipcMain.on('server-connection', (event, arg) => {
-  console.log(`User ${arg} connected to server...`);
+  console.log(`User with Socket ID: ${arg} connected to server...`);
+});
+
+ipcMain.on('server-disconnect', (event, arg) => {
+  console.log(`User with Socket ID: ${arg} disconnected from server...`);
+});
+
+ipcMain.on('server-error', (event, arg) => {
+  console.log(`Socket server could not start ... ${arg}`);
 });
 
 // Message received when editor changes
