@@ -1,8 +1,8 @@
 import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from '../actions/auth-actions';
 
 const initialState = {
-  response: {},
   token: null,
+  error: {},
   failed: false
 };
 
@@ -11,13 +11,13 @@ export default function loginReducer(state = initialState, action) {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        data: action.data
+        token: action.token
       };
     case LOGIN_FAILURE:
       return {
         ...state,
-        failed: true,
-        response: action.error
+        error: action.error,
+        failed: true
       };
     case LOGOUT:
       return {

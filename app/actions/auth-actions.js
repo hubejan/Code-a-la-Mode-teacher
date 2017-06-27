@@ -33,37 +33,16 @@ export const teacherLogin = (authCode: string) => (dispatch: *) => {
   };
 
   return postCredentials(authInfo)
-    .then(response => dispatch({ type: LOGIN_SUCCESS, data: response.data }))
+    .then(response => {
+      if (response.data.access_token) {
+        return dispatch({ type: LOGIN_SUCCESS, token: response.data.access_token });
+      }
+      return dispatch({ type: LOGIN_FAILURE, error: response.data });
+    })
     .catch(error => {
       console.error(error);
-      dispatch({ type: LOGIN_FAILURE, error: error.response.data });
+      dispatch({ type: LOGIN_FAILURE, error });
     });
 };
 
 export const logout = () => ({ type: LOGOUT });
-
-// export const loginUser = (code) => {
-//   return (dispatch, getState) => {
-
-//     const url = 'https://github.com/login/oauth/access_token';
-//     const method = 'POST';
-//     const data = {
-//       client_id: options.client_id,
-//       client_secret: options.secret,
-//       code: code
-//     };
-
-//     dispatch({type: LOGIN.REQUEST});
-
-//     return apiRequest(url, method, data)
-//       .then((response) => {
-//         return dispatch({type: LOGIN.SUCCESS, payload: response.data});
-//       })
-//       .then(fetchUsername())
-//       .catch((error) => {
-//         console.error(error);
-//         dispatch({type: LOGIN.FAILURE, payload: error.response.data});
-//       });
-
-//   };
-// }
