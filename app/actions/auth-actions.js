@@ -27,15 +27,15 @@ const postCredentials = (authInfo: authInfoType) => {
 export const teacherLogin = (authCode: string) => (dispatch: *) => {
   const authInfo = {
     client_id: gitAuth.client_id,
-    client_secret: gitAuth.secret,
+    client_secret: gitAuth.client_secret,
     authCode
   };
 
   return postCredentials(authInfo)
-    .then(response => dispatch({ type: LOGIN_SUCCESS, token: response.data.access_token }))
+    .then(response => dispatch({ type: LOGIN_SUCCESS, data: response.data }))
     .catch(error => {
       console.error(error);
-      dispatch({ type: LOGIN_FAILURE, payload: error.response.data });
+      dispatch({ type: LOGIN_FAILURE, error: error.response.data });
     });
 };
 

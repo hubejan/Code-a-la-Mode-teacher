@@ -11,13 +11,13 @@ export default function loginReducer(state = initialState, action) {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        token: action.payload.access_token
+        token: action.token
       };
     case LOGIN_FAILURE:
       return {
         ...state,
         failed: true,
-        response: action.payload
+        response: action.error
       };
     case LOGOUT:
       return {
