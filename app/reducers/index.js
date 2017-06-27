@@ -7,6 +7,7 @@ import tickets from './tickets-reducer';
 import panelView from './panelView-reducer';
 import auth from './auth-reducer';
 import editor from './editor-reducer';
+import gitcontrols from './gitcontrols-reducer';
 
 const rootReducer = combineReducers({
   counter,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   tickets,
   panelView,
   auth,
-  editor
+  editor,
+  gitcontrols
 });
 
 export default rootReducer;

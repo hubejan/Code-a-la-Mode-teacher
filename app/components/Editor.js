@@ -7,6 +7,7 @@ import 'brace/mode/javascript';
 import 'brace/theme/solarized_dark';
 import styles from './Home.css';
 import FiletreeContainer from '../containers/FiletreeContainer';
+import GitControlsContainer from '../containers/GitControlsContainer';
 import { ipcRenderer } from 'electron';
 
 type nextPropsType = {
@@ -32,6 +33,9 @@ class Editor extends Component {
         <Link to="/">
           <i className="fa fa-arrow-left fa-3x" />
         </Link>
+
+        <GitControlsContainer />
+
         <AceEditor
           mode="javascript"
           theme="solarized_dark"
