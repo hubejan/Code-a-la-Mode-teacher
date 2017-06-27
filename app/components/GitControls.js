@@ -16,11 +16,9 @@ export default class Filetree extends Component {
     const { cloneRemoteRepository } = this.props;
     return (
       <div>
-        <i
-          className="fa fa-arrow-left fa-2x"
+        <button
           onClick={() => { cloneRemoteRepository('https://github.com/hubejan/LecturesCodeTracker'); }}
-        />
-        <i className="fa fa-arrow-right fa-2x" />
+        > Clone lesson </button>
       </div>
     );
   }

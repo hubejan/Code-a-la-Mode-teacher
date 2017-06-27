@@ -1,5 +1,7 @@
 import { readFile } from '../utils/FileSystemUtils';
 
+const path = require('path');
+
 const Git = require('nodegit');
 
 // export const GOT_USERNAME = 'GOT_USERNAME';
@@ -12,28 +14,30 @@ type actionType = {
 // export const gotUsername = username => ({ type: GOT_USERNAME, username });
 // export const openFile = contents => ({ type: OPEN_FILE, contents });
 
-// export function getUsername() {
-//   return (dispatch: (action: actionType) => void) => {
-//     Username().then(name => dispatch(gotUsername(name)))
-//       .catch(console.error);
-//   };
-// }
-// export function loadFile(selectedFile) {
-//   console.log('loadFile selecteeFile: ', selectedFile);
-//   return (dispatch: (action: actionType) => void) => {
-//     readFile(selectedFile.filePath).then(contents => {
-//       const text = contents.toString();
-//       console.log('read file, contents are: ', text);
-//       return dispatch(openFile(text));
-//     })
-//       .catch(console.error);
-//   };
-// }
 
 export function cloneRemoteRepository(repositoryLink: string) {
   Git.Clone(repositoryLink, 'testRepo')
     .then(repository => {
-      console.log(`This should be a Repository object ${repository}`);
+      console.log(`Cloned ${path.basename(repositoryLink)} to ${repository.workdir()}`);
+      return repository.getCurrentBranch()
+              .then(ref => repository.getBranchCommit(ref.shorthand()))
+              .catch(error => console.error(error));
+    })
+    .then(commit => {
+      const hist = commit.history();
+      const histPromise = new Promise((resolve, reject) => {
+        hist.on('end', resolve);
+        hist.on('error', reject);
+      });
+      hist.start();
+      return histPromise;
+    })
+    .then(commits => {
+      commits.forEach((commit, index) => {
+        const sha = commit[index].sha().substr(0, 7);
+        const msg = commit[index].message().split('\n')[0];
+        console.log(`${sha}  ${msg}`);
+      });
     })
     .catch(error => {
       console.error(error);
