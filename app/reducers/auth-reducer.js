@@ -45,7 +45,6 @@ function loginReducer(state: loginStateType = initialState, action: authActions)
     case LOGOUT:
       return {
         ...state,
-        response: null,
         token: null
       };
     default:
