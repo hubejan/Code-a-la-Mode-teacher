@@ -5,16 +5,16 @@ import App from './containers/App';
 import HomePage from './containers/HomePage';
 import CounterPage from './containers/CounterPage';
 import RightPanel from './containers/RightPanelContainer';
-import EditorPage from './containers/EditorPage';
 import LoginComponent from './components/LoginComponent';
+import EditorContainer from './containers/EditorContainer';
 
 export default () => (
   <App>
     <Switch>
       <Route path="/counter" component={CounterPage} />
       <Route path="/panelView" component={RightPanel} />
-      <Route path="/editor" component={EditorPage} />
       <Route path="/login" component={LoginComponent} />
+      <Route path="/editor" component={EditorContainer} />
       <Route path="/" component={HomePage} />
     </Switch>
   </App>

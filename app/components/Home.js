@@ -1,13 +1,19 @@
 // @flow
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './Home.css';
+
+const tempStyle = {
+  position: 'absolute',
+  top: '30%',
+  right: '10px',
+  textAlign: 'center'
+};
 
 export default class Home extends Component {
   render() {
     return (
       <div>
-        <div className={styles.container} data-tid="container">
+        <div style={tempStyle} data-tid="container" >
           <h2>Home</h2>
           <Link to="/counter">to Counter</Link>
           <br />

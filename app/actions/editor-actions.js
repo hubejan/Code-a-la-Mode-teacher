@@ -2,12 +2,15 @@
 import { ipcRenderer } from 'electron';
 
 export const EDITOR_CHANGE = 'EDITOR_CHANGE';
+export const editorChange = (contents: string) => ({ type: EDITOR_CHANGE, contents });
 
-export function changeEditor(value: string) {
-  ipcRenderer.send('editor-change', value);
+type actionType = {
+  type: string
+};
 
-  return {
-    type: EDITOR_CHANGE,
-    newValue: value
+export function changeEditor(contents: string) {
+  console.log('changeEditor contents: ', contents);
+  return (dispatch: (action: actionType) => void) => {
+    dispatch(editorChange(contents));
   };
 }
