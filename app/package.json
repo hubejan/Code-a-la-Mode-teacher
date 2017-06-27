@@ -14,5 +14,9 @@
   },
   "license": "MIT",
   "dependencies": {
+    "nodegit": "^0.18.3"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.5.11"
   }
 }
