@@ -1,25 +1,35 @@
 import { spy } from 'sinon';
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { BrowserRouter as Router } from 'react-router-dom';
 import renderer from 'react-test-renderer';
 import Filetree from '../../app/components/Filetree';
+import { loadFile } from '../../app/actions/filetree-actions';
 
-function setup() {
-  const actions = {
-    loadInEditor: spy(),
-    dispatchGetUsername: spy(),
-    incrementAsync: spy(),
-    decrement: spy()
-  };
-  const component = shallow(<Filetree counter={1} {...actions} />);
-  return {
-    component,
-    actions,
-    buttons: component.find('button'),
-    p: component.find('.counter')
-  };
-}
+// function setup() {
+//   const actions = {
+//     loadInEditor: spy(),
+//     dispatchGetUsername: spy()
+//   };
+//   const component = shallow(<Filetree {...actions} />);
+//   return {
+//     component,
+//     actions
+//   };
+// }
+describe('Filetree component', () => {
+  it('calls componentDidMount', () => {
+    spy(Filetree.prototype, 'componentDidMount');
+    const wrapper = mount(<Filetree />);
+    expect(Filetree.prototype.componentDidMount.calledOnce).to.equal(true);
+  });
+  // it('should receive a ticket object in props', () => {
+  //   expect(component.instance().props.ticket).toBe(testTicket1);
+  // });
+  // it('should receive a changeEditor function in props', () => {
+  //   expect(loadFile).toHaveBeenCalled();
+  // });
+});
 
 // boilerplate test changed to skip- keep for reference
 describe.skip('Counter component', () => {
@@ -40,7 +50,7 @@ describe.skip('Counter component', () => {
       .create(
         <div>
           <Router>
-            <Counter counter={1} {...actions} />
+            <Filetree {...actions} />
           </Router>
         </div>
       )

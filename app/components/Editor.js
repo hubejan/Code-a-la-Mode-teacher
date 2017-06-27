@@ -9,13 +9,20 @@ import styles from './Home.css';
 import FiletreeContainer from '../containers/FiletreeContainer';
 import { ipcRenderer } from 'electron';
 
+type nextPropsType = {
+  contents: string
+};
+
 class Editor extends Component {
   props: {
+    contents: string,
     changeEditor: () => void
-  };
-  componentWillReceiveProps(nextProps) {
+  }
+
+  componentWillReceiveProps(nextProps: nextPropsType) {
     ipcRenderer.send('editor-change', nextProps.contents);
   }
+
   render() {
     const { changeEditor } = this.props;
 
