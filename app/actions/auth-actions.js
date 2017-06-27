@@ -9,8 +9,9 @@ export const LOGOUT = 'LOGOUT';
 type authInfoType = {
   client_id: string,
   client_secret: string,
-  authCode: string
+  code: string
 };
+
 
 const postCredentials = (authInfo: authInfoType) => {
   const url = 'https://github.com/login/oauth/access_token';
@@ -28,7 +29,7 @@ export const teacherLogin = (authCode: string) => (dispatch: *) => {
   const authInfo = {
     client_id: gitAuth.client_id,
     client_secret: gitAuth.client_secret,
-    authCode
+    code: authCode
   };
 
   return postCredentials(authInfo)

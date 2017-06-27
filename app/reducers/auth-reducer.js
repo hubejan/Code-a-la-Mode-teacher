@@ -11,7 +11,7 @@ export default function loginReducer(state = initialState, action) {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        token: action.token
+        data: action.data
       };
     case LOGIN_FAILURE:
       return {
