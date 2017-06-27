@@ -50,15 +50,19 @@ describe('action creators', () => {
     const dispatcherFunc = mockedTeacherLogin('a valid code');
     const mockDispatch = jest.fn();
     return dispatcherFunc(mockDispatch)
-    .then(() =>
-      expect(mockDispatch).toBeCalledWith({ type: 'LOGIN_SUCCESS', token: 'a valid access token' }));
+    .then(() => {
+      expect(mockDispatch).toBeCalledWith({ type: 'LOGIN_SUCCESS', token: 'a valid access token' });
+      return expect(mockDispatch.mock.calls).toMatchSnapshot();
+    });
   });
 
   it('should create an action with an error object on failed login', () => {
     const dispatcherFunc = mockedTeacherLogin('INVALID CODE');
     const mockDispatch = jest.fn();
     return dispatcherFunc(mockDispatch)
-    .then(() =>
-      expect(mockDispatch).toBeCalledWith({ type: 'LOGIN_FAILURE', error }));
+    .then(() => {
+      expect(mockDispatch).toBeCalledWith({ type: 'LOGIN_FAILURE', error });
+      return expect(mockDispatch.mock.calls).toMatchSnapshot();
+    });
   });
 });

@@ -5,3 +5,29 @@ Object {
   "type": "LOGOUT",
 }
 `;
+
+exports[`action creators should create an action with a valid token on successful login 1`] = `
+Array [
+  Array [
+    Object {
+      "token": "a valid access token",
+      "type": "LOGIN_SUCCESS",
+    },
+  ],
+]
+`;
+
+exports[`action creators should create an action with an error object on failed login 1`] = `
+Array [
+  Array [
+    Object {
+      "error": Object {
+        "error": "bad validation",
+        "error_description": "incorrect code",
+        "error_uri": "/error",
+      },
+      "type": "LOGIN_FAILURE",
+    },
+  ],
+]
+`;
