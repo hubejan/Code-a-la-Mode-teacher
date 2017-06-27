@@ -1,4 +1,4 @@
-// flow-typed signature: aaee50edbb828186170a3fc12ad6cd64
+// flow-typed signature: d3b87c986b87d9a18aaecabd87f2b479
 // flow-typed version: <<STUB>>/sinon_v^2.3.1/flow_v0.47.0
 
 /**
@@ -210,11 +210,11 @@ declare module 'sinon/lib/sinon/util/fake_xml_http_request' {
   declare module.exports: any;
 }
 
-declare module 'sinon/pkg/sinon-2.3.1' {
+declare module 'sinon/pkg/sinon-2.3.5' {
   declare module.exports: any;
 }
 
-declare module 'sinon/pkg/sinon-no-sourcemaps-2.3.1' {
+declare module 'sinon/pkg/sinon-no-sourcemaps-2.3.5' {
   declare module.exports: any;
 }
 
@@ -368,11 +368,11 @@ declare module 'sinon/lib/sinon/util/fake_timers.js' {
 declare module 'sinon/lib/sinon/util/fake_xml_http_request.js' {
   declare module.exports: $Exports<'sinon/lib/sinon/util/fake_xml_http_request'>;
 }
-declare module 'sinon/pkg/sinon-2.3.1.js' {
-  declare module.exports: $Exports<'sinon/pkg/sinon-2.3.1'>;
+declare module 'sinon/pkg/sinon-2.3.5.js' {
+  declare module.exports: $Exports<'sinon/pkg/sinon-2.3.5'>;
 }
-declare module 'sinon/pkg/sinon-no-sourcemaps-2.3.1.js' {
-  declare module.exports: $Exports<'sinon/pkg/sinon-no-sourcemaps-2.3.1'>;
+declare module 'sinon/pkg/sinon-no-sourcemaps-2.3.5.js' {
+  declare module.exports: $Exports<'sinon/pkg/sinon-no-sourcemaps-2.3.5'>;
 }
 declare module 'sinon/pkg/sinon-no-sourcemaps.js' {
   declare module.exports: $Exports<'sinon/pkg/sinon-no-sourcemaps'>;

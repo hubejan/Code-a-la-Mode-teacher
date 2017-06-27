@@ -202,6 +202,7 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
+    "simple-git": "^1.73.0",
     "socket.io": "^2.0.3",
     "socket.io-client": "^2.0.3",
     "source-map-support": "^0.4.15",
