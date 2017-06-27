@@ -5,6 +5,7 @@ import counter from './counter';
 import filetree from './filetree-reducer';
 import tickets from './tickets-reducer';
 import panelView from './panelView-reducer';
+import auth from './auth-reducer';
 import editor from './editor-reducer';
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   filetree,
   tickets,
   panelView,
+  auth,
   editor
 });
 
