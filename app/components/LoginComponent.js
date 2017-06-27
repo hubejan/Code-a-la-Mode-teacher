@@ -74,6 +74,7 @@ class LoginComponent extends React.Component {
         <button onClick={this.handleAuth.bind(this)}>
           Log in to Github
         </button>
+        <h4>For now, if successful, auth token will appear in state</h4>
       </div>
     );
   }

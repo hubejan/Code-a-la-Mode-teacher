@@ -20,7 +20,8 @@ type logoutAction = { type: 'LOGOUT' };
 type authActions =
   | loginSuccessAction
   | loginFailureAction
-  | logoutAction;
+  | logoutAction
+  | { type: $Subtype<string> };
 
 const initialState = {
   token: null,
