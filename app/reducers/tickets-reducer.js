@@ -12,11 +12,11 @@ export type ticketsStateType = {
   [ticket_id: string | number]: ticketType
 };
 
-type addAction = { type: typeof ADD_TICKET, id: number, ticket: ticketType };
-type selectAction = { type: typeof SELECT_TICKET, id: number };
-type removeAction = { type: typeof REMOVE_TICKET, id: number };
+type addAction = { type: 'ADD_TICKET', id: number, ticket: ticketType };
+type selectAction = { type: 'SELECT_TICKET', id: number };
+type removeAction = { type: 'REMOVE_TICKET', id: number };
 
-type Action =
+type ticketAction =
   | addAction
   | selectAction
   | removeAction
@@ -42,7 +42,7 @@ const defaultTickets = {
   [ticket2.id]: ticket2
 };
 
-export default function tickets(state: ticketsStateType = defaultTickets, action: Action) {
+function ticketsReducer(state: ticketsStateType = defaultTickets, action: ticketAction) {
   switch (action.type) {
     case ADD_TICKET:
       return {
@@ -63,3 +63,5 @@ export default function tickets(state: ticketsStateType = defaultTickets, action
       return state;
   }
 }
+
+export default ticketsReducer;
