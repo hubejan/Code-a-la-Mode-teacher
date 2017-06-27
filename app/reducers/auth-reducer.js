@@ -1,4 +1,26 @@
+// @flow
 import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from '../actions/auth-actions';
+
+type authErrorType = {
+  error: string,
+  error_description: string,
+  error_uri: string
+};
+
+type loginStateType = {
+  token: ?string,
+  error: {} | authErrorType,
+  failed: boolean
+};
+
+type loginSuccessAction = { type: 'LOGIN_SUCCESS', token: string };
+type loginFailureAction = { type: 'LOGIN_FAILURE', error: authErrorType};
+type logoutAction = { type: 'LOGOUT' };
+
+type authActions =
+  | loginSuccessAction
+  | loginFailureAction
+  | logoutAction;
 
 const initialState = {
   token: null,
@@ -6,7 +28,7 @@ const initialState = {
   failed: false
 };
 
-export default function loginReducer(state = initialState, action) {
+function loginReducer(state: loginStateType = initialState, action: authActions) {
   switch (action.type) {
     case LOGIN_SUCCESS:
       return {
@@ -29,3 +51,5 @@ export default function loginReducer(state = initialState, action) {
       return state;
   }
 }
+
+export default loginReducer;
