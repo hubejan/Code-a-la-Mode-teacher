@@ -9,8 +9,8 @@ type actionType = {
 };
 
 export function changeEditor(contents: string) {
-  console.log('changeEditor contents: ', contents);
   return (dispatch: (action: actionType) => void) => {
     dispatch(editorChange(contents));
   };
 }
+
