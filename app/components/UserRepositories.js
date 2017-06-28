@@ -15,7 +15,7 @@ export default class UserRepositories extends Component {
         {
           repositories &&
           repositories.map(repository => (
-            <RepositoryPanel repository={repository} />
+            <RepositoryPanel key={repository.id} repository={repository} />
           ))
         }
       </div>

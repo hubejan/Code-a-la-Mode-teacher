@@ -20,14 +20,6 @@ class LessonSession extends Component {
   render() {
     return (
       <div>
-        <Link to="/">
-          <i className="fa fa-arrow-left fa-3x" />
-        </Link>
-
-        <FiletreeContainer className={styles.container} />
-
-        <GitControlsContainer />
-
         <EditorContainer />
 
         <UserRepositoriesContainer repositories={this.props.userRepositories} />

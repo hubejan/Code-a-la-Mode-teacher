@@ -20,7 +20,7 @@ export const getUserRepositories = (userToken: string) => (dispatch: *) => {
   axios.get(`${GITHUB_API_ROOT}/user/repos`, config)
     .then(userRepos => {
       simpleGit
-        .clone(userRepos.data[0].html_url, `${__dirname}/testRepo`)
+        // .clone(userRepos.data[0].html_url, `${__dirname}/testRepo`)
         .exec(() => {
           dispatch(loadUserRepos(userRepos.data));
           // dispatch({ type: RECEIVED_USER_REPOS, repositories: userRepos.data });
