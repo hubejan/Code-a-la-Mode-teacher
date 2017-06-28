@@ -35,6 +35,7 @@ export const teacherLogin = (authCode: string) => (dispatch: *) => {
   return postCredentials(authInfo)
     .then(response => {
       if (response.data.access_token) {
+        localStorage.setItem('token', response.data.access_token);
         return dispatch({ type: LOGIN_SUCCESS, token: response.data.access_token });
       }
       return dispatch({ type: LOGIN_FAILURE, error: response.data });
