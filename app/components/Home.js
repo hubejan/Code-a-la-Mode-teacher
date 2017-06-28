@@ -5,23 +5,33 @@ import { Link } from 'react-router-dom';
 const tempStyle = {
   position: 'absolute',
   top: '30%',
-  right: '10px',
-  textAlign: 'center'
+  left: '30%',
+  textAlign: 'left'
+};
+
+const btnStyle = {
+  position: 'absolute',
+  top: '2%',
+  left: '2%'
 };
 
 export default class Home extends Component {
+  props: {
+    githubLogout: () => void
+  };
+
   render() {
     return (
       <div>
+        <button style={btnStyle} onClick={this.props.githubLogout}>Logout</button>
         <div style={tempStyle} data-tid="container" >
-          <h2>Home</h2>
+          <h2>Welcome back (github username)</h2>
           <Link to="/counter">to Counter</Link>
           <br />
           <Link to="/panelView">test the Question/History panel</Link>
           <br />
           <Link to="/editor">Editor</Link>
           <br />
-          <Link to="/login">Login Component</Link>
         </div>
       </div>
     );

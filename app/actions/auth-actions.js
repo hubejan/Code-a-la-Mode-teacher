@@ -12,7 +12,6 @@ type authInfoType = {
   code: string
 };
 
-
 const postCredentials = (authInfo: authInfoType) => {
   const url = 'https://github.com/login/oauth/access_token';
   const config = {
@@ -25,6 +24,7 @@ const postCredentials = (authInfo: authInfoType) => {
   return axios.post(url, authInfo, config);
 };
 
+export const storageLogin = (token: string) => ({ type: LOGIN_SUCCESS, token });
 export const teacherLogin = (authCode: string) => (dispatch: *) => {
   const authInfo = {
     client_id: gitAuth.client_id,
