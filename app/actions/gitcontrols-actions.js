@@ -1,9 +1,6 @@
 import axios from 'axios';
-
 import { loadUserRepos } from './lessonsession-actions';
 
-// Defaults to current directory
-// Need to pass in relevant project directory during operations
 const simpleGit = require('simple-git')();
 
 export const RECEIVED_USER_REPOS = 'RECEIVED_USER_REPOS';
@@ -17,7 +14,7 @@ export const getUserRepositories = (userToken: string) => (dispatch: *) => {
     },
     params: {
       affiliation: 'owner',
-      per_page: 300, // If you own more than this....GET A LIFE!
+      per_page: 300,
       sort: 'full_name'
     }
   };
@@ -25,14 +22,11 @@ export const getUserRepositories = (userToken: string) => (dispatch: *) => {
   axios.get(`${GITHUB_API_ROOT}/user/repos`, config)
     .then(userRepos => {
       simpleGit
-        // .clone(userRepos.data[0].html_url, `${__dirname}/testRepo`)
         .exec(() => {
           dispatch(loadUserRepos(userRepos.data));
-          // dispatch({ type: RECEIVED_USER_REPOS, repositories: userRepos.data });
         });
     })
     .catch(error => {
       console.error(error);
-      // dispatch({ type: CLONE_FAILURE, error}); // TODO: Implement failure to clone project
     });
 };

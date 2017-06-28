@@ -10,7 +10,7 @@
  *
  * @flow
  */
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import path from 'path';
 
 import MenuBuilder from './menu';
@@ -80,6 +80,11 @@ app.on('ready', async () => {
 
     mainWindow.show();
     mainWindow.focus();
+  });
+
+  mainWindow.on('new-window', (e, url) => {
+    e.preventDefault();
+    shell.openExternal(url);
   });
 
   mainWindow.on('closed', () => {
