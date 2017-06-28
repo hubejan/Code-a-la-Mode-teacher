@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import FileTree from 'react-filetree-electron';
 
