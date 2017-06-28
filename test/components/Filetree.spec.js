@@ -4,7 +4,7 @@ import { mount, shallow } from 'enzyme';
 import { BrowserRouter as Router } from 'react-router-dom';
 import renderer from 'react-test-renderer';
 import Filetree from '../../app/components/Filetree';
-import { loadFile } from '../../app/actions/filetree-actions';
+import { getUsername } from '../../app/actions/filetree-actions';
 
 // function setup() {
 //   const actions = {
@@ -17,11 +17,14 @@ import { loadFile } from '../../app/actions/filetree-actions';
 //     actions
 //   };
 // }
+const dispatchGetUsername = () => getUsername();
+
 describe('Filetree component', () => {
-  it('calls componentDidMount', () => {
-    spy(Filetree.prototype, 'componentDidMount');
-    const wrapper = mount(<Filetree />);
-    expect(Filetree.prototype.componentDidMount.calledOnce).to.equal(true);
+  it('calls getUsername from componentDidMount', () => {
+    // spy(Filetree.prototype, 'componentDidMount');
+    const mockGetUsername = jest.fn(dispatchGetUsername);
+    const wrapper = mount(<Filetree dispatchGetUsername={mockGetUsername} />);
+    expect(mockGetUsername).toHaveBeenCalled();
   });
   // it('should receive a ticket object in props', () => {
   //   expect(component.instance().props.ticket).toBe(testTicket1);

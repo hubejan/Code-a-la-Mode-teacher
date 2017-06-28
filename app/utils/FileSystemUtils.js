@@ -3,6 +3,5 @@ const Promise = require('bluebird');
 const fsp = Promise.promisifyAll(require('fs'));
 
 export const readFile = dir => {
-  return fsp.readFileAsync(dir)
-    .then(text => text);
+  return fsp.readFileAsync(dir);
 };

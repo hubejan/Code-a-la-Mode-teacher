@@ -18,11 +18,9 @@ export function getUsername() {
   };
 }
 export function loadFile(selectedFile) {
-  console.log('loadFile selecteeFile: ', selectedFile);
   return (dispatch: (action: actionType) => void) => {
     readFile(selectedFile.filePath).then(contents => {
       const text = contents.toString();
-      console.log('read file, contents are: ', text);
       return dispatch(openFile(text));
     })
       .catch(console.error);
