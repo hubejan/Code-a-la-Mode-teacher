@@ -16,9 +16,8 @@ export default () => (
       <Route path="/counter" component={CounterPage} />
       <Route path="/panelView" component={RightPanel} />
       <Route path="/login" component={LoginComponent} />
-      <Route path="/editor" component={EditorContainer} />
-      <Route path="/" component={LandingPageContainer} />
       <Route path="/editor" component={LessonSessionContainer} />
+      <Route path="/" component={LandingPageContainer} />
     </Switch>
   </App>
 );
