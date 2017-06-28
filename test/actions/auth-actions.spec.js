@@ -12,7 +12,7 @@ const error = {
   error_uri: '/error'
 };
 
-const postCredentialsMock = (authInfo) => new Promise((resolve, reject) => {
+const authorizeAppMock = (authInfo) => new Promise((resolve, reject) => {
   // defer execution of function until next event loop iteration
   process.nextTick(
     () => (
@@ -31,7 +31,7 @@ const teacherLoginMock = (authCode: string) => (dispatch: *) => {
     code: authCode
   };
 
-  return postCredentialsMock(authInfo)
+  return authorizeAppMock(authInfo)
     .then(response =>
       dispatch({ type: actions.LOGIN_SUCCESS, token: response.access_token })
     )

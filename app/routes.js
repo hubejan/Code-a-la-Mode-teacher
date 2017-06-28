@@ -6,7 +6,6 @@ import App from './containers/App';
 import CounterPage from './containers/CounterPage';
 import RightPanel from './containers/RightPanelContainer';
 import LoginComponent from './components/LoginComponent';
-import EditorContainer from './containers/EditorContainer';
 import LandingPageContainer from './containers/LandingPageContainer';
 import LessonSessionContainer from './containers/LessonSessionContainer';
 
