@@ -17,7 +17,7 @@ export default class Filetree extends Component {
     const { loadInEditor } = this.props;
     return (
       <div>
-        <FileTree directory={`/Users/${this.props.username}`} onFileClick={loadInEditor} />
+        <FileTree directory={`/Users/${this.props.username}/Documents`} onFileClick={loadInEditor} />
       </div>
     );
   }
