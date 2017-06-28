@@ -14,11 +14,13 @@ class Editor extends Component {
   props: {
     changeEditor: () => void
   };
+
   componentWillReceiveProps(nextProps) {
     ipcRenderer.send('editor-change', nextProps.contents);
   }
+
   render() {
-    const { changeEditor } = this.props;
+    const { changeEditor, userRepositories } = this.props;
 
     return (
       <div>
@@ -37,6 +39,7 @@ class Editor extends Component {
           editorProps={{ $blockScrolling: true }}
           value={this.props.contents}
         />
+
       </div>
     );
   }
