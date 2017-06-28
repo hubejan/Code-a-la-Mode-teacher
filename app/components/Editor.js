@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import brace from 'brace';
 import AceEditor from 'react-ace';
+import Resizable from 'react-resizable-box';
 import 'brace/mode/javascript';
 import 'brace/theme/solarized_dark';
 import styles from './Home.css';
@@ -39,27 +40,27 @@ class Editor extends Component {
           </Link>
           <GitControlsContainer />
         </Flexbox>
-
         <Flexbox flexGrow={1}>
           <FiletreeContainer className={styles.container} />
         </Flexbox>
         <Flexbox flexGrow={1}>
-          <AceEditor
-            mode="javascript"
-            theme="solarized_dark"
-            fontSize={15}
-            width="68vw"
-            height="90vh"
-            onChange={changeEditor}
-            name="UNIQUE_ID_OF_DIV"
-            editorProps={{ $blockScrolling: true}}
-            showPrintMargin={false}
-            value={this.props.contents}
-            style={{ border: '1px solid gold' }}
-            wrapEnabled={true}
-          />
+          <Resizable width={920} height={'100vh'}>
+            <AceEditor
+              mode="javascript"
+              theme="solarized_dark"
+              fontSize={15}
+              width={"100%"}
+              height={"100%"}
+              onChange={changeEditor}
+              name="UNIQUE_ID_OF_DIV"
+              editorProps={{ $blockScrolling: true }}
+              showPrintMargin={false}
+              value={this.props.contents}
+              style={{ border: '1px solid gold' }}
+              wrapEnabled={Boolean(true)}
+            />
+          </Resizable>
         </Flexbox>
-
       </Flexbox>
     );
   }
