@@ -10,7 +10,7 @@ type authErrorType = {
 type loginStateType = {
   token: ?string,
   error: {} | authErrorType,
-  failed: boolean
+  loggedIn: boolean
 };
 
 type loginSuccessAction = { type: 'LOGIN_SUCCESS', token: string };
@@ -26,7 +26,7 @@ type authActions =
 const initialState = {
   token: null,
   error: {},
-  failed: false
+  loggedIn: false
 };
 
 function loginReducer(state: loginStateType = initialState, action: authActions) {
@@ -34,18 +34,20 @@ function loginReducer(state: loginStateType = initialState, action: authActions)
     case LOGIN_SUCCESS:
       return {
         ...state,
-        token: action.token
+        token: action.token,
+        loggedIn: true
       };
     case LOGIN_FAILURE:
       return {
         ...state,
         error: action.error,
-        failed: true
+        loggedIn: false
       };
     case LOGOUT:
       return {
         ...state,
-        token: null
+        token: null,
+        loggedIn: false
       };
     default:
       return state;

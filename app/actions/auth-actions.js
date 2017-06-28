@@ -12,8 +12,7 @@ type authInfoType = {
   code: string
 };
 
-
-const postCredentials = (authInfo: authInfoType) => {
+const authorizeApp = (authInfo: authInfoType) => {
   const url = 'https://github.com/login/oauth/access_token';
   const config = {
     headers: {
@@ -25,6 +24,18 @@ const postCredentials = (authInfo: authInfoType) => {
   return axios.post(url, authInfo, config);
 };
 
+const revokeAuth = (token: string) => {
+  const url = `https://api.github.com/applications/${gitAuth.client_id}/grants/${token}`;
+  const config = {
+    auth: {
+      username: gitAuth.client_id,
+      password: gitAuth.client_secret
+    }
+  };
+  return axios.delete(url, config);
+};
+
+export const storageLogin = (token: string) => ({ type: LOGIN_SUCCESS, token });
 export const teacherLogin = (authCode: string) => (dispatch: *) => {
   const authInfo = {
     client_id: gitAuth.client_id,
@@ -32,9 +43,10 @@ export const teacherLogin = (authCode: string) => (dispatch: *) => {
     code: authCode
   };
 
-  return postCredentials(authInfo)
+  return authorizeApp(authInfo)
     .then(response => {
       if (response.data.access_token) {
+        localStorage.setItem('token', response.data.access_token);
         return dispatch({ type: LOGIN_SUCCESS, token: response.data.access_token });
       }
       return dispatch({ type: LOGIN_FAILURE, error: response.data });
@@ -45,4 +57,15 @@ export const teacherLogin = (authCode: string) => (dispatch: *) => {
     });
 };
 
-export const logout = () => ({ type: LOGOUT });
+// futue: come back and learn how to do dispatch/getState flow types
+export const teacherLogout = () => (dispatch: *, getState: *) =>
+  revokeAuth(getState().auth.token)
+    .then(() => {
+      localStorage.clear();
+      return dispatch({ type: LOGOUT });
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+// export const logout = () => ({ type: LOGOUT });
