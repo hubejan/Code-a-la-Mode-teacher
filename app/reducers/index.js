@@ -7,7 +7,9 @@ import tickets from './tickets-reducer';
 import panelView from './panelView-reducer';
 import auth from './auth-reducer';
 import editor from './editor-reducer';
-import gitcontrols from './gitcontrols-reducer';
+import gitControls from './gitcontrols-reducer';
+import lessonSession from './lessonSession-reducer';
+import userRepositories from './userRepositories-reducer';
 
 const rootReducer = combineReducers({
   counter,
@@ -17,7 +19,9 @@ const rootReducer = combineReducers({
   panelView,
   auth,
   editor,
-  gitcontrols
+  gitControls,
+  lessonSession,
+  userRepositories
 });
 
 export default rootReducer;

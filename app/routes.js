@@ -8,6 +8,7 @@ import RightPanel from './containers/RightPanelContainer';
 import LoginComponent from './components/LoginComponent';
 import EditorContainer from './containers/EditorContainer';
 import LandingPageContainer from './containers/LandingPageContainer';
+import LessonSessionContainer from './containers/LessonSessionContainer';
 
 export default () => (
   <App>
@@ -17,6 +18,7 @@ export default () => (
       <Route path="/login" component={LoginComponent} />
       <Route path="/editor" component={EditorContainer} />
       <Route path="/" component={LandingPageContainer} />
+      <Route path="/editor" component={LessonSessionContainer} />
     </Switch>
   </App>
 );
