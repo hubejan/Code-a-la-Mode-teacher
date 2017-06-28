@@ -1,26 +1,24 @@
 // @flow
-// import { GOT_USERNAME } from '../actions/filetree-actions';
+import { RECEIVED_USER_REPOS } from '../actions/gitcontrols-actions';
 
-// export type filetreeStateType = {
-//   username: string
-// };
+export type gitcontrolsStateType = {
+  repositories: Array<Object>
+};
 
-// type actionType = {
-//   type: string,
-//   username?: string
-// };
+const defaultGitControlsState = {
+  repositories: []
+};
 
-// const defaultFiletreeState = {
-//   username: ''
-// };
+type actionType = {
+  type: string,
+  repositories?: Array<Object>
+};
 
-// export default function filetree(state: filetreeStateType = defaultFiletreeState,
-//   action: actionType) {
-//   switch (action.type) {
-//     case GOT_USERNAME:
-//       return { ...state, username: action.username };
-
-//     default:
-//       return state;
-//   }
-// }
+export default function gitControls(state: gitcontrolsStateType = defaultGitControlsState, action: actionType) {
+  switch (action.type) {
+    case RECEIVED_USER_REPOS:
+      return { ...state, repositories: action.repositories };
+    default:
+      return state;
+  }
+}

@@ -7,6 +7,7 @@ import CounterPage from './containers/CounterPage';
 import RightPanel from './containers/RightPanelContainer';
 import LoginComponent from './components/LoginComponent';
 import EditorContainer from './containers/EditorContainer';
+import LessonSessionContainer from './containers/LessonSessionContainer';
 
 export default () => (
   <App>
@@ -14,7 +15,7 @@ export default () => (
       <Route path="/counter" component={CounterPage} />
       <Route path="/panelView" component={RightPanel} />
       <Route path="/login" component={LoginComponent} />
-      <Route path="/editor" component={EditorContainer} />
+      <Route path="/editor" component={LessonSessionContainer} />
       <Route path="/" component={HomePage} />
     </Switch>
   </App>

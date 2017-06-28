@@ -1,22 +1,16 @@
 import { connect } from 'react-redux';
-import GitControls from '../components/GitControls';
-import * as GitControlsActions from '../actions/gitcontrols-actions';
 import { bindActionCreators } from 'redux';
 
+import GitControls from '../components/GitControls';
+import * as GitControlsActions from '../actions/gitcontrols-actions';
 
 function mapStateToProps(state) {
   return {
-    // username: state.filetree.username
+    token: state.auth.token
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  // return {
-    // dispatchGetUsername: () => dispatch(FiletreeActions.getUsername()),
-    // loadInEditor: (selectedFile) => dispatch(FiletreeActions.loadFile(selectedFile))
-  //   getRepository: (repositoryLink) => dispatch(GitControlsActionscloneRemoteRepository)
-  // };
-
   return bindActionCreators(GitControlsActions, dispatch);
 }
 

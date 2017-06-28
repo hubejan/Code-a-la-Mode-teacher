@@ -14,7 +14,8 @@ import Flexbox from 'flexbox-react';
 // ...
 
 type nextPropsType = {
-  contents: string
+  contents: string,
+  changeEditor: () => void
 };
 
 class Editor extends Component {
@@ -28,7 +29,7 @@ class Editor extends Component {
   }
 
   render() {
-    const { changeEditor } = this.props;
+    const { changeEditor, userRepositories } = this.props;
 
     return (
       <Flexbox flexDirection="row" minHeight="100vh" flexWrap="wrap">
