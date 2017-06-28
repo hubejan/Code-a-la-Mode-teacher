@@ -68,4 +68,4 @@ export const teacherLogout = () => (dispatch: *, getState: *) =>
       console.error(error);
     });
 
-export const logout = () => ({ type: LOGOUT });
+// export const logout = () => ({ type: LOGOUT });

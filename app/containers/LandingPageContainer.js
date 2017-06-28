@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Home from '../components/Home';
 import Login from '../components/LoginComponent';
-import { teacherLogin, storageLogin, logout } from '../actions/auth-actions';
+import { teacherLogin, teacherLogout, storageLogin } from '../actions/auth-actions';
 
 function mapStateToProps(state) {
   return {
@@ -19,7 +19,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(storageLogin(token));
     },
     githubLogout() {
-      dispatch(logout());
+      dispatch(teacherLogout());
     }
   };
 }
