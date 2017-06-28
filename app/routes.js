@@ -2,11 +2,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
 import App from './containers/App';
-import HomePage from './containers/HomePage';
+// import HomePage from './containers/HomePage';
 import CounterPage from './containers/CounterPage';
 import RightPanel from './containers/RightPanelContainer';
 import LoginComponent from './components/LoginComponent';
-import EditorContainer from './containers/EditorContainer';
+import LandingPageContainer from './containers/LandingPageContainer';
 import LessonSessionContainer from './containers/LessonSessionContainer';
 
 export default () => (
@@ -16,7 +16,7 @@ export default () => (
       <Route path="/panelView" component={RightPanel} />
       <Route path="/login" component={LoginComponent} />
       <Route path="/editor" component={LessonSessionContainer} />
-      <Route path="/" component={HomePage} />
+      <Route path="/" component={LandingPageContainer} />
     </Switch>
   </App>
 );

@@ -1,11 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { remote } from 'electron';
 import gitAuth from '../utils/github.settings'; // obj with id, secret, scopes
-import { teacherLogin } from '../actions/auth-actions';
 
-class LoginComponent extends React.Component {
+export default class LoginComponent extends React.Component {
   props: {
     githubLogin: () => void
   };
@@ -64,28 +61,17 @@ class LoginComponent extends React.Component {
     this.props.githubLogin(authCode);
   }
 
+  // should have a way to check if localstorage token is still valid
+  // if access has been granted, then revoked by user, this won't work
   render() {
     return (
       <div>
-        <Link to="/">
-          <i className="fa fa-arrow-left fa-3x" />
-        </Link>
-        <h3>Press this button to log in to Github!!!</h3>
+        <h2>Welcome to Codelab</h2>
         <button onClick={this.handleAuth.bind(this)}>
-          Log in to Github
+          Log in with Github
         </button>
-        <h4>For now, if successful, auth token will appear in state</h4>
+        <h5>dev note: If successful, auth token should be on state and in localstorage</h5>
       </div>
     );
   }
 }
-
-function mapDispatchToProps(dispatch) {
-  return {
-    githubLogin(authCode) {
-      dispatch(teacherLogin(authCode));
-    }
-  };
-}
-
-export default connect(null, mapDispatchToProps)(LoginComponent);
