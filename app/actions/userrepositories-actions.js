@@ -1,41 +1,38 @@
-// import axios from 'axios';
+import axios from 'axios';
+import { shell, remote } from 'electron';
+import { loadUserRepos } from './lessonsession-actions';
 
 // Defaults to current directory
 // Need to pass in relevant project directory during operations
-// const simpleGit = require('simple-git')();
+const simpleGit = require('simple-git')();
 
-// export const RECEIVED_USER_REPOS = 'RECEIVED_USER_REPOS';
+export const SELECT_REPOSITORY = 'SELECT_REPOSITORY';
+export const CLONED_REPOSITORY = 'CLONED_REPOSITORY';
+export const VIEW_REPOSITORY_LINK = 'VIEW_REPOSITORY_LINK';
 
-// type actionType = {
-//   type: string
-// };
+export const openRepoLink = (repoLink: string, event: Object) => (dispatch: *) => {
+  try {
+    event.preventDefault();
+    shell.openExternal(repoLink);
+    dispatch({ type: VIEW_REPOSITORY_LINK });
+  } catch (e) {
+    console.dir(e);
+  }
+};
 
-// const GITHUB_API_ROOT = 'https://api.github.com';
+export const cloneRepository = (repoLink: string) => (dispatch: *) => {
+  remote.dialog.showSaveDialog({
+    title: 'Save Repository',
+    properties: ['openDirectory']
+  }, (localFilePath) => {
+    if (localFilePath === undefined) return; // User cancelled
+    simpleGit
+      .clone(repoLink, localFilePath, () => {
+        dispatch({ type: CLONED_REPOSITORY, repositoryPath: localFilePath });
+      });
+  });
+};
 
-// export const getUserRepositories = (userToken: string) => (dispatch: *) => {
-//   const config = {
-//     headers: {
-//       Authorization: `token ${userToken}`
-//     }
-//   };
-
-//   // TODO: Dispatch this object to state
-//   axios.get(`${GITHUB_API_ROOT}/user/repos`, config)
-//     .then(userRepos => { // userRepos === Object {data: [...repository info]}
-//       simpleGit
-//         .clone(userRepos.data[0].html_url, `${__dirname}/testRepo`)
-//         .exec(dispatch({ type: RECEIVED_USER_REPOS, repositories: userRepos.data }));
-//     })
-//     .catch(error => {
-//       console.error(error);
-//       // dispatch({ type: CLONE_FAILURE, error}); // TODO: Implement failure to clone project
-//     });
-// };
-
-// export const receivedUserRepositories = (repositories: []) => ({ type: RECEIVED_USER_REPOS, repositories});
-
-// export function loadUserRepositories(repositories: []) {
-//   return (dispatch: (action: actionType) => void) => {
-//     dispatch(receivedUserRepositories(repositories));
-//   };
-// }
+export const selectRepository = (selectedRepository: Object) => (dispatch: *) => {
+  dispatch({ type: SELECT_REPOSITORY, selectedRepository });
+};
