@@ -6,18 +6,20 @@ export default class Filetree extends Component {
   props: {
     username: string,
     loadInEditor: () => void,
-    dispatchGetUsername: () => void
+    dispatchGetUsername: () => void,
+    path: string
   };
 
   componentDidMount() {
-    this.props.dispatchGetUsername();
+    // this.props.dispatchGetUsername();
+
   }
 
   render() {
     const { loadInEditor } = this.props;
     return (
       <div>
-        <FileTree directory={`/Users/${this.props.username}/Documents`} onFileClick={loadInEditor} />
+        <FileTree directory={this.props.path} onFileClick={loadInEditor} fileTreeStyle={{ border: '1px solid gold', width: '100%', height: '100%' }} />
       </div>
     );
   }
