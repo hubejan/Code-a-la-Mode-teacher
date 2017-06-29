@@ -26,6 +26,11 @@ class Editor extends Component {
     changeEditor: () => void
   }
 
+  componentWillMount() {
+    const token = window.localStorage.getItem('token');
+    if (token) return this.props.storageLogin(token);
+  }
+
   componentWillReceiveProps(nextProps: nextPropsType) {
     ipcRenderer.send('editor-change', nextProps.contents);
   }
