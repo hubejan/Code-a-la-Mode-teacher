@@ -26,6 +26,6 @@ export const cloneRepository = (repoLink: string) => (dispatch: *) => {
   });
 };
 
-export const selectRepository = (selectedRepository: {}) => (dispatch: *) => {
+export const selectRepository = (selectedRepository: Object) => (dispatch: *) => {
   dispatch({ type: SELECT_REPOSITORY, selectedRepository });
 };
