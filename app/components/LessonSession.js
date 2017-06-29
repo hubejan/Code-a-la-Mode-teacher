@@ -7,14 +7,14 @@ import EditorContainer from '../containers/EditorContainer';
 import UserRepositoriesContainer from '../containers/UserRepositoriesContainer';
 import { ipcRenderer } from 'electron'; // TODO: Pass info to main process from here?
 import type { lessonSessionStateType } from '../reducers/lessonSession-reducer';
-import styles from './Home.css';
 
 
 class LessonSession extends Component {
 
   props: {
     userRepositories: [],
-    loadUserRepos: () => void
+    loadUserRepos: () => void,
+    selectedRepository: {}
   };
 
   render() {
@@ -22,7 +22,10 @@ class LessonSession extends Component {
       <div>
         <EditorContainer />
 
-        <UserRepositoriesContainer repositories={this.props.userRepositories} />
+        <UserRepositoriesContainer
+          repositories={this.props.userRepositories}
+          selectedRepository={this.props.selectedRepository}
+        />
       </div>
     );
   }

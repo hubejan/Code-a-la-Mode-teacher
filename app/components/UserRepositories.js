@@ -2,26 +2,22 @@ import React, { Component } from 'react';
 import { shell } from 'electron';
 
 import RepositoryPanel from './RepositoryPanel';
+import styles from './UserRepositories.css';
 
 export default class UserRepositories extends Component {
   props: {
     repositories: Array<Object>,
-    openLink: () => void
+    openRepoLink: () => void,
+    cloneRepository: () => void,
+    selectRepository: () => void
   };
 
-  constructor(props) {
-    super(props);
-    this.openRepoLink = this.openRepoLink.bind(this);
-  }
-
-  openRepoLink(url) {
-    shell.openExternal(url);
-  }
-
   render() {
-    const { repositories } = this.props;
+    const { repositories, openRepoLink, cloneRepository, selectRepository } = this.props;
     return (
-      <div>
+      <div
+        className={styles.container}
+      >
         <h1>User Repositories</h1>
         {
           repositories &&
@@ -29,7 +25,9 @@ export default class UserRepositories extends Component {
             <RepositoryPanel
               key={repository.id}
               repository={repository}
-              openRepoLink={this.openRepoLink}
+              openRepoLink={openRepoLink}
+              cloneRepository={cloneRepository}
+              selectRepository={selectRepository}
             />
           ))
         }

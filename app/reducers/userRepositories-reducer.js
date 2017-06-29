@@ -1,22 +1,24 @@
 // @flow
-// export type userRepositoriesStateType = {
-//   repositories: Array<Object>
-// };
+import { SELECT_REPOSITORY } from '../actions/userrepositories-actions';
+const defaultUserRepositoriesState = {
+  selectedRepository: {}
+};
 
-// const defaultGitControlsState = {
-//   repositories: []
-// };
+export type userRepositoriesStateType = {
+  selectedRepository: {}
+}
 
 type actionType = {
   type: string,
-  repositories?: Array<Object>
+  selectedRepository?: Object
 };
 
-export default function userRepositories(state: asdfas = [], action: actionType) {
+export default function userRepositories(state: userRepositoriesStateType = defaultUserRepositoriesState, action: actionType) {
   switch (action.type) {
-    // case RECEIVED_USER_REPOS:
-    //   return { ...state, repositories: action.repositories };
+    case SELECT_REPOSITORY:
+      return { ...state, selectedRepository: action.selectedRepository };
     default:
       return state;
   }
-}
+};
+
