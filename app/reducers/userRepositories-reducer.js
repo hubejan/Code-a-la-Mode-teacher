@@ -1,22 +1,32 @@
 // @flow
-// export type userRepositoriesStateType = {
-//   repositories: Array<Object>
-// };
+import { SELECT_REPOSITORY, CLONED_REPOSITORY, VIEW_REPOSITORY_LINK } from '../actions/userrepositories-actions';
 
-// const defaultGitControlsState = {
-//   repositories: []
-// };
+const defaultUserRepositoriesState = {
+  selectedRepository: {},
+  repositoryPath: ''
+};
+
+export type userRepositoriesStateType = {
+  selectedRepository: {},
+  repositoryPath: string
+};
 
 type actionType = {
   type: string,
-  repositories?: Array<Object>
+  selectedRepository?: Object,
+  repositoryPath?: string
 };
 
-export default function userRepositories(state: asdfas = [], action: actionType) {
+export default function userRepositories(state: userRepositoriesStateType = defaultUserRepositoriesState, action: actionType) {
   switch (action.type) {
-    // case RECEIVED_USER_REPOS:
-    //   return { ...state, repositories: action.repositories };
+    case SELECT_REPOSITORY:
+      return { ...state, selectedRepository: action.selectedRepository };
+    case CLONED_REPOSITORY:
+      return { ...state, repositoryPath: action.repositoryPath };
+    case VIEW_REPOSITORY_LINK:
+      return state;
     default:
       return state;
   }
-}
+};
+

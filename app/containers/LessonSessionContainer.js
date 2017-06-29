@@ -6,7 +6,8 @@ import * as LessonSessionActions from '../actions/lessonsession-actions';
 
 function mapStateToProps(state) {
   return {
-    userRepositories: state.lessonSession.userRepositories
+    userRepositories: state.lessonSession.userRepositories,
+    selectedRepository: state.userRepositories.selectedRepository
   };
 }
 
