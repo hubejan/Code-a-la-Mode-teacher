@@ -13,6 +13,8 @@ export default class GitControls extends Component {
         <button
           onClick={() => { getUserRepositories(token); }}
         > Get User&apos;s Repositories </button>
+        <i className="fa fa-arrow-left fa-3x" />
+        <i className="fa fa-arrow-right fa-3x" />
       </div>
     );
   }

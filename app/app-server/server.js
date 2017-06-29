@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 try {
   server.listen(3030, () => {
-    ipcRenderer.send('server-start', 'Server listening on port 3000');
+    ipcRenderer.send('server-start', 'Server listening on port 3030');
   });
 
   io.on('connection', (socket) => {
@@ -30,6 +30,10 @@ try {
 
     socket.on('disconnect', () => {
       ipcRenderer.send('server-disconnect', socket.id);
+    });
+
+    socket.on('help-ticket', () => {
+      ipcRenderer.send('received-ticket', socket.id);
     });
   });
 } catch (e) {
