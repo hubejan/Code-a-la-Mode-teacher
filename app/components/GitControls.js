@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class GitControls extends Component {
   props: {
     getUserRepositories: () => void,
-    token?: string
+    token: string
   };
 
   render() {
