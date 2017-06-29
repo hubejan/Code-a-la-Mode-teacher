@@ -16,8 +16,8 @@ export default class Filetree extends Component {
   render() {
     const { loadInEditor } = this.props;
     return (
-      <div>
-        <FileTree directory={`/Users/${this.props.username}/Documents`} onFileClick={loadInEditor} />
+      <div>'
+        <FileTree directory={'/users/Jchoe/documents/empty'} onFileClick={loadInEditor} fileTreeStyle={{ border: '1px solid gold', width: '100%', height: '100%' }} />
       </div>
     );
   }

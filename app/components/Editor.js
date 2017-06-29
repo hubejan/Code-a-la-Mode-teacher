@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import brace from 'brace';
 import AceEditor from 'react-ace';
-import Resizable from 'react-resizable-box';
+// import Resizable from 'react-resizable-box';
 import 'brace/mode/javascript';
 import 'brace/theme/solarized_dark';
 import styles from './Home.css';
@@ -34,17 +34,19 @@ class Editor extends Component {
 
     return (
       <Flexbox flexDirection="row" minHeight="100vh" flexWrap="wrap">
-        <Flexbox element="header" height="60px" width="100vw">
+        <Flexbox element="header" height="7vh" width="100vw">
           <Link to="/">
             <i className="fa fa-arrow-left fa-3x" />
           </Link>
           <GitControlsContainer />
         </Flexbox>
         <Flexbox flexGrow={1}>
-          <FiletreeContainer className={styles.container} />
+          {/*<Resizable width={'100%'} height={'100%'}>*/}
+            <FiletreeContainer className={styles.container} />
+          {/*</Resizable>*/}
         </Flexbox>
-        <Flexbox flexGrow={1}>
-          <Resizable width={920} height={'100vh'}>
+        <Flexbox flexGrow={4}>
+          {/*<Resizable width={'100%'} height={'100%'}>*/}
             <AceEditor
               mode="javascript"
               theme="solarized_dark"
@@ -59,7 +61,7 @@ class Editor extends Component {
               style={{ border: '1px solid gold' }}
               wrapEnabled={Boolean(true)}
             />
-          </Resizable>
+          {/*</Resizable>*/}
         </Flexbox>
       </Flexbox>
     );
