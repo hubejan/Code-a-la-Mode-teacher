@@ -7,8 +7,8 @@ import styles from './UserRepositories.css';
 export default class UserRepositories extends Component {
   props: {
     repositories: Array<Object>,
-    openRepoLink: () => void,
-    cloneRepository: () => void,
+    openRepoLink: (repoLink: string, event: Object) => void,
+    cloneRepository: (repoLink: string) => void,
     selectRepository: () => void
   };
 

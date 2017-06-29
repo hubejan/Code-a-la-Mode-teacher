@@ -1,5 +1,5 @@
 // @flow
-import { SELECT_REPOSITORY, CLONED_REPOSITORY } from '../actions/userrepositories-actions';
+import { SELECT_REPOSITORY, CLONED_REPOSITORY, VIEW_REPOSITORY_LINK } from '../actions/userrepositories-actions';
 
 const defaultUserRepositoriesState = {
   selectedRepository: {},
@@ -23,6 +23,8 @@ export default function userRepositories(state: userRepositoriesStateType = defa
       return { ...state, selectedRepository: action.selectedRepository };
     case CLONED_REPOSITORY:
       return { ...state, repositoryPath: action.repositoryPath };
+    case VIEW_REPOSITORY_LINK:
+      return state;
     default:
       return state;
   }

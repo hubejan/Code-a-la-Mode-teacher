@@ -15,6 +15,7 @@ export default class UserRepositories extends Component {
     const updatedAtObj = new Date(repository.updated_at);
     const updatedAtUTC = updatedAtObj.toUTCString();
     const updatedAtString = `Last updated: ${updatedAtUTC}`;
+
     return (
       <div
         className={styles.panel}
@@ -29,7 +30,7 @@ export default class UserRepositories extends Component {
           { updatedAtString }
         </div>
         <button
-          onClick={() => { openRepoLink(repository.html_url); }}
+          onClick={(e) => { openRepoLink(repository.html_url, e); }}
         > View on Github </button>
         <button
           onClick={() => { cloneRepository(repository.html_url); }}
