@@ -5,7 +5,7 @@ import FiletreeContainer from '../containers/FiletreeContainer';
 import GitControlsContainer from '../containers/GitControlsContainer';
 import EditorContainer from '../containers/EditorContainer';
 import UserRepositoriesContainer from '../containers/UserRepositoriesContainer';
-import { ipcRenderer } from 'electron'; // TODO: Pass info to main process from here?
+import { ipcRenderer } from 'electron';
 import type { lessonSessionStateType } from '../reducers/lessonSession-reducer';
 
 
@@ -18,13 +18,15 @@ class LessonSession extends Component {
   };
 
   render() {
+    const { userRepositories, selectedRepository } = this.props;
+
     return (
       <div>
         <EditorContainer />
 
         <UserRepositoriesContainer
-          repositories={this.props.userRepositories}
-          selectedRepository={this.props.selectedRepository}
+          repositories={userRepositories}
+          selectedRepository={selectedRepository}
         />
       </div>
     );

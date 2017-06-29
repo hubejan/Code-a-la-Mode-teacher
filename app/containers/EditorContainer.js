@@ -5,7 +5,8 @@ import Editor from '../components/Editor';
 
 function mapStateToProps(state) {
   return {
-    contents: state.editor.contents
+    contents: state.editor.contents,
+    repositoryPath: state.userRepositories.repositoryPath
   };
 }
 
