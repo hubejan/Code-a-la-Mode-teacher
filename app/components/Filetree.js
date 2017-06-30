@@ -18,10 +18,10 @@ export default class Filetree extends Component {
   }
 
   render() {
-    const { loadInEditor } = this.props;
+    const { loadInEditor, path } = this.props;
     return (
       <Resizable width={'100%'} height={'100%'}>
-        <FileTree directory={'/Users/JChoe/Documents'} onFileClick={loadInEditor} />
+        <FileTree directory={path} onFileClick={loadInEditor} />
       </Resizable>
     );
   }
