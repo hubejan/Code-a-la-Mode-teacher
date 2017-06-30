@@ -1,5 +1,7 @@
 // @flow
 import React, { Component } from 'react';
+import Resizable from 'react-resizable-box';
+
 import FileTree from 'react-filetree-electron';
 
 export default class Filetree extends Component {
@@ -18,9 +20,9 @@ export default class Filetree extends Component {
   render() {
     const { loadInEditor } = this.props;
     return (
-      <div>
-        <FileTree directory={this.props.path} onFileClick={loadInEditor} fileTreeStyle={{ border: '1px solid gold', width: '100%', height: '100%' }} />
-      </div>
+      <Resizable width={'100%'} height={'100%'}>
+        <FileTree directory={'/Users/JChoe/Documents'} onFileClick={loadInEditor} />
+      </Resizable>
     );
   }
 }

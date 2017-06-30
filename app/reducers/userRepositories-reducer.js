@@ -28,5 +28,5 @@ export default function userRepositories(state: userRepositoriesStateType = defa
     default:
       return state;
   }
-};
+}
 
