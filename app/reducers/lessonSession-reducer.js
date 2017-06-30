@@ -1,5 +1,5 @@
 // @flow
-import { LOAD_USER_REPOS, LOAD_LESSON, CHECKOUT_NEXT_BRANCH } from '../actions/lessonsession-actions';
+import { LOAD_USER_REPOS, LOAD_LESSON, CHECKOUT_NEXT_BRANCH, CHECKOUT_PREVIOUS_BRANCH, CANNOT_CHECKOUT } from '../actions/lessonsession-actions';
 
 export type lessonSessionStateType = {
   userRepositories: [],
@@ -23,7 +23,8 @@ type actionType = {
   lessonInfo?: Object,
   userRepositories?: Array<Object>,
   repositoryPath?: string,
-  currentBranch?: string
+  currentBranch?: string,
+  branchIndex?: number
 };
 
 export default function lessonsession(state: lessonSessionStateType = defaultLessionSessionState, action: actionType) {
@@ -32,10 +33,24 @@ export default function lessonsession(state: lessonSessionStateType = defaultLes
       return { ...state, userRepositories: action.userRepositories };
     case LOAD_LESSON:
       return { ...state, lessonInfo: action.lessonInfo };
-    case CHECKOUT_NEXT_BRANCH:
-      const newLessonInfo = { ...state.lessonInfo, currentBranch: action.currentBranch}
-      return {...state, lessonInfo: newLessonInfo }
-      // return state;
+    case CHECKOUT_NEXT_BRANCH: {
+      const nextLessonInfo = {
+        ...state.lessonInfo,
+        currentBranch: action.currentBranch,
+        branchIndex: action.branchIndex + 1
+      };
+      return { ...state, lessonInfo: nextLessonInfo };
+    }
+    case CHECKOUT_PREVIOUS_BRANCH: {
+      const previousLessonInfo = {
+        ...state.lessonInfo,
+        currentBranch: action.currentBranch,
+        branchIndex: action.branchIndex - 1
+      };
+      return { ...state, lessonInfo: previousLessonInfo };
+    }
+    case CANNOT_CHECKOUT:
+      return state;
     default:
       return state;
   }
