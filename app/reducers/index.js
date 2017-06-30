@@ -10,6 +10,7 @@ import editor from './editor-reducer';
 import gitControls from './gitcontrols-reducer';
 import lessonSession from './lessonSession-reducer';
 import userRepositories from './userRepositories-reducer';
+import electronTree from './electron-tree-reducer';
 
 const rootReducer = combineReducers({
   counter,
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   editor,
   gitControls,
   lessonSession,
-  userRepositories
+  userRepositories,
+  electronTree
 });
 
 export default rootReducer;
