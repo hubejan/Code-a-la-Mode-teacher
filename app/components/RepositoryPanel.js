@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-
 import styles from './UserRepositories.css';
 
 export default class UserRepositories extends Component {
   props: {
     repository: Object,
     openRepoLink: () => void,
-    cloneRepository: () => void,
-    selectRepository: () => void
+    selectRepository: () => void,
+    loadLesson: () => void,
   };
 
   render() {
-    const { repository, openRepoLink, cloneRepository, selectRepository } = this.props;
+    const { repository, openRepoLink, selectRepository, loadLesson } = this.props;
     const updatedAtObj = new Date(repository.updated_at);
     const updatedAtUTC = updatedAtObj.toUTCString();
     const updatedAtString = `Last updated: ${updatedAtUTC}`;
@@ -33,8 +32,10 @@ export default class UserRepositories extends Component {
           onClick={(e) => { openRepoLink(repository.html_url, e); }}
         > View on Github </button>
         <button
-          onClick={() => { cloneRepository(repository.html_url); }}
-        > Clone </button>
+          onClick={() => {
+            loadLesson(repository.html_url);
+          }}
+        > Load Lesson </button>
         <button
           onClick={() => { selectRepository(repository); }}
         > Select </button>

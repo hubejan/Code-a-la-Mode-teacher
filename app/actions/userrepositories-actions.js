@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { shell, remote } from 'electron';
-import { loadUserRepos } from './lessonsession-actions';
+import { loadAfterCloning } from './lessonsession-actions';
 
 // Defaults to current directory
 // Need to pass in relevant project directory during operations
-const simpleGit = require('simple-git')();
+const git = require('simple-git');
 
 export const SELECT_REPOSITORY = 'SELECT_REPOSITORY';
 export const CLONED_REPOSITORY = 'CLONED_REPOSITORY';
@@ -20,19 +20,22 @@ export const openRepoLink = (repoLink: string, event: Object) => (dispatch: *) =
   }
 };
 
-export const cloneRepository = (repoLink: string) => (dispatch: *) => {
+export const loadLesson = (repoLink: string) => (dispatch: *) => {
   remote.dialog.showSaveDialog({
     title: 'Save Repository',
     properties: ['openDirectory']
   }, (localFilePath) => {
-    if (localFilePath === undefined) return; // User cancelled
-    simpleGit
+    if (localFilePath === undefined) return; // Cancelled operation
+    git()
       .clone(repoLink, localFilePath, () => {
         dispatch({ type: CLONED_REPOSITORY, repositoryPath: localFilePath });
+        dispatch(loadAfterCloning(localFilePath));
       });
   });
 };
 
+
 export const selectRepository = (selectedRepository: Object) => (dispatch: *) => {
   dispatch({ type: SELECT_REPOSITORY, selectedRepository });
 };
+
