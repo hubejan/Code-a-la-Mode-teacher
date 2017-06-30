@@ -137,7 +137,14 @@ ipcMain.on('editor-changes', (event, arg) => {
   // console.log('Editor value is now...', arg);
   serverWindow.webContents.send('editor-change', arg);
 });
-
+// Transmitting file after receiving file request
+ipcMain.on('xmit-file', (event, arg) => {
+  console.log('sending file contents: ', arg);
+  serverWindow.webContents.send('xmit-file', arg);
+});
 ipcMain.on('newTicket', (event, ticket) => {
   mainWindow.webContents.send('newTicket', ticket);
+});
+ipcMain.on('fileReq', (event, ticket) => {
+  mainWindow.webContents.send('fileReq', ticket);
 });

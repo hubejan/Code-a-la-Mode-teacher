@@ -1,8 +1,10 @@
 import Username from 'username';
 import { readFile } from '../utils/FileSystemUtils';
+import { ipcRenderer } from 'electron';
 
 export const GOT_USERNAME = 'GOT_USERNAME';
 export const OPEN_FILE = 'OPEN_FILE';
+export const XMIT_FILE = 'XMIT_FILE';
 
 type actionType = {
   type: string
@@ -10,6 +12,8 @@ type actionType = {
 
 export const gotUsername = username => ({ type: GOT_USERNAME, username });
 export const openFile = contents => ({ type: OPEN_FILE, contents });
+export const xmitFile = contents => ({ type: XMIT_FILE, contents });
+
 
 export function getUsername() {
   return (dispatch: (action: actionType) => void) => {
@@ -25,4 +29,13 @@ export function loadFile(selectedFile) {
     })
       .catch(console.error);
   };
+}
+
+export function reqAndXmitFile(filePath) {
+  readFile(filePath)
+    .then(contents => {
+      const text = contents.toString();
+      return ipcRenderer.send('xmit-file', text);
+    })
+    .catch(console.error);
 }

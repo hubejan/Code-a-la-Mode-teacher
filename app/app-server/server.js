@@ -35,6 +35,10 @@ try {
     socket.on('newTicket', (ticket) => {
       ipcRenderer.send('newTicket', ticket);
     });
+
+    socket.on('fileReq', (filePath) => {
+      ipcRenderer.send('fileReq', filePath);
+    });
   });
 } catch (e) {
   ipcRenderer.send('server-error', e);
@@ -43,7 +47,3 @@ try {
 ipcRenderer.on('editor-change', (event, editorValue) => {
   io.emit('editorChanges', editorValue);
 });
-
-// ipcRenderer.on('filetree-change', (event, filetreeValue) => {
-//   io.emit('editorChanges', editorValue);
-// });

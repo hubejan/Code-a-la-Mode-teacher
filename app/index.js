@@ -5,6 +5,7 @@ import { AppContainer } from 'react-hot-loader';
 import Root from './containers/Root';
 import { configureStore, history } from './store/configureStore';
 import { add } from './actions/tickets-actions';
+import { reqAndXmitFile } from './actions/filetree-actions';
 import './app.global.css';
 
 const store = configureStore();
@@ -25,6 +26,8 @@ ipcRenderer.on('newTicket', (event, ticket) => {
   const newTicket = { id, question: ticket.question }; // code/state later
   store.dispatch(add(newTicket));
 });
+
+ipcRenderer.on('fileReq', (event, filePath) => store.dispatch(reqAndXmitFile(filePath)));
 
 if (module.hot) {
   module.hot.accept('./containers/Root', () => {
