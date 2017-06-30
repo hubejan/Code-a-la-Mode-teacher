@@ -1,9 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`action creators should create a LOGOUT action 1`] = `
-Object {
-  "type": "LOGOUT",
-}
+Array [
+  Array [
+    Object {
+      "type": "LOGOUT",
+    },
+  ],
+]
 `;
 
 exports[`action creators should create an action with a valid token on successful login 1`] = `
