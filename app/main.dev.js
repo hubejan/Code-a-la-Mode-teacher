@@ -133,7 +133,11 @@ ipcMain.on('server-error', (event, arg) => {
 });
 
 // Message received when editor changes
-ipcMain.on('editor-change', (event, arg) => {
+ipcMain.on('editor-changes', (event, arg) => {
   // console.log('Editor value is now...', arg);
   serverWindow.webContents.send('editor-change', arg);
+});
+
+ipcMain.on('newTicket', (event, ticket) => {
+  mainWindow.webContents.send('newTicket', ticket);
 });
