@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import brace from 'brace';
 import AceEditor from 'react-ace';
-// import Resizable from 'react-resizable-box';
+import Resizable from 'react-resizable-box';
 import 'brace/mode/javascript';
 import 'brace/theme/solarized_dark';
 import 'brace/ext/searchbox';
@@ -43,20 +43,18 @@ class Editor extends Component {
     const { changeEditor } = this.props;
 
     return (
-      <Flexbox flexDirection="row" minHeight="100vh" flexWrap="wrap">
-        <Flexbox element="header" height="7vh" width="100vw">
+      <Flexbox flexDirection="row" minHeight="100vh" flexWrap="wrap" alignContent="flex-start">
+        <Flexbox element="header" height="70px" width="100vw">
           <Link to="/">
             <i className="fa fa-arrow-left fa-3x" />
           </Link>
           <GitControlsContainer />
         </Flexbox>
-        <Flexbox flexGrow={1}>
-          {/*<Resizable width={'100%'} height={'100%'}>*/}
-            <FiletreeContainer className={styles.container} />
-          {/*</Resizable>*/}
+        <Flexbox flexGrow={1} style={{ border: '1px solid gold', width: '5%', height: '90%' }}>
+          <FiletreeContainer />
         </Flexbox>
-        <Flexbox flexGrow={4}>
-          {/*<Resizable width={'100%'} height={'100%'}>*/}
+        <Flexbox flexGrow={4} height={'90vh'} >
+          <Resizable width={'100%'} height={'100%'}>
             <AceEditor
               mode="javascript"
               theme="solarized_dark"
@@ -71,7 +69,7 @@ class Editor extends Component {
               style={{ border: '1px solid gold' }}
               wrapEnabled={Boolean(true)}
             />
-          {/*</Resizable>*/}
+          </Resizable>
         </Flexbox>
       </Flexbox>
     );
