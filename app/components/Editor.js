@@ -6,6 +6,7 @@ import AceEditor from 'react-ace';
 // import Resizable from 'react-resizable-box';
 import 'brace/mode/javascript';
 import 'brace/theme/solarized_dark';
+import 'brace/ext/searchbox';
 import styles from './Home.css';
 import FiletreeContainer from '../containers/FiletreeContainer';
 import GitControlsContainer from '../containers/GitControlsContainer';
@@ -16,13 +17,22 @@ import Flexbox from 'flexbox-react';
 
 type nextPropsType = {
   contents: string,
-  changeEditor: () => void
+  repositoryPath: string,
+  changeEditor: () => void,
+  storageLogin: () => Object
 };
 
 class Editor extends Component {
   props: {
     contents: string,
-    changeEditor: () => void
+    repositoryPath: string,
+    changeEditor: () => void,
+    storageLogin: () => Object
+  }
+
+  componentWillMount() {
+    const token = window.localStorage.getItem('token');
+    if (token) return this.props.storageLogin(token);
   }
 
   componentWillReceiveProps(nextProps: nextPropsType) {
