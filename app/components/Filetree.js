@@ -16,11 +16,11 @@ export default class Filetree extends Component {
   }
 
   render() {
-    const { loadInEditor } = this.props;
+    const { loadInEditor, path } = this.props;
     return (
-      <div>
-        <FileTree directory={this.props.path} onFileClick={loadInEditor} fileTreeStyle={{ border: '1px solid gold', width: '100%', height: '100%' }} />
-      </div>
+      <Resizable width={'100%'} height={'100%'}>
+        <FileTree directory={path} onFileClick={loadInEditor} />
+      </Resizable>
     );
   }
 }
