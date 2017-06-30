@@ -39,3 +39,7 @@ try {
 ipcRenderer.on('editor-change', (event, editorValue) => {
   io.emit('editorChanges', editorValue);
 });
+
+// ipcRenderer.on('filetree-change', (event, filetreeValue) => {
+//   io.emit('editorChanges', editorValue);
+// });
