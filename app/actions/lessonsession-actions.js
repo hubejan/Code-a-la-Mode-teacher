@@ -32,7 +32,11 @@ export const checkoutNextBranch = (lessonInfo: Object) => (dispatch: *) => {
   if (currentIndex === lessonInfo.branches.length) return;
 
   const nextBranchName = lessonInfo.branchNames[currentIndex + 1];
-  console.log(nextBranchName);
   git(lessonInfo.repositoryPath)
-    .checkout(nextBranchName);
+    .checkout(nextBranchName, () => {
+      dispatch({
+        type: CHECKOUT_NEXT_BRANCH,
+        currentBranch: nextBranchName
+      });
+    });
 };
