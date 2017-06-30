@@ -1,5 +1,7 @@
 // @flow
 import React, { Component } from 'react';
+import Resizable from 'react-resizable-box';
+
 import FileTree from 'react-filetree-electron';
 
 export default class Filetree extends Component {
@@ -7,7 +9,8 @@ export default class Filetree extends Component {
     username: string,
     loadInEditor: () => void,
     dispatchGetUsername: () => void,
-    path: string
+    path: string,
+    currentBranch: string
   };
 
   componentDidMount() {

@@ -24,7 +24,8 @@ export const loadAfterCloning = (lessonFilePath: string) => (dispatch: *) => {
           branches: branchSummary.branches,
           branchIndex: 0,
           repositoryPath: lessonFilePath,
-          branchNames: branchIndexArray
+          branchNames: branchIndexArray,
+          currentBranch: branchSummary.current
         } });
     });
 };
@@ -41,13 +42,15 @@ export const checkoutNextBranch = (lessonInfo: Object) => (dispatch: *) => {
   const nextBranchName = lessonInfo.branchNames[currentIndex + 1];
   git(lessonInfo.repositoryPath)
     .checkout(nextBranchName, (err) => {
-      err ?
-      dispatch({ type: CANNOT_CHECKOUT }) :
-      dispatch({
-        type: CHECKOUT_NEXT_BRANCH,
-        currentBranch: nextBranchName,
-        branchIndex: currentIndex
-      });
+      if (err) {
+        dispatch({ type: CANNOT_CHECKOUT });
+      } else {
+        dispatch({
+          type: CHECKOUT_NEXT_BRANCH,
+          currentBranch: nextBranchName,
+          branchIndex: currentIndex
+        });
+      }
     });
 };
 
@@ -63,12 +66,14 @@ export const checkoutPreviousBranch = (lessonInfo: Object) => (dispatch: *) => {
   const previousBranchName = lessonInfo.branchNames[currentIndex - 1];
   git(lessonInfo.repositoryPath)
     .checkout(previousBranchName, (err) => {
-      err ?
-      dispatch({ type: CANNOT_CHECKOUT }) :
-      dispatch({
-        type: CHECKOUT_PREVIOUS_BRANCH,
-        currentBranch: previousBranchName,
-        branchIndex: currentIndex
-      });
+      if (err) {
+        dispatch({ type: CANNOT_CHECKOUT });
+      } else {
+        dispatch({
+          type: CHECKOUT_PREVIOUS_BRANCH,
+          currentBranch: previousBranchName,
+          branchIndex: currentIndex
+        });
+      }
     });
 };

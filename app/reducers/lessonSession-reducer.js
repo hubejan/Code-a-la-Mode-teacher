@@ -34,20 +34,20 @@ export default function lessonsession(state: lessonSessionStateType = defaultLes
     case LOAD_LESSON:
       return { ...state, lessonInfo: action.lessonInfo };
     case CHECKOUT_NEXT_BRANCH: {
-      const nextLessonInfo = {
+      const nextBranchInfo = {
         ...state.lessonInfo,
         currentBranch: action.currentBranch,
         branchIndex: action.branchIndex + 1
       };
-      return { ...state, lessonInfo: nextLessonInfo };
+      return { ...state, lessonInfo: nextBranchInfo };
     }
     case CHECKOUT_PREVIOUS_BRANCH: {
-      const previousLessonInfo = {
+      const previousBranchInfo = {
         ...state.lessonInfo,
         currentBranch: action.currentBranch,
         branchIndex: action.branchIndex - 1
       };
-      return { ...state, lessonInfo: previousLessonInfo };
+      return { ...state, lessonInfo: previousBranchInfo };
     }
     case CANNOT_CHECKOUT:
       return state;
