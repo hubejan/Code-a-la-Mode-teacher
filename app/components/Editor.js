@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import brace from 'brace';
 import AceEditor from 'react-ace';
+import { ipcRenderer } from 'electron';
+import Flexbox from 'flexbox-react';
 // import Resizable from 'react-resizable-box';
 import 'brace/mode/javascript';
 import 'brace/theme/solarized_dark';
@@ -10,8 +12,6 @@ import 'brace/ext/searchbox';
 import styles from './Home.css';
 import FiletreeContainer from '../containers/FiletreeContainer';
 import GitControlsContainer from '../containers/GitControlsContainer';
-import { ipcRenderer } from 'electron';
-import Flexbox from 'flexbox-react';
 
 // ...
 

@@ -8,7 +8,7 @@ function mapStateToProps(state) {
   return {
     userRepositories: state.lessonSession.userRepositories,
     selectedRepository: state.userRepositories.selectedRepository,
-    lessonBranches: state.lessonSession.lessonBranches
+    lessonInfo: state.lessonSession.lessonInfo
   };
 }
 

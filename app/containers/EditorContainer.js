@@ -8,7 +8,7 @@ import { storageLogin } from '../actions/auth-actions';
 function mapStateToProps(state) {
   return {
     contents: state.editor.contents,
-    repositoryPath: state.userRepositories.repositoryPath
+    repositoryPath: state.lessonSession.lessonInfo.repositoryPath
   };
 }
 

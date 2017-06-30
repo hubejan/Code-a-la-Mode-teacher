@@ -6,7 +6,7 @@ import * as UserRepositoriesActions from '../actions/userrepositories-actions';
 function mapStateToProps(state) {
   return {
     username: state.filetree.username,
-    path: state.userRepositories.repositoryPath
+    path: state.lessonSession.lessonInfo.repositoryPath
   };
 }
 
