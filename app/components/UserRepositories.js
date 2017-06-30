@@ -8,12 +8,14 @@ export default class UserRepositories extends Component {
   props: {
     repositories: Array<Object>,
     openRepoLink: (repoLink: string, event: Object) => void,
-    cloneRepository: (repoLink: string) => void,
-    selectRepository: () => void
+    loadLesson: (repoLink: string) => void,
+    selectRepository: () => void,
+    repositoryPath: string
   };
 
   render() {
-    const { repositories, openRepoLink, cloneRepository, selectRepository } = this.props;
+    const { repositories, openRepoLink, loadLesson, selectRepository } = this.props;
+
     return (
       <div
         className={styles.container}
@@ -26,7 +28,7 @@ export default class UserRepositories extends Component {
               key={repository.id}
               repository={repository}
               openRepoLink={openRepoLink}
-              cloneRepository={cloneRepository}
+              loadLesson={loadLesson}
               selectRepository={selectRepository}
             />
           ))

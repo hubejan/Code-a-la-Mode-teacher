@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { loadUserRepos } from './lessonsession-actions';
 
-const simpleGit = require('simple-git')();
+const git = require('simple-git')();
 
 export const RECEIVED_USER_REPOS = 'RECEIVED_USER_REPOS';
 
@@ -13,7 +13,7 @@ export const getUserRepositories = (userToken: string) => (dispatch: *) => {
       Authorization: `token ${userToken}`,
     },
     params: {
-      affiliation: 'owner',
+      affiliation: 'owner, collaborator',
       per_page: 300,
       sort: 'full_name'
     }
@@ -21,7 +21,7 @@ export const getUserRepositories = (userToken: string) => (dispatch: *) => {
 
   axios.get(`${GITHUB_API_ROOT}/user/repos`, config)
     .then(userRepos => {
-      simpleGit
+      git
         .exec(() => {
           dispatch(loadUserRepos(userRepos.data));
         });

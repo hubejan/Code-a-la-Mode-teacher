@@ -4,14 +4,18 @@ import { bindActionCreators } from 'redux';
 import GitControls from '../components/GitControls';
 import * as GitControlsActions from '../actions/gitcontrols-actions';
 
+import { loadLesson } from '../actions/lessonsession-actions';
+
 function mapStateToProps(state) {
   return {
-    token: state.auth.token
+    token: state.auth.token,
+    repositoryPath: state.userRepositories.repositoryPath
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(GitControlsActions, dispatch);
+  const GitControlsActionsWithLoadLesson = Object.assign({}, GitControlsActions, { loadLesson });
+  return bindActionCreators(GitControlsActionsWithLoadLesson, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GitControls);

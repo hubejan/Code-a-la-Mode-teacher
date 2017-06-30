@@ -14,11 +14,12 @@ class LessonSession extends Component {
   props: {
     userRepositories: [],
     loadUserRepos: () => void,
-    selectedRepository: {}
+    selectedRepository: {},
+    lessonBranches: []
   };
 
   render() {
-    const { userRepositories, selectedRepository } = this.props;
+    const { userRepositories, selectedRepository, lessonBranches } = this.props;
 
     return (
       <div>

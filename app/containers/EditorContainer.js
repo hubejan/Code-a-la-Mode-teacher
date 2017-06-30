@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import * as EditorActions from '../actions/editor-actions';
 import Editor from '../components/Editor';
 
+import { storageLogin } from '../actions/auth-actions';
+
 function mapStateToProps(state) {
   return {
     contents: state.editor.contents,
@@ -11,7 +13,8 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(EditorActions, dispatch);
+  const EditorActionsWithLogin = Object.assign({}, EditorActions, { storageLogin });
+  return bindActionCreators(EditorActionsWithLogin, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);
