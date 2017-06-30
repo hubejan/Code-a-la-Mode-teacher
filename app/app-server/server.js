@@ -31,6 +31,10 @@ try {
     socket.on('disconnect', () => {
       ipcRenderer.send('server-disconnect', socket.id);
     });
+
+    socket.on('newTicket', (ticket) => {
+      ipcRenderer.send('newTicket', ticket);
+    });
   });
 } catch (e) {
   ipcRenderer.send('server-error', e);

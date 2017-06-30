@@ -1,4 +1,5 @@
 import React from 'react';
+import { ipcRenderer } from 'electron';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import Root from './containers/Root';
@@ -13,6 +14,10 @@ render(
   </AppContainer>,
   document.getElementById('root')
 );
+
+ipcRenderer.on('newTicket', (event, ticket) => {
+  console.log(ticket);
+});
 
 if (module.hot) {
   module.hot.accept('./containers/Root', () => {

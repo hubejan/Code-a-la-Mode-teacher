@@ -26,7 +26,7 @@ class Editor extends Component {
   }
 
   componentWillReceiveProps(nextProps: nextPropsType) {
-    ipcRenderer.send('editor-change', nextProps.contents);
+    ipcRenderer.send('editor-changes', nextProps.contents);
   }
 
   render() {
