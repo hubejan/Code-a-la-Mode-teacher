@@ -15,11 +15,11 @@ class LessonSession extends Component {
     userRepositories: [],
     loadUserRepos: () => void,
     selectedRepository: {},
-    lessonBranches: []
+    lessonInfo: Object
   };
 
   render() {
-    const { userRepositories, selectedRepository, lessonBranches } = this.props;
+    const { userRepositories, selectedRepository, lessonInfo } = this.props;
 
     return (
       <div>
