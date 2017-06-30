@@ -57,7 +57,7 @@ export const teacherLogin = (authCode: string) => (dispatch: *) => {
     });
 };
 
-// futue: come back and learn how to do dispatch/getState flow types
+// future: come back and learn how to do dispatch/getState flow types
 export const teacherLogout = () => (dispatch: *, getState: *) =>
   revokeAuth(getState().auth.token)
     .then(() => {
@@ -67,5 +67,3 @@ export const teacherLogout = () => (dispatch: *, getState: *) =>
     .catch(error => {
       console.error(error);
     });
-
-// export const logout = () => ({ type: LOGOUT });

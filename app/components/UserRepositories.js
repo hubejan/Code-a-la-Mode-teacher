@@ -9,8 +9,7 @@ export default class UserRepositories extends Component {
     repositories: Array<Object>,
     openRepoLink: (repoLink: string, event: Object) => void,
     loadLesson: (repoLink: string) => void,
-    selectRepository: () => void,
-    repositoryPath: string
+    selectRepository: () => void
   };
 
   render() {
