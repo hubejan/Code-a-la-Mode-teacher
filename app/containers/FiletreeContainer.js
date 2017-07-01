@@ -11,7 +11,8 @@ function mapStateToProps(state) {
     // Properties from editor concerning currently open files
     // Array of file names?
     currentOpenFiles: state.editor.currentOpenFiles,
-    currentEditorValues: state.editor.contents
+    currentEditorValues: state.editor.contents,
+    selectedFileIndex: state.editor.selectedFileIndex
   };
 }
 
@@ -19,8 +20,8 @@ function mapDispatchToProps(dispatch) {
   return {
     /* Consider changing this to follow the bindActionCreators convention */
     dispatchGetUsername: () => dispatch(FiletreeActions.getUsername()),
-    loadInEditor: (selectedFile, currentOpenFiles, currentEditorValues) => {
-      dispatch(FiletreeActions.loadFile(selectedFile, currentOpenFiles, currentEditorValues));
+    loadInEditor: (selectedFile, currentOpenFiles, currentEditorValues, selectedFileIndex) => {
+      dispatch(FiletreeActions.loadFile(selectedFile, currentOpenFiles, currentEditorValues, selectedFileIndex));
     }
   };
 }

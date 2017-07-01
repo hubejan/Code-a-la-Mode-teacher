@@ -4,18 +4,22 @@ import { OPEN_FILE } from '../actions/filetree-actions';
 
 export type editorStateType = {
   contents: Array<string>,
-  currentOpenFiles: Array<string>
+  currentOpenFiles: Array<string>,
+  selectedFileIndex: number
 };
 
 type actionType = {
   type: string,
+  newEditorState?: Object,
   contents?: Array<string>,
-  currentOpenFiles?: Array<string>
+  currentOpenFiles?: Array<string>,
+  selectedFileIndex?: number
 };
 
 const defaultEditorState = {
   contents: [],
-  currentOpenFiles: []
+  currentOpenFiles: [],
+  selectedFileIndex: -1
 };
 
 export default function editorValue(state: editorStateType = defaultEditorState,
@@ -24,7 +28,7 @@ export default function editorValue(state: editorStateType = defaultEditorState,
     case EDITOR_CHANGE:
       return { ...state, contents: action.contents };
     case OPEN_FILE:
-      return { ...state, contents: action.contents };
+      return action.newEditorState;
     default:
       return state;
   }

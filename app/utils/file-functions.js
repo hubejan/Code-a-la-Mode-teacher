@@ -36,6 +36,11 @@ const getAllFiles = (dir) => {
   });
 };
 
+const getFileName = (filePath) => {
+  return filePath.replace(/^.*[\\\/]/, '');
+};
+
 module.exports = {
-  getAllFiles
+  getAllFiles,
+  getFileName
 };
