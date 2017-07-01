@@ -7,6 +7,7 @@ import { configureStore, history } from './store/configureStore';
 import { add } from './actions/tickets-actions';
 import { reqAndXmitFile } from './actions/filetree-actions';
 import './app.global.css';
+import { saveCommitAndBranch } from './utils/gitHelpers';
 
 const store = configureStore();
 
@@ -18,12 +19,10 @@ render(
 );
 
 ipcRenderer.on('newTicket', (event, ticket) => {
-  // length temporary.. in reality if we want to open up a past lesson and see its
-  // tickets, we need some kind of time machine feature where upon lesson/repo
-  // fetch, all help tickets/branches are inserted into the
-  // ticket reducer in-order?
+  // id may be unnecessary- refactor out later
   const id = Object.keys(store.getState().tickets).length;
-  const newTicket = { id, question: ticket.question }; // code/state later
+  const newTicket = { id, question: ticket.question };
+  saveCommitAndBranch(ticket.question);
   store.dispatch(add(newTicket));
 });
 
