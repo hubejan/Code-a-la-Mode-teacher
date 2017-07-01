@@ -4,10 +4,8 @@ import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers';
-import * as counterActions from '../actions/counter';
 import * as ticketsActions from '../actions/tickets-actions';
 // import additional action creators from actions files here
-import type { counterStateType } from '../reducers/counter';
 import type { ticketsStateType } from '../reducers/tickets-reducer';
 // import additional default state types from reducer files here
 
@@ -15,7 +13,6 @@ const history = createHashHistory();
 
 // set up initial statetype
 type storeType =
-  & counterStateType
   & ticketsStateType;
 
 const configureStore = (initialState?: storeType) => {
@@ -40,7 +37,6 @@ const configureStore = (initialState?: storeType) => {
   // Redux DevTools Configuration
   // include additional actions here
   const actionCreators = {
-    ...counterActions,
     ...ticketsActions,
     ...routerActions,
   };
