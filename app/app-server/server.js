@@ -35,15 +35,19 @@ try {
     socket.on('newTicket', (ticket) => {
       ipcRenderer.send('newTicket', ticket);
     });
+
+    socket.on('fileReq', (filePath) => {
+      ipcRenderer.send('fileReq', filePath);
+    });
   });
 } catch (e) {
   ipcRenderer.send('server-error', e);
 }
+// Message received when editor changes
+ipcRenderer.on('xmit-file', (event, fileContents) => {
+  io.emit('fileContents', fileContents);
+});
 
 ipcRenderer.on('editor-change', (event, editorValue) => {
   io.emit('editorChanges', editorValue);
 });
-
-// ipcRenderer.on('filetree-change', (event, filetreeValue) => {
-//   io.emit('editorChanges', editorValue);
-// });

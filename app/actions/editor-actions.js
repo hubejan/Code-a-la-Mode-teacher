@@ -1,6 +1,4 @@
 // @flow
-import { ipcRenderer } from 'electron';
-
 export const EDITOR_CHANGE = 'EDITOR_CHANGE';
 export const editorChange = (contents: Array<string>) => ({ type: EDITOR_CHANGE, contents });
 
