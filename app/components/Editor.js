@@ -28,11 +28,12 @@ class Editor extends Component {
     repositoryPath: string,
     changeEditor: () => void,
     storageLogin: () => Object
-  }
+  };
 
   componentWillMount() {
     const token = window.localStorage.getItem('token');
-    if (token) return this.props.storageLogin(token);
+    const username = window.localStorage.getItem('username');
+    if (token && username) return this.props.storageLogin(token, username);
   }
 
   componentWillReceiveProps(nextProps: nextPropsType) {
