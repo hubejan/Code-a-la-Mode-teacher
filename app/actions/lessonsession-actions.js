@@ -48,7 +48,7 @@ export const checkoutNextBranch = (lessonInfo: Object) => (dispatch: *) => {
         dispatch({
           type: CHECKOUT_NEXT_BRANCH,
           currentBranch: nextBranchName,
-          branchIndex: currentIndex
+          newBranchIndex: currentIndex + 1
         });
       }
     });
@@ -72,7 +72,7 @@ export const checkoutPreviousBranch = (lessonInfo: Object) => (dispatch: *) => {
         dispatch({
           type: CHECKOUT_PREVIOUS_BRANCH,
           currentBranch: previousBranchName,
-          branchIndex: currentIndex
+          newBranchIndex: currentIndex - 1
         });
       }
     });

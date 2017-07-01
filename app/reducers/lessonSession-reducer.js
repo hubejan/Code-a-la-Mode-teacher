@@ -1,6 +1,14 @@
 // @flow
 import { LOAD_USER_REPOS, LOAD_LESSON, CHECKOUT_NEXT_BRANCH, CHECKOUT_PREVIOUS_BRANCH, CANNOT_CHECKOUT } from '../actions/lessonsession-actions';
 
+export type lessonInfoType = {
+  branches: {},
+  branchIndex: number,
+  repositoryPath: string,
+  branchNames: [],
+  currentBranch: string
+}
+
 export type lessonSessionStateType = {
   userRepositories: [],
   lessonInfo: Object
@@ -19,12 +27,10 @@ const defaultLessionSessionState = {
 
 type actionType = {
   type: string,
-  repositories?: Array<Object>,
-  lessonInfo?: Object,
+  lessonInfo?: lessonInfoType,
   userRepositories?: Array<Object>,
-  repositoryPath?: string,
   currentBranch?: string,
-  branchIndex?: number
+  newBranchIndex?: number
 };
 
 export default function lessonsession(state: lessonSessionStateType = defaultLessionSessionState, action: actionType) {
@@ -37,7 +43,7 @@ export default function lessonsession(state: lessonSessionStateType = defaultLes
       const nextBranchInfo = {
         ...state.lessonInfo,
         currentBranch: action.currentBranch,
-        branchIndex: action.branchIndex + 1
+        branchIndex: action.newBranchIndex
       };
       return { ...state, lessonInfo: nextBranchInfo };
     }
@@ -45,7 +51,7 @@ export default function lessonsession(state: lessonSessionStateType = defaultLes
       const previousBranchInfo = {
         ...state.lessonInfo,
         currentBranch: action.currentBranch,
-        branchIndex: action.branchIndex - 1
+        branchIndex: action.newBranchIndex
       };
       return { ...state, lessonInfo: previousBranchInfo };
     }
