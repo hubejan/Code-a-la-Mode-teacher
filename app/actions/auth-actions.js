@@ -81,18 +81,6 @@ export const teacherLogin = (authCode: string) => (dispatch: *) => {
       console.error(error);
       dispatch({ type: LOGIN_FAILURE, error: error.failure });
     });
-
-    // .then(response => {
-    //   if (response.data.access_token) {
-    //     localStorage.setItem('token', response.data.access_token);
-    //     return dispatch({ type: LOGIN_SUCCESS, token: response.data.access_token });
-    //   }
-    //   return dispatch({ type: LOGIN_FAILURE, error: response.data });
-    // })
-    // .catch(error => {
-    //   console.error(error);
-    //   dispatch({ type: LOGIN_FAILURE, error });
-    // });
 };
 
 // future: come back and learn how to do dispatch/getState flow types
