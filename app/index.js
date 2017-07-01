@@ -27,7 +27,7 @@ ipcRenderer.on('newTicket', (event, ticket) => {
   store.dispatch(add(newTicket));
 });
 
-ipcRenderer.on('fileReq', (event, filePath) => store.dispatch(reqAndXmitFile(filePath)));
+ipcRenderer.on('fileReq', (event, filePath) => reqAndXmitFile(filePath));
 
 if (module.hot) {
   module.hot.accept('./containers/Root', () => {

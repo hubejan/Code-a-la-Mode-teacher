@@ -35,6 +35,8 @@ export function reqAndXmitFile(filePath) {
   readFile(filePath)
     .then(contents => {
       const text = contents.toString();
+      console.log('got file at: ', filePath, '. First 40 chars: ', text.substring(0, 40));
+
       return ipcRenderer.send('xmit-file', text);
     })
     .catch(console.error);
