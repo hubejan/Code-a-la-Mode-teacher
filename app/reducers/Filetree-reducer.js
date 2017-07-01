@@ -19,7 +19,6 @@ export default function filetree(state: filetreeStateType = defaultFiletreeState
   switch (action.type) {
     case GOT_USERNAME:
       return { ...state, username: action.username };
-
     default:
       return state;
   }
