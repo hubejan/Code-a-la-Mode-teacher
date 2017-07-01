@@ -192,6 +192,7 @@
     "flexbox-react": "^4.4.0",
     "font-awesome": "^4.7.0",
     "history": "^4.6.1",
+    "material-ui": "^0.18.5",
     "react": "^15.5.4",
     "react-ace": "^5.0.1",
     "react-dom": "^15.5.4",

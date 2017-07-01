@@ -6,14 +6,22 @@ function mapStateToProps(state) {
   return {
     username: state.filetree.username,
     path: state.lessonSession.lessonInfo.repositoryPath,
-    currentBranch: state.lessonSession.lessonInfo.currentBranch
+    currentBranch: state.lessonSession.lessonInfo.currentBranch,
+
+    // Properties from editor concerning currently open files
+    // Array of file names?
+    currentOpenFiles: state.editor.currentOpenFiles,
+    currentEditorValues: state.editor.contents
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    /* Consider changing this to follow the bindActionCreators convention */
     dispatchGetUsername: () => dispatch(FiletreeActions.getUsername()),
-    loadInEditor: (selectedFile) => dispatch(FiletreeActions.loadFile(selectedFile))
+    loadInEditor: (selectedFile, currentOpenFiles, currentEditorValues) => {
+      dispatch(FiletreeActions.loadFile(selectedFile, currentOpenFiles, currentEditorValues));
+    }
   };
 }
 

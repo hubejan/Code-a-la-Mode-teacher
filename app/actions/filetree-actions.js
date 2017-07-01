@@ -17,12 +17,23 @@ export function getUsername() {
       .catch(console.error);
   };
 }
-export function loadFile(selectedFile) {
+export function loadFile(selectedFile, currentOpenFiles, currentEditorValues) {
   return (dispatch: (action: actionType) => void) => {
-    readFile(selectedFile.filePath).then(contents => {
-      const text = contents.toString();
-      return dispatch(openFile(text));
-    })
+    const loadedFilePath = selectedFile.filePath;
+
+    // Do not try to load a file already inside the Editor
+    if (currentOpenFiles.includes(loadedFilePath)) {
+      return;
+    }
+
+    // Opening a new file, load it into the Editor
+    readFile(selectedFile.filePath)
+      .then(contents => {
+        currentOpenFiles.push(loadedFilePath);
+        const text = contents.toString();
+        const newEditorValues = currentEditorValues.concat([text]);
+        return dispatch(openFile(newEditorValues));
+      })
       .catch(console.error);
   };
 }

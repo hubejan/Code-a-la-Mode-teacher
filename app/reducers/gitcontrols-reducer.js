@@ -14,7 +14,9 @@ type actionType = {
   repositories?: Array<Object>
 };
 
-export default function gitControls(state: gitcontrolsStateType = defaultGitControlsState, action: actionType) {
+export default function gitControls(
+  state: gitcontrolsStateType = defaultGitControlsState, action: actionType)
+{
   switch (action.type) {
     case RECEIVED_USER_REPOS:
       return { ...state, repositories: action.repositories };

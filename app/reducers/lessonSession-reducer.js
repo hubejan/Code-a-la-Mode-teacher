@@ -7,11 +7,11 @@ export type lessonInfoType = {
   repositoryPath: string,
   branchNames: [],
   currentBranch: string
-}
+};
 
 export type lessonSessionStateType = {
   userRepositories: [],
-  lessonInfo: Object
+  lessonInfo: lessonInfoType
 };
 
 const defaultLessionSessionState = {
@@ -33,7 +33,7 @@ type actionType = {
   newBranchIndex?: number
 };
 
-export default function lessonsession(state: lessonSessionStateType = defaultLessionSessionState, action: actionType) {
+export default function lessonsession(state: lessonSessionStateType = defaultLessionSessionState, action: actionType){
   switch (action.type) {
     case LOAD_USER_REPOS:
       return { ...state, userRepositories: action.userRepositories };

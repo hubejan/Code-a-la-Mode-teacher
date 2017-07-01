@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import brace from 'brace';
-import AceEditor from 'react-ace';
 import { ipcRenderer } from 'electron';
 import Flexbox from 'flexbox-react';
 import Resizable from 'react-resizable-box';
@@ -13,10 +12,11 @@ import styles from './Home.css';
 import FiletreeContainer from '../containers/FiletreeContainer';
 import GitControlsContainer from '../containers/GitControlsContainer';
 
-// ...
+// Error with Webpack and how split is exported out, using require instead
+const AceSplitEditor = require('react-ace').split;
 
 type nextPropsType = {
-  contents: string,
+  contents: Array<string>,
   repositoryPath: string,
   changeEditor: () => void,
   storageLogin: () => Object
@@ -24,7 +24,7 @@ type nextPropsType = {
 
 class Editor extends Component {
   props: {
-    contents: string,
+    contents: Array<string>,
     repositoryPath: string,
     changeEditor: () => void,
     storageLogin: () => Object
@@ -40,7 +40,7 @@ class Editor extends Component {
   }
 
   render() {
-    const { changeEditor } = this.props;
+    const { changeEditor, contents } = this.props;
 
     return (
       <Flexbox flexDirection="row" minHeight="100vh" flexWrap="wrap" alignContent="flex-start">
@@ -50,27 +50,32 @@ class Editor extends Component {
           </Link>
           <GitControlsContainer />
         </Flexbox>
+
         <Flexbox flexGrow={1} style={{ border: '1px solid gold', width: '5%', height: '90%' }}>
           <FiletreeContainer />
         </Flexbox>
+
         <Flexbox flexGrow={4} height={'90vh'} >
           <Resizable width={'100%'} height={'100%'}>
-            <AceEditor
+            <AceSplitEditor
               mode="javascript"
+              splits={contents.length}
+              orientation="besides"
               theme="solarized_dark"
+              value={contents}
+              height={'100%'}
+              width={'100%'}
               fontSize={15}
-              width={"100%"}
-              height={"100%"}
               onChange={changeEditor}
               name="UNIQUE_ID_OF_DIV"
               editorProps={{ $blockScrolling: true }}
               showPrintMargin={false}
-              value={this.props.contents}
               style={{ border: '1px solid gold' }}
               wrapEnabled={Boolean(true)}
             />
           </Resizable>
         </Flexbox>
+
       </Flexbox>
     );
   }
