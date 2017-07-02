@@ -10,6 +10,8 @@ import AceEditor from 'react-ace';
 // Material-UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Tabs, Tab } from 'material-ui/Tabs';
+
+// Required to get Material-UI tabs working
 const injectTapEventPlugin = require('react-tap-event-plugin');
 injectTapEventPlugin();
 
@@ -103,6 +105,8 @@ class Editor extends Component {
               height={'100%'}
               width={'100%'}
               fontSize={15}
+              // Change the contents array, use index
+              // of currently selected file
               onChange={changeEditor}
               name="UNIQUE_ID_OF_DIV"
               editorProps={{ $blockScrolling: true }}

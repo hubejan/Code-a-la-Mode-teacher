@@ -1,6 +1,8 @@
 import Username from 'username';
 import { ipcRenderer } from 'electron';
+
 import { readFile } from '../utils/FileSystemUtils';
+import { loadFile } from './editor-actions';
 
 export const GOT_USERNAME = 'GOT_USERNAME';
 export const OPEN_FILE = 'OPEN_FILE';
@@ -22,14 +24,15 @@ export function getUsername() {
   };
 }
 
-export function loadFile(selectedFile, currentOpenFiles, currentEditorValues, selectedFileIndex) {
+export function loadNewFile(selectedFile, currentOpenFiles, currentEditorValues, selectedFileIndex) {
   return (dispatch: (action: actionType) => void) => {
     const loadedFilePath = selectedFile.filePath;
 
     // Do not try to load a file already inside the Editor
     if (currentOpenFiles.includes(loadedFilePath)) {
       // ADD CODE TO DISPATCH ACTION TO OPEN THE UPDATED VALUE OF THE FILE
-      return;
+      // THIS FUNCTION WILL BE IMPORTED FROM EDITOR
+      return dispatch(loadFile.apply(null, arguments));
     }
 
     console.log(`SELECTED FILE INDEX BEFORE: ${selectedFileIndex} AFTER ${selectedFileIndex + 1}`);
