@@ -16,12 +16,12 @@ const getAllFiles = (dir) => {
   return fs.readdirAsync(dir)
   .then(fileNamesArr => {
     const fileStatPromises = fileNamesArr.map(fileName => {
-      return fs.statAsync(dir + '/' + fileName)
+      return fs.statAsync(`${dir}/${fileName}`)
       .then(stats => {
         const file = {};
-        file.filePath = dir + '/' + fileName;
+        file.filePath = `${dir}/${fileName}`;
         file.isDirectory = !stats.isFile();
-        if (stats.isDirectory == true) {
+        if (stats.isDirectory === true) {
           return getAllFiles(file.filePath)
           .then(fileNamesSubArr => {
             file.files = fileNamesSubArr;
@@ -36,6 +36,9 @@ const getAllFiles = (dir) => {
   });
 };
 
+const getFileName = (filePath) => filePath.replace(/^.*[\\\/]/, '');
+
 module.exports = {
-  getAllFiles
+  getAllFiles,
+  getFileName
 };

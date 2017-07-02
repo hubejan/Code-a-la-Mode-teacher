@@ -1,12 +1,12 @@
 // @flow
 export const EDITOR_CHANGE = 'EDITOR_CHANGE';
-export const editorChange = (contents: string) => ({ type: EDITOR_CHANGE, contents });
+export const editorChange = (contents: Array<string>) => ({ type: EDITOR_CHANGE, contents });
 
 type actionType = {
   type: string
 };
 
-export function changeEditor(contents: string) {
+export function changeEditor(contents: Array<string>) {
   return (dispatch: (action: actionType) => void) => {
     dispatch(editorChange(contents));
   };

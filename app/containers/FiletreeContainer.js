@@ -1,20 +1,31 @@
 import { connect } from 'react-redux';
 import Filetree from '../components/Filetree';
 import * as FiletreeActions from '../actions/filetree-actions';
-import * as UserRepositoriesActions from '../actions/userrepositories-actions';
 
 function mapStateToProps(state) {
   return {
     username: state.filetree.username,
     path: state.lessonSession.lessonInfo.repositoryPath,
-    currentBranch: state.lessonSession.lessonInfo.currentBranch
+    currentBranch: state.lessonSession.lessonInfo.currentBranch,
+
+    // Properties from editor concerning currently open files
+    // Array of file names?
+    currentOpenFiles: state.editor.currentOpenFiles,
+    currentEditorValues: state.editor.contents,
+    selectedFileIndex: state.editor.selectedFileIndex
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    /* Consider changing this to follow the bindActionCreators convention */
     dispatchGetUsername: () => dispatch(FiletreeActions.getUsername()),
-    loadInEditor: (selectedFile) => dispatch(FiletreeActions.loadFile(selectedFile))
+    loadInEditor: (selectedFile, currentOpenFiles, currentEditorValues, selectedFileIndex) => {
+      dispatch(FiletreeActions.loadFile(selectedFile,
+                                        currentOpenFiles,
+                                        currentEditorValues,
+                                        selectedFileIndex));
+    }
   };
 }
 
