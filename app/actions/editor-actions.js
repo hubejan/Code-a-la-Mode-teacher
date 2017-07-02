@@ -9,9 +9,21 @@ type actionType = {
   type: string
 };
 
-export function changeEditor(contents: Array<string>) {
+export function changeEditor(newContent: string, selectedFileIndex: number, currentEditorValues: Array<string>) {
   return (dispatch: (action: actionType) => void) => {
-    dispatch(editorChange(contents));
+
+    // THIS IS TOO SLOW AND WASTES MEMORY
+    // const modifiedContents = currentEditorValues.map((oldValue, index) => {
+    //   if (index === selectedFileIndex) {
+    //     return newContent;
+    //   }
+    //   return oldValue;
+    // });
+    // dispatch(editorChange(modifiedContents));
+
+    // Array -- Pass by reference, so we can do this
+    currentEditorValues[selectedFileIndex] = newContent;
+    dispatch(editorChange(currentEditorValues));
   };
 }
 
