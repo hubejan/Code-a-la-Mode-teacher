@@ -7,6 +7,7 @@ import { loadFileFromTree } from './editor-actions';
 export const GOT_USERNAME = 'GOT_USERNAME';
 export const OPEN_FILE = 'OPEN_FILE';
 export const XMIT_FILE = 'XMIT_FILE';
+export const FILETREE_CHANGE = 'FILETREE_CHANGE';
 
 type actionType = {
   type: string
@@ -20,7 +21,7 @@ export type selectedFileType = {
 export const gotUsername = username => ({ type: GOT_USERNAME, username });
 export const openFile = newEditorState => ({ type: OPEN_FILE, newEditorState });
 export const xmitFile = contents => ({ type: XMIT_FILE, contents });
-
+export const filetreeChange = (filetree: Object[]) => ({ type: FILETREE_CHANGE, filetree });
 
 export function getUsername() {
   return (dispatch: (action: actionType) => void) => {
@@ -61,9 +62,12 @@ export function reqAndXmitFile(filePath) {
   readFile(filePath)
     .then(contents => {
       const text = contents.toString();
-      console.log('got file at: ', filePath, '. First 40 chars: ', text.substring(0, 40));
-
       return ipcRenderer.send('xmit-file', text);
     })
     .catch(console.error);
+}
+
+export function setFiletree(tree: Object) {
+  ipcRenderer.send('xmit-tree', tree);
+  return filetreeChange(tree);
 }

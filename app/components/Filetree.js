@@ -2,13 +2,15 @@
 import React, { Component } from 'react';
 import Resizable from 'react-resizable-box';
 
+import ElectronTree from '../containers/ElectronTreeContainer';
 import FileTree from 'react-filetree-electron';
 import { selectedFileType } from '../actions/filetree-actions';
 
+
 export default class Filetree extends Component {
   props: {
-    username: string,
-    loadInEditor: (
+    loadInEditor:
+    (
       selectedFile: selectedFileType,
       currentOpenFiles: Array<string>,
       currentEditorValues: Array<string>
@@ -32,6 +34,7 @@ export default class Filetree extends Component {
             currentOpenFiles,
             currentEditorValues,
             selectedFileIndex } = this.props;
+
     return (
       <Resizable width={'100%'} height={'100%'}>
         {

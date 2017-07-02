@@ -3,17 +3,23 @@ import React, { Component } from 'react';
 
 import ElectronTree from '../components/ElectronTree';
 import { toggleVisibility } from '../reducers/electron-tree-reducer';
+import { setFiletree } from '../actions/filetree-actions';
 
-const mapState = state => ({ isVisible: state.electronTree.isVisible });
+const mapStateToProps = state => ({
+  isVisible: state.electronTree.isVisible,
+  files: state.filetree.filetree
+});
 
-const mapDispatch = dispatch => ({ toggleVisibility: filePath => dispatch(toggleVisibility(filePath)) });
+const mapDispatchToProps = dispatch => ({
+  dispatchSetFiletree: files => dispatch(setFiletree(files)),
+  toggleVisibility: filePath => dispatch(toggleVisibility(filePath)) });
 
-const ConnectFileTree = connect(mapState, mapDispatch)(ElectronTree);
+const ConnectElectronTree = connect(mapStateToProps, mapDispatchToProps)(ElectronTree);
 
 export default class extends Component {
   render() {
     return (
-      <ConnectFileTree {...this.props} />
+      <ConnectElectronTree {...this.props} />
     );
   }
 }
