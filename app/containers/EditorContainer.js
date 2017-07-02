@@ -8,7 +8,9 @@ import { storageLogin } from '../actions/auth-actions';
 function mapStateToProps(state) {
   return {
     contents: state.editor.contents,
-    repositoryPath: state.lessonSession.lessonInfo.repositoryPath
+    repositoryPath: state.lessonSession.lessonInfo.repositoryPath,
+    currentOpenFiles: state.editor.currentOpenFiles,
+    selectedFileIndex: state.editor.selectedFileIndex
   };
 }
 
