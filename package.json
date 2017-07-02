@@ -193,6 +193,7 @@
     "font-awesome": "^4.7.0",
     "history": "^4.6.1",
     "react": "^15.5.4",
+    "react-a11y": "^0.3.4",
     "react-ace": "^5.0.1",
     "react-dom": "^15.5.4",
     "react-filetree-electron": "^1.2.0",

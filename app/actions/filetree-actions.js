@@ -42,6 +42,7 @@ export function reqAndXmitFile(filePath) {
 }
 
 export function setFiletree(tree: Object) {
+  console.log('before emit: ', tree);
   ipcRenderer.send('xmit-tree', tree);
   return filetreeChange(tree);
 }

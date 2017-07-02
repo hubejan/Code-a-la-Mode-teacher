@@ -14,7 +14,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     dispatchGetUsername: () => dispatch(FiletreeActions.getUsername()),
-    loadInEditor: (selectedFile) => dispatch(FiletreeActions.loadFile(selectedFile))
+    loadInEditor: clickedFilePath => dispatch(FiletreeActions.loadFile(clickedFilePath))
   };
 }
 

@@ -21,11 +21,11 @@ const getAllFiles = (dir) => {
         const file = {};
         file.filePath = dir + '/' + fileName;
         file.isDirectory = !stats.isFile();
-        if (stats.isDirectory == true) {
+        if (stats.isDirectory() === true) {
           return getAllFiles(file.filePath)
           .then(fileNamesSubArr => {
             file.files = fileNamesSubArr;
-            return file.files;
+            return file;
           })
           .catch(error => console.error(error));
         }

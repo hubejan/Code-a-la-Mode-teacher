@@ -49,9 +49,12 @@ ipcRenderer.on('xmit-file', (event, fileContents) => {
 });
 
 ipcRenderer.on('editor-change', (event, editorValue) => {
+  console.log('editor: ', editorValue);
+
   io.emit('editorChanges', editorValue);
 });
 
 ipcRenderer.on('xmit-tree', (event, tree) => {
+  console.log('right before emit!: ', tree);
   io.emit('treeChanges', tree);
 });

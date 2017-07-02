@@ -18,7 +18,8 @@ export default class ElectronTree extends Component {
     fileStyle?: Object,
     isVisible?: Object,
     directoryTheme?: string,
-    isChildFiletree?: boolean
+    isChildFiletree?: boolean,
+    isRoot?: string
   }
   constructor() {
     super();
@@ -58,7 +59,7 @@ export default class ElectronTree extends Component {
   render() {
     const files = this.state.files;
 
-    // Lines 58-60 merge any style props passed down with default props.
+    // Next 6 lines merge any style props passed down with default props.
     // This way no unexpected changes occur as a result of passing down style props.
     const fileTreeStyle = this.props.fileTreeStyle ? mergeStyleObjects(
       defaultStyles.fileTreeStyle, this.props.fileTreeStyle) : defaultStyles.fileTreeStyle;
@@ -71,19 +72,21 @@ export default class ElectronTree extends Component {
       files.length > 0 &&
       <ul className="_fileTree" style={fileTreeStyle} >
         {files.map(file => {
-
           const filePath = file.filePath;
           const fileName = filePath.split('/').slice(-1).join('');
-
           return file.isDirectory ?
-            <li className="_directory" key={filePath + ' Directory'} style={directoryStyle}>
-              <div onClick={() => this.setVisibility(file.filePath)}>
-                <Directory className="directory" visible={this.props.isVisible[file.filePath]} theme={this.props.directoryTheme} />{`               ${fileName}`}
+            <li className="_directory" key={`${filePath} Directory`} style={directoryStyle}>
+              <div onClick={() => this.setVisibility(file.filePath)} role="menuitem" tabIndex={0}>
+                <Directory
+                  className="directory"
+                  visible={this.props.isVisible[file.filePath]}
+                  theme={this.props.directoryTheme}
+                />
+                {`               ${fileName}`}
               </div>
               {this.props.isVisible[file.filePath] &&
               <ElectronTree
                 directory={file.filePath}
-                files={file.files}
                 onFileClick={this.props.onFileClick}
                 toggleVisibility={this.props.toggleVisibility}
                 directoryTheme={this.props.directoryTheme || 'light'}
@@ -96,7 +99,14 @@ export default class ElectronTree extends Component {
               />}
             </li>
             :
-            <li className="_file" key={filePath} onClick={() => this.onFileClick(file)} style={fileStyle}><File className="file" />{`               ${fileName}`}</li>;
+            <li
+              className="_file"
+              key={filePath}
+              role="menuitem"
+              onClick={() => this.onFileClick(file)}
+              style={fileStyle}
+            >
+              <File className="file" />{`               ${fileName}`}</li>;
         })
         }
       </ul>

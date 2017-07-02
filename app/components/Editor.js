@@ -50,10 +50,10 @@ class Editor extends Component {
           </Link>
           <GitControlsContainer />
         </Flexbox>
-        <Flexbox flexGrow={1} style={{ border: '1px solid gold', width: '5%', height: '90%' }}>
+        <Flexbox flexGrow={1} style={{ border: '1px solid gold', width: '45%', height: '90%' }}>
           <FiletreeContainer />
         </Flexbox>
-        <Flexbox flexGrow={4} height={'90vh'} >
+        <Flexbox flexGrow={2} height={'90vh'} >
           <Resizable width={'100%'} height={'100%'}>
             <AceEditor
               mode="javascript"
