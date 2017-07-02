@@ -7,12 +7,13 @@ import FileTree from 'react-filetree-electron';
 export default class Filetree extends Component {
   props: {
     username: string,
-    loadInEditor: (
+    loadInEditor:
+    (
       selectedFile: string,
       currentOpenFiles: Array<string>,
       currentEditorValues: Array<string>,
       selectedFileIndex: number
-                  ) => void,
+    ) => void,
     dispatchGetUsername: () => void,
     path: string,
     currentBranch: string,

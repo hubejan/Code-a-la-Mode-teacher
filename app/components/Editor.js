@@ -78,7 +78,7 @@ class Editor extends Component {
                   <Tab
                     key={filePath}
                     label={getFileName(filePath)}
-                    onClick={() => console.log(`HELLO ${selectedFileIndex}`)}
+                    onClick={(e) => console.dir(e)}
                   />
                 ))
               }
