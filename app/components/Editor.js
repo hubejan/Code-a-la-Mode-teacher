@@ -102,7 +102,7 @@ class Editor extends Component {
           <Resizable width={'100%'} height={'100%'}>
             <AceEditor
               mode="javascript"
-              orientation="besides"
+              // orientation="besides"
               theme="solarized_dark"
               value={contents[selectedFileIndex]}
               height={'100%'}
@@ -110,7 +110,7 @@ class Editor extends Component {
               fontSize={15}
               // Change the contents array, use index
               // of currently selected file
-              onChange={changeEditor}
+              onChange={(newValue, event) => {changeEditor(newValue, selectedFileIndex, contents)}}
               name="UNIQUE_ID_OF_DIV"
               editorProps={{ $blockScrolling: true }}
               showPrintMargin={false}
