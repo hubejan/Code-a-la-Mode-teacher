@@ -2,11 +2,10 @@
 import React, { Component } from 'react';
 import Resizable from 'react-resizable-box';
 
-import FileTree from 'react-filetree-electron';
+import ElectronTree from '../containers/ElectronTreeContainer';
 
 export default class Filetree extends Component {
   props: {
-    username: string,
     loadInEditor:
     (
       selectedFile: string,
