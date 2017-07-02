@@ -10,6 +10,8 @@ import AceEditor from 'react-ace';
 // Material-UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Tabs, Tab } from 'material-ui/Tabs';
+const injectTapEventPlugin = require('react-tap-event-plugin');
+injectTapEventPlugin();
 
 import 'brace/mode/javascript';
 import 'brace/theme/solarized_dark';
@@ -74,11 +76,12 @@ class Editor extends Component {
           <MuiThemeProvider>
             <Tabs>
               {
-                currentOpenFiles && currentOpenFiles.map((filePath) => (
+                currentOpenFiles && currentOpenFiles.map((filePath, index) => (
                   <Tab
                     key={filePath}
                     label={getFileName(filePath)}
-                    onClick={(e) => console.dir(e)}
+                    value={index}
+                    onActive={(tab) => console.log(tab.props)}
                   />
                 ))
               }
