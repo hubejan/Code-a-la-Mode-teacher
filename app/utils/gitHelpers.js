@@ -2,7 +2,8 @@ import simplegit from 'simple-git'; // takes optional directory argument to find
 import fs from 'fs';
 import Promise from 'bluebird';
 import store from '../index';
-import { add } from '../actions/tickets-actions';
+import { add as addTicket } from '../actions/tickets-actions';
+import { addBranch } from '../actions/lessonsession-actions';
 
 const fsWrite = Promise.promisify(fs.writeFile);
 
@@ -23,12 +24,18 @@ const saveToDisk = () => {
   // this save will only cover open files
 export const saveCommitAndBranch = (question) => {
   const git = simplegit(store.getState().lessonSession.lessonInfo.repositoryPath);
+  const branchName = branchify(question);
+
   return saveToDisk()
   .then(() => {
     git.add('./*')
-       .commit(`question: ${question}`)
-       .branch([branchify(question)]);
-    return store.dispatch(add(question));
+      .commit(`question: ${question}`)
+      .branch([branchName])
+      .branch((err, branchSummary) => {
+        const newBranch = branchSummary.branches[branchName];
+        store.dispatch(addBranch(newBranch, branchName));
+      });
+    return store.dispatch(addTicket(question));
   })
   .catch(console.error);
 };
