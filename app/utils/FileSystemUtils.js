@@ -6,4 +6,8 @@ export const readFile = file => fsp.readFileAsync(file);
 
 export const writeFile = file => {
   return fsp.writeFileAsync(file);
-}
+};
+
+export const makeDirectory = (path) => {
+  return fsp.mkdir(path);
+};

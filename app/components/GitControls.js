@@ -8,6 +8,7 @@ export default class GitControls extends Component {
     token: string,
     checkoutNextBranch: () => void,
     checkoutPreviousBranch: () => void,
+    createNewLesson: () => void,
     lessonInfo: lessonInfoType
   };
 
@@ -16,6 +17,7 @@ export default class GitControls extends Component {
             token,
             checkoutNextBranch,
             checkoutPreviousBranch,
+            createNewLesson,
             lessonInfo } = this.props;
 
     return (
@@ -27,15 +29,14 @@ export default class GitControls extends Component {
         <button onClick={() => { checkoutPreviousBranch(lessonInfo); }} >
           Previous branch
         </button>
+
         <button onClick={() => { checkoutNextBranch(lessonInfo); }} >
           Next branch
         </button>
-        {
-          /*
-            COMMENT STUFF OUT HERE
-          */
-        }
 
+        <button onClick={() => { createNewLesson(); }} >
+          New Lesson
+        </button>
       </div>
     );
   }

@@ -1,4 +1,8 @@
+import { remote } from 'electron';
+import fs from 'fs';
+
 import { lessonInfoType } from '../reducers/lessonSession-reducer';
+import { makeDirectory } from '../utils/FileSystemUtils';
 
 const git = require('simple-git');
 
@@ -15,7 +19,6 @@ export const loadUserRepos = (userRepositories: []) => (dispatch: *) => {
 export const loadAfterCloning = (lessonFilePath: string) => (dispatch: *) => {
   git(lessonFilePath)
     .branch((err, branchSummary) => {
-      console.log(branchSummary);
       const branchIndexArray = Object.keys(branchSummary.branches).map((branchName) => branchName);
 
       dispatch({
@@ -76,4 +79,15 @@ export const checkoutPreviousBranch = (lessonInfo: lessonInfoType) => (dispatch:
         });
       }
     });
+};
+
+export const createNewLesson = () => (dispatch: *) => {
+  remote.dialog.showSaveDialog((newLessonFilePath) => {
+    makeDirectory(newLessonFilePath)
+      .then(() => {
+        git(newLessonFilePath)
+          .init();
+      })
+      .catch(error => console.error(error));
+  });
 };
