@@ -21,7 +21,10 @@ function mapDispatchToProps(dispatch) {
     /* Consider changing this to follow the bindActionCreators convention */
     dispatchGetUsername: () => dispatch(FiletreeActions.getUsername()),
     loadInEditor: (selectedFile, currentOpenFiles, currentEditorValues, selectedFileIndex) => {
-      dispatch(FiletreeActions.loadFile(selectedFile, currentOpenFiles, currentEditorValues, selectedFileIndex));
+      dispatch(FiletreeActions.loadFile(selectedFile,
+                                        currentOpenFiles,
+                                        currentEditorValues,
+                                        selectedFileIndex));
     }
   };
 }

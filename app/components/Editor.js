@@ -9,7 +9,7 @@ import AceEditor from 'react-ace';
 
 // Material-UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs';
 
 import 'brace/mode/javascript';
 import 'brace/theme/solarized_dark';
@@ -19,8 +19,12 @@ import FiletreeContainer from '../containers/FiletreeContainer';
 import GitControlsContainer from '../containers/GitControlsContainer';
 import { getFileName } from '../utils/file-functions';
 
-// Error with Webpack and how split is exported out, using require instead
-const AceSplitEditor = require('react-ace').split;
+/*
+  Error with Webpack and how split is exported out, using require instead
+  Keeping it here in case we might use it later
+
+  const AceSplitEditor = require('react-ace').split;
+*/
 
 type nextPropsType = {
   contents: Array<string>,
@@ -49,7 +53,7 @@ class Editor extends Component {
   }
 
   render() {
-    const { changeEditor, contents, currentOpenFiles, selectedFileIndex } = this.props;
+    const { changeEditor, contents, currentOpenFiles, selectedFileIndex, repositoryPath } = this.props;
 
     return (
       <Flexbox flexDirection="row" minHeight="100vh" flexWrap="wrap" alignContent="flex-start">
@@ -68,18 +72,18 @@ class Editor extends Component {
           </Link>
           <GitControlsContainer />
           <MuiThemeProvider>
-          <Tabs>
-            {
-              currentOpenFiles && currentOpenFiles.map((filePath) => (
-                <Tab
-                  key={filePath}
-                  label={getFileName(filePath)}
-                  onClick={() => console.log(`HELLO ${selectedFileIndex}`) }
-                />
-              ))
-            }
-          </Tabs>
-        </MuiThemeProvider>
+            <Tabs>
+              {
+                currentOpenFiles && currentOpenFiles.map((filePath) => (
+                  <Tab
+                    key={filePath}
+                    label={getFileName(filePath)}
+                    onClick={() => console.log(`HELLO ${selectedFileIndex}`)}
+                  />
+                ))
+              }
+            </Tabs>
+          </MuiThemeProvider>
         </Flexbox>
 
         <Flexbox flexGrow={1} style={{ border: '1px solid gold', width: '5%', height: '90%' }}>

@@ -10,7 +10,7 @@ export type editorStateType = {
 
 type actionType = {
   type: string,
-  newEditorState?: Object,
+  newEditorState?: editorStateType,
   contents?: Array<string>,
   currentOpenFiles?: Array<string>,
   selectedFileIndex?: number

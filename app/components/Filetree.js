@@ -7,7 +7,12 @@ import FileTree from 'react-filetree-electron';
 export default class Filetree extends Component {
   props: {
     username: string,
-    loadInEditor: () => void,
+    loadInEditor: (
+      selectedFile: string,
+      currentOpenFiles: Array<string>,
+      currentEditorValues: Array<string>,
+      selectedFileIndex: number
+                  ) => void,
     dispatchGetUsername: () => void,
     path: string,
     currentBranch: string,
@@ -21,7 +26,12 @@ export default class Filetree extends Component {
   }
 
   render() {
-    const { loadInEditor, path, currentBranch, currentOpenFiles, currentEditorValues, selectedFileIndex } = this.props;
+    const { loadInEditor,
+            path,
+            currentBranch,
+            currentOpenFiles,
+            currentEditorValues,
+            selectedFileIndex } = this.props;
     return (
       <Resizable width={'100%'} height={'100%'}>
         {
@@ -29,7 +39,13 @@ export default class Filetree extends Component {
         }
 
         { /* Giving currentBranch as a prop to the FileTree component to force a re-render */ }
-        <FileTree directory={path} onFileClick={(selectedFile) => loadInEditor(selectedFile, currentOpenFiles, currentEditorValues, selectedFileIndex)} currentBranch={currentBranch} />
+        <FileTree
+          directory={path}
+          onFileClick={(selectedFile) => {
+            loadInEditor(selectedFile, currentOpenFiles, currentEditorValues, selectedFileIndex);
+          }}
+          currentBranch={currentBranch}
+        />
       </Resizable>
     );
   }
