@@ -1,3 +1,5 @@
+import { lessonInfoType } from '../reducers/lessonSession-reducer';
+
 const git = require('simple-git');
 
 export const LOAD_USER_REPOS = 'LOAD_USER_REPOS';
@@ -14,9 +16,7 @@ export const loadAfterCloning = (lessonFilePath: string) => (dispatch: *) => {
   git(lessonFilePath)
     .branch((err, branchSummary) => {
       console.log(branchSummary);
-      const branchIndexArray = Object.keys(branchSummary.branches).map((branchName) => {
-        return branchName;
-      });
+      const branchIndexArray = Object.keys(branchSummary.branches).map((branchName) => branchName);
 
       dispatch({
         type: LOAD_LESSON,
@@ -30,7 +30,7 @@ export const loadAfterCloning = (lessonFilePath: string) => (dispatch: *) => {
     });
 };
 
-export const checkoutNextBranch = (lessonInfo: Object) => (dispatch: *) => {
+export const checkoutNextBranch = (lessonInfo: lessonInfoType) => (dispatch: *) => {
   const currentIndex = lessonInfo.branchIndex;
   if (currentIndex === lessonInfo.branches.length) {
     dispatch({
@@ -54,7 +54,7 @@ export const checkoutNextBranch = (lessonInfo: Object) => (dispatch: *) => {
     });
 };
 
-export const checkoutPreviousBranch = (lessonInfo: Object) => (dispatch: *) => {
+export const checkoutPreviousBranch = (lessonInfo: lessonInfoType) => (dispatch: *) => {
   const currentIndex = lessonInfo.branchIndex;
   if (currentIndex === 0) {
     dispatch({
