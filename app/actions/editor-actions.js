@@ -1,4 +1,6 @@
 // @flow
+import { selectedFileType } from './filetree-actions';
+
 export const EDITOR_CHANGE = 'EDITOR_CHANGE';
 export const LOAD_OPENED_FILE = 'LOAD_OPENED_FILE';
 export const editorChange = (contents: Array<string>) => ({ type: EDITOR_CHANGE, contents });
@@ -13,23 +15,28 @@ export function changeEditor(contents: Array<string>) {
   };
 }
 
-type selectedFileType = {
-  filePath: string,
-  isDirectory: boolean
+// Load a previously opened file
+// TODO: Change loadFileFromTab to loadFile, make this function loadFileFromTree
+
+export const loadFile = (selectedFile: selectedFileType, currentOpenFiles: Array<string>, currentEditorValues: Array<string>) => (dispatch: *) => {
+  const newEditorState = {
+    contents: currentEditorValues, // Array of file contents still the same
+    currentOpenFiles: currentOpenFiles, // Array of opened files still the same
+    selectedFileIndex: currentOpenFiles.indexOf(selectedFile.filePath) // Index of already-opened file changes
+  };
+
+  dispatch({ type: LOAD_OPENED_FILE, newEditorState });
 }
 
-export const loadFile = (
-  selectedFile: selectedFileType, currentOpenFiles: Array<string>,
-  currentEditorValues: Array<string>, selectedFileIndex: number) => (dispatch: *) => {
-    const newEditorState = {
-      contents: currentEditorValues, // Contents still the same
-      currentOpenFiles: currentOpenFiles, // Opened files still the same
-      selectedFileIndex: currentOpenFiles.indexOf(selectedFile.filePath) // Index from already opened
-    };
+// Load a file from the tab (only has reference to filePath)
+// TODO: This should be the generic loading file function
+export const loadFileFromTab = (selectedFilePath: string, currentOpenFiles: Array<string>, currentEditorValues: Array<string>) => (dispatch: *) => {
+  const newEditorState = {
+    contents: currentEditorValues, // Array of file contents still the same
+    currentOpenFiles: currentOpenFiles, // Array of opened files still the same
+    selectedFileIndex: currentOpenFiles.indexOf(selectedFilePath) // Index of already-opened file changes
+  };
 
-    dispatch({
-      type: LOAD_OPENED_FILE,
-      newEditorState
-    });
-}
+  dispatch({ type: LOAD_OPENED_FILE, newEditorState });
+};
 

@@ -12,6 +12,11 @@ type actionType = {
   type: string
 };
 
+export type selectedFileType = {
+  filePath: string,
+  isDirectory: boolean
+};
+
 export const gotUsername = username => ({ type: GOT_USERNAME, username });
 export const openFile = newEditorState => ({ type: OPEN_FILE, newEditorState });
 export const xmitFile = contents => ({ type: XMIT_FILE, contents });
@@ -24,30 +29,29 @@ export function getUsername() {
   };
 }
 
-export function loadNewFile(selectedFile, currentOpenFiles, currentEditorValues, selectedFileIndex) {
+export function loadNewFile(selectedFile: selectedFileType, currentOpenFiles: Array<string>, currentEditorValues: Array<string>) {
   return (dispatch: (action: actionType) => void) => {
     const loadedFilePath = selectedFile.filePath;
 
-    // Do not try to load a file already inside the Editor
+    // Load an already-opened file (from tree)
     if (currentOpenFiles.includes(loadedFilePath)) {
-      // ADD CODE TO DISPATCH ACTION TO OPEN THE UPDATED VALUE OF THE FILE
-      // THIS FUNCTION WILL BE IMPORTED FROM EDITOR
       return dispatch(loadFile.apply(null, arguments));
     }
 
-    console.log(`SELECTED FILE INDEX BEFORE: ${selectedFileIndex} AFTER ${selectedFileIndex + 1}`);
     // Opening a new file, load it into the Editor
+    // TODO: Need to sync active tab with this newly opened file
     readFile(selectedFile.filePath)
       .then(contents => {
         const allOpenFiles = currentOpenFiles.concat(loadedFilePath);
         const text = contents.toString();
         const newEditorValues = currentEditorValues.concat([text]);
+        const indexOfNewFile = currentOpenFiles.length; // New file gets pushed to end of array (zero-based indexing)
         const newEditorState = {
           contents: newEditorValues,
           currentOpenFiles: allOpenFiles,
-          selectedFileIndex: selectedFileIndex + 1
+          selectedFileIndex: indexOfNewFile
         };
-        return dispatch(openFile(newEditorState));
+        return dispatch(openFile(newEditorState)); // TODO: Consider moving openFile to editor?
       })
       .catch(console.error);
   };

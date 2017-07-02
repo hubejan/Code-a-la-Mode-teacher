@@ -44,7 +44,8 @@ class Editor extends Component {
     changeEditor: () => void,
     storageLogin: () => Object,
     currentOpenFiles: Array<string>,
-    selectedFileIndex: number
+    selectedFileIndex: number,
+    loadFileFromTab: () => void
   }
 
   componentWillMount() {
@@ -57,7 +58,7 @@ class Editor extends Component {
   }
 
   render() {
-    const { changeEditor, contents, currentOpenFiles, selectedFileIndex, repositoryPath } = this.props;
+    const { changeEditor, contents, currentOpenFiles, selectedFileIndex, repositoryPath, loadFileFromTab } = this.props;
 
     return (
       <Flexbox flexDirection="row" minHeight="100vh" flexWrap="wrap" alignContent="flex-start">
@@ -83,7 +84,8 @@ class Editor extends Component {
                     key={filePath}
                     label={getFileName(filePath)}
                     value={index}
-                    onActive={(tab) => console.log(tab.props)}
+                    filePath={filePath}
+                    onActive={(tab) => loadFileFromTab(tab.props.filePath, currentOpenFiles, contents)} // Need to change selectedFileIndex
                   />
                 ))
               }

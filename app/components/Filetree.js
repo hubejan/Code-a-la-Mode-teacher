@@ -3,16 +3,15 @@ import React, { Component } from 'react';
 import Resizable from 'react-resizable-box';
 
 import FileTree from 'react-filetree-electron';
+import { selectedFileType } from '../actions/filetree-actions';
 
 export default class Filetree extends Component {
   props: {
     username: string,
-    loadInEditor:
-    (
-      selectedFile: string,
+    loadInEditor: (
+      selectedFile: selectedFileType,
       currentOpenFiles: Array<string>,
-      currentEditorValues: Array<string>,
-      selectedFileIndex: number
+      currentEditorValues: Array<string>
     ) => void,
     dispatchGetUsername: () => void,
     path: string,
@@ -43,7 +42,7 @@ export default class Filetree extends Component {
         <FileTree
           directory={path}
           onFileClick={(selectedFile) => {
-            loadInEditor(selectedFile, currentOpenFiles, currentEditorValues, selectedFileIndex);
+            loadInEditor(selectedFile, currentOpenFiles, currentEditorValues);
           }}
           currentBranch={currentBranch}
         />
