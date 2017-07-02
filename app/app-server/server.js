@@ -51,3 +51,7 @@ ipcRenderer.on('xmit-file', (event, fileContents) => {
 ipcRenderer.on('editor-change', (event, editorValue) => {
   io.emit('editorChanges', editorValue);
 });
+
+ipcRenderer.on('xmit-tree', (event, tree) => {
+  io.emit('treeChanges', tree);
+});

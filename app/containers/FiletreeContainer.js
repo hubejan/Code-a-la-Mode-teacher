@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import Filetree from '../components/Filetree';
 import * as FiletreeActions from '../actions/filetree-actions';
-import * as UserRepositoriesActions from '../actions/userrepositories-actions';
-
+// import * as UserRepositoriesActions from '../actions/userrepositories-actions';
+// dont need username passed down
 function mapStateToProps(state) {
   return {
     username: state.filetree.username,

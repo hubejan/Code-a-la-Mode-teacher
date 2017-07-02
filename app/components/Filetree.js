@@ -2,13 +2,11 @@
 import React, { Component } from 'react';
 import Resizable from 'react-resizable-box';
 
-import FileTree from 'react-filetree-electron';
+import ElectronTree from '../containers/ElectronTreeContainer';
 
 export default class Filetree extends Component {
   props: {
-    username: string,
     loadInEditor: () => void,
-    dispatchGetUsername: () => void,
     path: string
   };
 
@@ -21,7 +19,7 @@ export default class Filetree extends Component {
     const { loadInEditor, path } = this.props;
     return (
       <Resizable width={'100%'} height={'100%'}>
-        <FileTree directory={path} onFileClick={loadInEditor} />
+        <ElectronTree directory={'/Users/jchoe/documents'} onFileClick={loadInEditor} />
       </Resizable>
     );
   }

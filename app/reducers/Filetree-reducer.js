@@ -1,17 +1,20 @@
 // @flow
-import { GOT_USERNAME } from '../actions/filetree-actions';
+import { GOT_USERNAME, FILETREE_CHANGE} from '../actions/filetree-actions';
 
 export type filetreeStateType = {
-  username: string
+  username: string,
+  filetree: Object[]
 };
 
 type actionType = {
   type: string,
-  username?: string
+  username?: string,
+  filetree?: Object[]
 };
 
 const defaultFiletreeState = {
-  username: ''
+  username: '',
+  filetree: []
 };
 
 export default function filetree(state: filetreeStateType = defaultFiletreeState,
@@ -19,6 +22,8 @@ export default function filetree(state: filetreeStateType = defaultFiletreeState
   switch (action.type) {
     case GOT_USERNAME:
       return { ...state, username: action.username };
+    case FILETREE_CHANGE:
+      return { ...state, filetree: action.filetree };
     default:
       return state;
   }
