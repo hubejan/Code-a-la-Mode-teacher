@@ -11,6 +11,10 @@ import AceEditor from 'react-ace';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Tabs, Tab } from 'material-ui/Tabs';
 
+// Required to get Material-UI tabs working
+const injectTapEventPlugin = require('react-tap-event-plugin');
+injectTapEventPlugin();
+
 import 'brace/mode/javascript';
 import 'brace/theme/solarized_dark';
 import 'brace/ext/searchbox';
@@ -40,7 +44,8 @@ class Editor extends Component {
     changeEditor: () => void,
     storageLogin: () => Object,
     currentOpenFiles: Array<string>,
-    selectedFileIndex: number
+    selectedFileIndex: number,
+    loadFileFromTab: () => void
   }
 
   componentWillMount() {
@@ -54,7 +59,7 @@ class Editor extends Component {
   }
 
   render() {
-    const { changeEditor, contents, currentOpenFiles, selectedFileIndex, repositoryPath } = this.props;
+    const { changeEditor, contents, currentOpenFiles, selectedFileIndex, repositoryPath, loadFileFromTab } = this.props;
 
     return (
       <Flexbox flexDirection="row" minHeight="100vh" flexWrap="wrap" alignContent="flex-start">
@@ -75,11 +80,13 @@ class Editor extends Component {
           <MuiThemeProvider>
             <Tabs>
               {
-                currentOpenFiles && currentOpenFiles.map((filePath) => (
+                currentOpenFiles && currentOpenFiles.map((filePath, index) => (
                   <Tab
                     key={filePath}
                     label={getFileName(filePath)}
-                    onClick={(e) => console.dir(e)}
+                    value={index}
+                    filePath={filePath}
+                    onActive={(tab) => loadFileFromTab(tab.props.filePath, currentOpenFiles, contents)} // Need to change selectedFileIndex
                   />
                 ))
               }
@@ -101,6 +108,8 @@ class Editor extends Component {
               height={'100%'}
               width={'100%'}
               fontSize={15}
+              // Change the contents array, use index
+              // of currently selected file
               onChange={changeEditor}
               name="UNIQUE_ID_OF_DIV"
               editorProps={{ $blockScrolling: true }}
