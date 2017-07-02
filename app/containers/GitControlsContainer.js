@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 
 import GitControls from '../components/GitControls';
 import * as GitControlsActions from '../actions/gitcontrols-actions';
-// import { loadLesson, getNextBranch } from '../actions/lessonsession-actions';
 import * as LessonSessionActions from '../actions/lessonsession-actions';
 
 function mapStateToProps(state) {
