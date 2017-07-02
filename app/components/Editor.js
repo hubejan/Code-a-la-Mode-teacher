@@ -78,15 +78,15 @@ class Editor extends Component {
           </Link>
           <GitControlsContainer />
           <MuiThemeProvider>
-            <Tabs>
+            <Tabs value={selectedFileIndex} >
               {
                 currentOpenFiles && currentOpenFiles.map((filePath, index) => (
                   <Tab
                     key={filePath}
                     label={getFileName(filePath)}
                     value={index}
-                    filePath={filePath}
-                    onActive={(tab) => loadFileFromTab(tab.props.filePath, currentOpenFiles, contents)} // Need to change selectedFileIndex
+                    id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
+                    onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
                   />
                 ))
               }
@@ -108,8 +108,6 @@ class Editor extends Component {
               height={'100%'}
               width={'100%'}
               fontSize={15}
-              // Change the contents array, use index
-              // of currently selected file
               onChange={(newValue, event) => {changeEditor(newValue, selectedFileIndex, contents)}}
               name="UNIQUE_ID_OF_DIV"
               editorProps={{ $blockScrolling: true }}
