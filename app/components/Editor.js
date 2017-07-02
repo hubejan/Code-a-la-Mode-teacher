@@ -45,7 +45,8 @@ class Editor extends Component {
 
   componentWillMount() {
     const token = window.localStorage.getItem('token');
-    if (token) return this.props.storageLogin(token);
+    const username = window.localStorage.getItem('username');
+    if (token && username) return this.props.storageLogin(token, username);
   }
 
   componentWillReceiveProps(nextProps: nextPropsType) {
