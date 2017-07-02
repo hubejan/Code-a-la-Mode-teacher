@@ -18,6 +18,7 @@ render(
 );
 
 ipcRenderer.on('newTicket', (event, ticket) => {
+  // for now, only do this if a lesson is actually loaded
   if (store.getState().lessonSession.lessonInfo.repositoryPath) {
     saveCommitAndBranch(ticket.question);
   }

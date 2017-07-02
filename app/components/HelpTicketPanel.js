@@ -7,17 +7,18 @@ import type { ticketsStateType } from '../reducers/tickets-reducer';
 class HelpTicketPanel extends Component {
   props: {
     ticketsState: ticketsStateType,
-    addTicket: () => void,
     selectTicket: () => void,
     removeTicket: () => void
   };
 
   render() {
-    const { selectedTicket, ...tickets } = this.props.ticketsState;
+    const { allTickets } = this.props.ticketsState;
     return (
       <div>
         <h4>HelpTicketPanel Component</h4>
-        { Object.keys(tickets).map(id => <HelpTicket key={id} ticket={tickets[id]} />) }
+        { allTickets.map(ticket =>
+          <HelpTicket key={ticket.question} ticket={ticket} />)
+        }
       </div>
     );
   }
