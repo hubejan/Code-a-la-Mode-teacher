@@ -15,7 +15,7 @@ const saveToDisk = () => {
   const editorInfo = store.getState().editor;
   const editedPaths = editorInfo.currentOpenFiles;
   const editedContents = editorInfo.contents;
-  const savedFiles = editedPaths.map((path, i) => fsWrite(path, editedContents[i]));
+  const savedFiles = editedPaths.map((path, i) => fsWrite(editedPaths[i], editedContents[i]));
   return Promise.all(savedFiles);
 };
 
@@ -24,10 +24,12 @@ const saveToDisk = () => {
 export const saveCommitAndBranch = (question) => {
   const git = simplegit(store.getState().lessonSession.lessonInfo.repositoryPath);
   return saveToDisk()
-  .then(() => git.commit(`question: ${question}`,
-    git.branch([branchify(question)]),
-      store.dispatch(add(question))
-    ))
-  .catch(console.error.bind(console));
+  .then(() => {
+    git.add('./*')
+       .commit(`question: ${question}`)
+       .branch([branchify(question)]);
+    return store.dispatch(add(question));
+  })
+  .catch(console.error);
 };
 
