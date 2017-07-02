@@ -16,9 +16,7 @@ export function changeEditor(contents: Array<string>) {
 }
 
 // Load a previously opened file
-// TODO: Change loadFileFromTab to loadFile, make this function loadFileFromTree
-
-export const loadFile = (selectedFile: selectedFileType, currentOpenFiles: Array<string>, currentEditorValues: Array<string>) => (dispatch: *) => {
+export const loadFileFromTree = (selectedFile: selectedFileType, currentOpenFiles: Array<string>, currentEditorValues: Array<string>) => (dispatch: *) => {
   const newEditorState = {
     contents: currentEditorValues, // Array of file contents still the same
     currentOpenFiles: currentOpenFiles, // Array of opened files still the same
@@ -26,7 +24,7 @@ export const loadFile = (selectedFile: selectedFileType, currentOpenFiles: Array
   };
 
   dispatch({ type: LOAD_OPENED_FILE, newEditorState });
-}
+};
 
 // Load a file from the tab (only has reference to filePath)
 // TODO: This should be the generic loading file function

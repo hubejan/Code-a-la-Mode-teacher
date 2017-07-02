@@ -1,12 +1,14 @@
 // @flow
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { ipcRenderer } from 'electron';
+
 import FiletreeContainer from '../containers/FiletreeContainer';
 import GitControlsContainer from '../containers/GitControlsContainer';
 import EditorContainer from '../containers/EditorContainer';
 import UserRepositoriesContainer from '../containers/UserRepositoriesContainer';
-import { ipcRenderer } from 'electron';
-import type { lessonSessionStateType } from '../reducers/lessonSession-reducer';
+
+import type { lessonSessionStateType, lessonInfoType } from '../reducers/lessonSession-reducer';
 
 
 class LessonSession extends Component {
@@ -15,7 +17,7 @@ class LessonSession extends Component {
     userRepositories: [],
     loadUserRepos: () => void,
     selectedRepository: {},
-    lessonInfo: Object
+    lessonInfo: lessonInfoType
   };
 
   render() {

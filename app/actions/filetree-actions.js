@@ -2,7 +2,7 @@ import Username from 'username';
 import { ipcRenderer } from 'electron';
 
 import { readFile } from '../utils/FileSystemUtils';
-import { loadFile } from './editor-actions';
+import { loadFileFromTree } from './editor-actions';
 
 export const GOT_USERNAME = 'GOT_USERNAME';
 export const OPEN_FILE = 'OPEN_FILE';
@@ -33,9 +33,9 @@ export function loadNewFile(selectedFile: selectedFileType, currentOpenFiles: Ar
   return (dispatch: (action: actionType) => void) => {
     const loadedFilePath = selectedFile.filePath;
 
-    // Load an already-opened file (from tree)
+    // Load an already-opened file
     if (currentOpenFiles.includes(loadedFilePath)) {
-      return dispatch(loadFile.apply(null, arguments));
+      return dispatch(loadFileFromTree.apply(null, arguments));
     }
 
     // Opening a new file, load it into the Editor
