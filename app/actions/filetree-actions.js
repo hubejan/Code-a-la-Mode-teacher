@@ -1,6 +1,6 @@
 import Username from 'username';
-import { readFile } from '../utils/FileSystemUtils';
 import { ipcRenderer } from 'electron';
+import { readFile } from '../utils/FileSystemUtils';
 
 export const GOT_USERNAME = 'GOT_USERNAME';
 export const OPEN_FILE = 'OPEN_FILE';
@@ -11,7 +11,7 @@ type actionType = {
 };
 
 export const gotUsername = username => ({ type: GOT_USERNAME, username });
-export const openFile = contents => ({ type: OPEN_FILE, contents });
+export const openFile = newEditorState => ({ type: OPEN_FILE, newEditorState });
 export const xmitFile = contents => ({ type: XMIT_FILE, contents });
 
 
@@ -21,12 +21,31 @@ export function getUsername() {
       .catch(console.error);
   };
 }
-export function loadFile(selectedFile) {
+
+export function loadFile(selectedFile, currentOpenFiles, currentEditorValues, selectedFileIndex) {
   return (dispatch: (action: actionType) => void) => {
-    readFile(selectedFile.filePath).then(contents => {
-      const text = contents.toString();
-      return dispatch(openFile(text));
-    })
+    const loadedFilePath = selectedFile.filePath;
+
+    // Do not try to load a file already inside the Editor
+    if (currentOpenFiles.includes(loadedFilePath)) {
+      // ADD CODE TO DISPATCH ACTION TO OPEN THE UPDATED VALUE OF THE FILE
+      return;
+    }
+
+    console.log(`SELECTED FILE INDEX BEFORE: ${selectedFileIndex} AFTER ${selectedFileIndex + 1}`);
+    // Opening a new file, load it into the Editor
+    readFile(selectedFile.filePath)
+      .then(contents => {
+        const allOpenFiles = currentOpenFiles.concat(loadedFilePath);
+        const text = contents.toString();
+        const newEditorValues = currentEditorValues.concat([text]);
+        const newEditorState = {
+          contents: newEditorValues,
+          currentOpenFiles: allOpenFiles,
+          selectedFileIndex: selectedFileIndex + 1
+        };
+        return dispatch(openFile(newEditorState));
+      })
       .catch(console.error);
   };
 }

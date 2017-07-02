@@ -6,7 +6,7 @@ export default class UserRepositories extends Component {
     repository: Object,
     openRepoLink: () => void,
     selectRepository: () => void,
-    loadLesson: () => void,
+    loadLesson: () => void
   };
 
   render() {

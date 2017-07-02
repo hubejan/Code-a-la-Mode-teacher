@@ -1,5 +1,5 @@
-// flow-typed signature: 5ab2422f34a4867000a06e5093ff423a
-// flow-typed version: a46da1b82a/express_v4.x.x/flow_>=v0.32.x
+// flow-typed signature: 78eec0fbe090057bc3c26451d513b4ce
+// flow-typed version: e7aa3314da/express_v4.x.x/flow_>=v0.32.x
 
 import type { Server } from 'http';
 
@@ -173,13 +173,13 @@ declare class express$Application extends express$Router mixins events$EventEmit
 declare module 'express' {
   declare function serveStatic(root: string, options?: Object): express$Middleware;
 
-  declare type RouterOptions = express$RouterOptions;
-  declare type CookieOptions = express$CookieOptions;
-  declare type Middleware = express$Middleware;
-  declare type NextFunction = express$NextFunction;
-  declare type $Response = express$Response;
-  declare type $Request = express$Request;
-  declare type $Application = express$Application;
+  declare export type RouterOptions = express$RouterOptions;
+  declare export type CookieOptions = express$CookieOptions;
+  declare export type Middleware = express$Middleware;
+  declare export type NextFunction = express$NextFunction;
+  declare export type $Response = express$Response;
+  declare export type $Request = express$Request;
+  declare export type $Application = express$Application;
 
   declare module.exports: {
     (): express$Application, // If you try to call like a function, it will use this signature
