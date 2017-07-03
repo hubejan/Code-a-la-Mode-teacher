@@ -10,7 +10,7 @@ const GITHUB_API_ROOT = 'https://api.github.com';
 export const getUserRepositories = (userToken: string) => (dispatch: *) => {
   const config = {
     headers: {
-      Authorization: `token ${userToken}`,
+      Authorization: `token ${userToken}`
     },
     params: {
       affiliation: 'owner, collaborator',
@@ -21,10 +21,7 @@ export const getUserRepositories = (userToken: string) => (dispatch: *) => {
 
   axios.get(`${GITHUB_API_ROOT}/user/repos`, config)
     .then(userRepos => {
-      git
-        .exec(() => {
-          dispatch(loadUserRepos(userRepos.data));
-        });
+      dispatch(loadUserRepos(userRepos.data));
     })
     .catch(error => {
       console.error(error);

@@ -14,7 +14,7 @@ import type { lessonSessionStateType, lessonInfoType } from '../reducers/lessonS
 class LessonSession extends Component {
 
   props: {
-    userRepositories: [],
+    userRepositories: Array<Object>,
     loadUserRepos: () => void,
     selectedRepository: {},
     lessonInfo: lessonInfoType
@@ -26,11 +26,6 @@ class LessonSession extends Component {
     return (
       <div>
         <EditorContainer />
-
-        <UserRepositoriesContainer
-          repositories={userRepositories}
-          selectedRepository={selectedRepository}
-        />
       </div>
     );
   }

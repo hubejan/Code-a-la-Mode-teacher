@@ -1,6 +1,13 @@
+import { remote } from 'electron';
+import axios from 'axios';
+import fs from 'fs';
+
 import { lessonInfoType } from '../reducers/lessonSession-reducer';
+import { makeDirectory } from '../utils/FileSystemUtils';
 
 const git = require('simple-git');
+
+const GITHUB_API_ROOT = 'https://api.github.com';
 
 export const LOAD_USER_REPOS = 'LOAD_USER_REPOS';
 export const LOAD_LESSON = 'LOAD_LESSON';
@@ -16,7 +23,6 @@ export const loadUserRepos = (userRepositories: []) => (dispatch: *) => {
 export const loadAfterCloning = (lessonFilePath: string) => (dispatch: *) => {
   git(lessonFilePath)
     .branch((err, branchSummary) => {
-      console.log(branchSummary);
       const branchIndexArray = Object.keys(branchSummary.branches).map((branchName) => branchName);
 
       dispatch({
@@ -77,6 +83,34 @@ export const checkoutPreviousBranch = (lessonInfo: lessonInfoType) => (dispatch:
         });
       }
     });
+};
+
+export const createNewLesson = (event, newLessonName: string, userToken: string) => (dispatch: *) => {
+  event.preventDefault();
+  remote.dialog.showSaveDialog({ defaultPath: newLessonName }, (newLessonFilePath) => {
+    makeDirectory(newLessonFilePath)
+      .then((err) => {
+        if (err) {
+          console.error(`Failed to create direcotry: ${err}`);
+          return;
+        }
+        git(newLessonFilePath)
+          .init();
+      })
+      .then(() => {
+
+        const config = {
+          headers: {
+            Authorization: `token ${userToken}`,
+          }
+        };
+        axios.post(`${GITHUB_API_ROOT}/user/repos`, {
+          name: newLessonName,
+          gitignore_template: 'Node'
+        }, config);
+      })
+      .catch(error => console.error(error));
+  });
 };
 
 export const addBranch = (branch, branchName) => ({

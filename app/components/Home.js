@@ -29,6 +29,8 @@ export default class Home extends Component {
           <h2>Welcome back {this.props.username.split(' ')[0]}</h2>
           <Link to="/panelView">test the Question/History panel</Link>
           <br />
+          <Link to="/lessonInit">Start A Lesson</Link>
+          <br />
           <Link to="/editor">Editor</Link>
           <br />
         </div>

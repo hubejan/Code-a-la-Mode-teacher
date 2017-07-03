@@ -16,10 +16,7 @@ export default class UserRepositories extends Component {
     const { repositories, openRepoLink, loadLesson, selectRepository } = this.props;
 
     return (
-      <div
-        className={styles.container}
-      >
-        <h1>User Repositories</h1>
+      <div className={styles.container}>
         {
           repositories &&
           repositories.map(repository => (
