@@ -5,7 +5,8 @@ import {
   CHECKOUT_NEXT_BRANCH,
   CHECKOUT_PREVIOUS_BRANCH,
   CANNOT_CHECKOUT,
-  ADD_BRANCH
+  ADD_BRANCH,
+  CREATED_NEW_LESSON
 } from '../actions/lessonsession-actions';
 
 export type lessonInfoType = {
@@ -44,6 +45,8 @@ export default function lessonsession(state: lessonSessionStateType = defaultLes
   switch (action.type) {
     case LOAD_USER_REPOS:
       return { ...state, userRepositories: action.userRepositories };
+    case CREATED_NEW_LESSON:
+      return { ...state, lessonInfo: action.lessonInfo };
     case LOAD_LESSON:
       return { ...state, lessonInfo: action.lessonInfo };
     case CHECKOUT_NEXT_BRANCH: {

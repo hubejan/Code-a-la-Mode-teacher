@@ -23,7 +23,7 @@ export default class LessonInit extends Component {
   }
 
   render() {
-    const { userRepositories, lessonInfo, createNewLesson, token } = this.props;
+    const { userRepositories, lessonInfo, createNewLesson, token, history } = this.props;
 
     // TODO: Re-route to Editor after creating/selecting a lesson
     return (
@@ -34,7 +34,9 @@ export default class LessonInit extends Component {
         </Link>
         <div>
           <h1>Load from Local</h1>
-          <NewLessonFormContainer />
+          <NewLessonFormContainer
+            history={history} // Passing this so we can re-route to Editor, React-Router v4 I love you, but you're bringing me down...
+          />
         </div>
         <div>
           <h1>Load from Github</h1>
