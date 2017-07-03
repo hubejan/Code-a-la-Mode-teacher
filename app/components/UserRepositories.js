@@ -9,11 +9,10 @@ export default class UserRepositories extends Component {
     repositories: Array<Object>,
     openRepoLink: (repoLink: string, event: Object) => void,
     loadLesson: (repoLink: string) => void,
-    selectRepository: () => void
   };
 
   render() {
-    const { repositories, openRepoLink, loadLesson, selectRepository } = this.props;
+    const { repositories, openRepoLink, loadLesson } = this.props;
 
     return (
       <div className={styles.container}>
@@ -25,7 +24,6 @@ export default class UserRepositories extends Component {
               repository={repository}
               openRepoLink={openRepoLink}
               loadLesson={loadLesson}
-              selectRepository={selectRepository}
             />
           ))
         }

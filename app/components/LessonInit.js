@@ -12,7 +12,6 @@ import { lessonInfoType } from '../reducers/lessonSession-reducer';
 export default class LessonInit extends Component {
   props: {
     userRepositories: Array<Object>,
-    selectedRepository: {},
     lessonInfo: lessonInfoType,
     token: string,
     getUserRepositories: () => void,
@@ -24,7 +23,7 @@ export default class LessonInit extends Component {
   }
 
   render() {
-    const { userRepositories, selectedRepository, lessonInfo, createNewLesson, token } = this.props;
+    const { userRepositories, lessonInfo, createNewLesson, token } = this.props;
 
     // TODO: Re-route to Editor after creating/selecting a lesson
     return (
@@ -41,7 +40,6 @@ export default class LessonInit extends Component {
           <h1>Load from Github</h1>
           <UserRepositoriesContainer
             repositories={userRepositories}
-            selectedRepository={selectedRepository}
           />
         </div>
       </div>

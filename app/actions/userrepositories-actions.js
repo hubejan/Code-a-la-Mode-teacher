@@ -7,7 +7,6 @@ import { getFileName } from '../utils/file-functions';
 // Need to pass in relevant project directory during operations
 const git = require('simple-git');
 
-export const SELECT_REPOSITORY = 'SELECT_REPOSITORY';
 export const CLONED_REPOSITORY = 'CLONED_REPOSITORY';
 export const VIEW_REPOSITORY_LINK = 'VIEW_REPOSITORY_LINK';
 
@@ -35,9 +34,3 @@ export const loadLesson = (repoLink: string) => (dispatch: *) => {
       });
   });
 };
-
-
-export const selectRepository = (selectedRepository: Object) => (dispatch: *) => {
-  dispatch({ type: SELECT_REPOSITORY, selectedRepository });
-};
-
