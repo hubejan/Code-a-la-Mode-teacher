@@ -5,25 +5,33 @@ export default class GitControls extends Component {
 
   props: {
     token: string,
+    repositoryPath: string,
     checkoutNextBranch: () => void,
     checkoutPreviousBranch: () => void,
+    saveLesson: () => void,
     lessonInfo: lessonInfoType
   };
 
   render() {
     const { token,
+            repositoryPath,
             checkoutNextBranch,
             checkoutPreviousBranch,
-            lessonInfo } = this.props;
+            lessonInfo,
+            saveLesson } = this.props;
 
     return (
       <div>
         <button onClick={() => { checkoutPreviousBranch(lessonInfo); }} >
-          Previous branch
+          Previous Branch
         </button>
 
         <button onClick={() => { checkoutNextBranch(lessonInfo); }} >
-          Next branch
+          Next Branch
+        </button>
+
+        <button onClick={() => { saveLesson(repositoryPath, ); }} >
+          Save Lesson
         </button>
       </div>
     );

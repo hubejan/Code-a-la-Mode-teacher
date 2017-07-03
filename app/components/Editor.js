@@ -64,14 +64,6 @@ class Editor extends Component {
     return (
       <Flexbox flexDirection="row" minHeight="100vh" flexWrap="wrap" alignContent="flex-start">
 
-        { /* Editor tab bar */ }
-
-        {
-          /*
-            PLACE HOLDER FOR COMMENTS
-          */
-        }
-
         <Flexbox element="header" height="70px" width="100vw">
           <Link to="/">
             <i className="fa fa-arrow-left fa-3x" />

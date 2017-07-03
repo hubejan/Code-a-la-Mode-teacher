@@ -1,9 +1,9 @@
 import { remote } from 'electron';
 import axios from 'axios';
-import fs from 'fs';
+// import fs from 'fs';
 
 import { lessonInfoType } from '../reducers/lessonSession-reducer';
-import { makeDirectory } from '../utils/FileSystemUtils';
+import { makeDirectory, writeFile } from '../utils/FileSystemUtils';
 
 const git = require('simple-git');
 
@@ -118,3 +118,7 @@ export const addBranch = (branch, branchName) => ({
   branch,
   branchName
 });
+
+export const saveLesson = () => (dispatch: *) => {
+
+};
