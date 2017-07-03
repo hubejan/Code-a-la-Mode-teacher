@@ -30,24 +30,27 @@ export default class ElectronTree extends Component {
     this.onFileClick = this.onFileClick.bind(this);
   }
 
-  componentDidMount() {
-    return this.props.directory && this.props.directory.length &&
-      getAllFiles(this.props.directory)
-        .then(files => {
-          if (!this.props.isChildFiletree) this.props.dispatchSetFiletree(files);
-          return this.setState({ files });
-        })
-        .catch(console.error);
-  }
-
-  componentWillReceiveProps({ directory }) {
-    return directory && getAllFiles(directory)
+  // componentDidMount() {
+  //   return this.props.directory && this.props.directory.length &&
+  //     getAllFiles(this.props.directory)
+  //       .then(files => {
+  //         console.log('didupdate got tree')
+  //         if (!this.props.isChildFiletree) this.props.dispatchSetFiletree(files);
+  //         return this.setState({ files });
+  //       })
+  //       .catch(console.error);
+  // }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.directory !== nextProps.directory) {
+    return nextProps.directory && getAllFiles(nextProps.directory)
       .then(files => {
+        console.log('willreceiveprops and got tree')
+        if (!this.props.isChildFiletree) this.props.dispatchSetFiletree(files);
         return this.setState({ files });
       })
       .catch(console.error);
+    }
   }
-
   setVisibility(filePath) {
     this.props.toggleVisibility(filePath);
   }

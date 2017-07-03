@@ -134,11 +134,12 @@ ipcMain.on('server-error', (event, arg) => {
 
 // Message received when editor changes
 ipcMain.on('editor-changes', (event, arg) => {
-  console.log('editor: ', arg);
+  // console.log('editor: ', arg);
   serverWindow.webContents.send('editor-change', arg);
 });
 // Transmitting file after receiving file request
 ipcMain.on('xmit-file', (event, arg) => {
+  console.log('xmit FILE: ', arg);
   serverWindow.webContents.send('xmit-file', arg);
 });
 ipcMain.on('newTicket', (event, ticket) => {
@@ -148,7 +149,7 @@ ipcMain.on('fileReq', (event, filePath) => {
   mainWindow.webContents.send('fileReq', filePath);
 });
 ipcMain.on('xmit-tree', (event, arg) => {
-  console.log('xmit tree: ', arg);
+  // console.log('xmit tree: ', arg);
 
   serverWindow.webContents.send('xmit-tree', arg);
 });
