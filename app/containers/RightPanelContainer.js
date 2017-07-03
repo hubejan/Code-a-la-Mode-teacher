@@ -49,7 +49,6 @@ class RightPanelContainer extends Component {
           panelView === 'HelpTickets'
             ? <HelpTicketPanel
               ticketsState={ticketsState}
-              addTicket={addTicket}
               selectTicket={selectTicket}
               removeTicket={removeTicket}
             />
