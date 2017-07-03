@@ -10,7 +10,7 @@ const GITHUB_API_ROOT = 'https://api.github.com';
 export const getUserRepositories = (userToken: string) => (dispatch: *) => {
   const config = {
     headers: {
-      Authorization: `token ${userToken}`,
+      Authorization: `token ${userToken}`
     },
     params: {
       affiliation: 'owner, collaborator',

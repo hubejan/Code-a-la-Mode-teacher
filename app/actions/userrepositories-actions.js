@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { shell, remote } from 'electron';
 import { loadAfterCloning } from './lessonsession-actions';
+import { getFileName } from '../utils/file-functions';
 
 // Defaults to current directory
 // Need to pass in relevant project directory during operations
@@ -23,6 +24,7 @@ export const openRepoLink = (repoLink: string, event: Object) => (dispatch: *) =
 export const loadLesson = (repoLink: string) => (dispatch: *) => {
   remote.dialog.showSaveDialog({
     title: 'Save Repository',
+    defaultPath: getFileName(repoLink),
     properties: ['openDirectory']
   }, (localFilePath) => {
     if (localFilePath === undefined) return; // Cancelled operation

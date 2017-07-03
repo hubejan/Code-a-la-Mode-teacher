@@ -1,13 +1,8 @@
-const fs = require('fs');
 const Promise = require('bluebird');
 const fsp = Promise.promisifyAll(require('fs'));
 
 export const readFile = file => fsp.readFileAsync(file);
 
-export const writeFile = file => {
-  return fsp.writeFileAsync(file);
-};
+export const writeFile = file => fsp.writeFileAsync(file);
 
-export const makeDirectory = (path) => {
-  return fsp.mkdir(path);
-};
+export const makeDirectory = path => fsp.mkdirAsync(path);
