@@ -6,6 +6,7 @@ import * as LessonSessionActions from '../actions/lessonsession-actions';
 
 function mapStateToProps(state) {
   return {
+    // TODO: Figure out if we still need these
     userRepositories: state.lessonSession.userRepositories,
     selectedRepository: state.userRepositories.selectedRepository,
     lessonInfo: state.lessonSession.lessonInfo

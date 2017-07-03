@@ -1,5 +1,12 @@
 // @flow
-import { LOAD_USER_REPOS, LOAD_LESSON, CHECKOUT_NEXT_BRANCH, CHECKOUT_PREVIOUS_BRANCH, CANNOT_CHECKOUT } from '../actions/lessonsession-actions';
+import {
+  LOAD_USER_REPOS,
+  LOAD_LESSON,
+  CHECKOUT_NEXT_BRANCH,
+  CHECKOUT_PREVIOUS_BRANCH,
+  CANNOT_CHECKOUT,
+  ADD_BRANCH
+} from '../actions/lessonsession-actions';
 
 export type lessonInfoType = {
   branches: {},
@@ -57,6 +64,14 @@ export default function lessonsession(state: lessonSessionStateType = defaultLes
     }
     case CANNOT_CHECKOUT:
       return state;
+    case ADD_BRANCH: {
+      const newBranchIncluded = {
+        ...state.lessonInfo,
+        branches: { ...state.lessonInfo.branches, [action.branchName]: action.branch },
+        branchNames: [...state.lessonInfo.branchNames, action.branchName]
+      };
+      return { ...state, lessonInfo: newBranchIncluded };
+    }
     default:
       return state;
   }

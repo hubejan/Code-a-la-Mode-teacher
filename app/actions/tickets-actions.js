@@ -8,31 +8,28 @@ export const REMOVE_TICKET = 'REMOVE_TICKET';
 // student-side will need some form of create-ticket
 // discussion: what kinds of props should a ticket have?
 export type ticketType = {
-  id: number,
   question: string,
-  codeState?: string
+  takeSnapshot?: boolean
 };
 
-// actions set up such that tickets can be selected/removed by ID
-// should allow simple add/click/remove later on
-export function add(ticket: ticketType) {
+// may add a takeSnapshot? property to ticket later
+export function add(question: string) {
   return {
     type: ADD_TICKET,
-    id: ticket.id,
-    ticket
+    ticket: { question }
   };
 }
 
 export function select(ticket: ticketType) {
   return {
     type: SELECT_TICKET,
-    id: ticket.id
+    ticket
   };
 }
 
 export function remove(ticket: ticketType) {
   return {
     type: REMOVE_TICKET,
-    id: ticket.id
+    ticket
   };
 }

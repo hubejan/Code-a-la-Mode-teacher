@@ -134,7 +134,7 @@ ipcMain.on('server-error', (event, arg) => {
 
 // Message received when editor changes
 ipcMain.on('editor-changes', (event, arg) => {
-  // console.log('editor: ', arg);
+  console.log('editor: ', arg);
   serverWindow.webContents.send('editor-change', arg);
 });
 // Transmitting file after receiving file request

@@ -4,9 +4,9 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import Root from './containers/Root';
 import { configureStore, history } from './store/configureStore';
-import { add } from './actions/tickets-actions';
 import { reqAndXmitFile } from './actions/filetree-actions';
 import './app.global.css';
+import { saveCommitAndBranch } from './utils/gitHelpers';
 
 const store = configureStore();
 
@@ -18,16 +18,13 @@ render(
 );
 
 ipcRenderer.on('newTicket', (event, ticket) => {
-  // length temporary.. in reality if we want to open up a past lesson and see its
-  // tickets, we need some kind of time machine feature where upon lesson/repo
-  // fetch, all help tickets/branches are inserted into the
-  // ticket reducer in-order?
-  const id = Object.keys(store.getState().tickets).length;
-  const newTicket = { id, question: ticket.question }; // code/state later
-  store.dispatch(add(newTicket));
+  // for now, only do this if a lesson is actually loaded
+  if (store.getState().lessonSession.lessonInfo.repositoryPath) {
+    saveCommitAndBranch(ticket.question);
+  }
 });
 
-ipcRenderer.on('fileReq', (event, filePath) => reqAndXmitFile(filePath));
+ipcRenderer.on('fileReq', (event, filePath) => reqAndXmitFile(filePath, store.getState().lessonSession.lessonInfo.repositoryPath));
 
 if (module.hot) {
   module.hot.accept('./containers/Root', () => {
@@ -40,3 +37,5 @@ if (module.hot) {
     );
   });
 }
+
+export default store;

@@ -35,7 +35,8 @@ type nextPropsType = {
   repositoryPath: string,
   changeEditor: () => void,
   storageLogin: () => Object,
-  selectedFileIndex: number
+  selectedFileIndex: number,
+  currEditorVal?: string
 };
 
 class Editor extends Component {
@@ -46,7 +47,8 @@ class Editor extends Component {
     storageLogin: () => Object,
     currentOpenFiles: Array<string>,
     selectedFileIndex: number,
-    loadFileFromTab: () => void
+    loadFileFromTab: () => void,
+    currEditorVal?: string
   }
 
   componentWillMount() {
@@ -56,8 +58,8 @@ class Editor extends Component {
   }
 
   componentWillReceiveProps(nextProps: nextPropsType) {
-    console.log('nextprops', nextProps, 'contents', nextProps.contents[nextProps.selectedFileIndex])
-    ipcRenderer.send('editor-changes', nextProps.contents[nextProps.selectedFileIndex]);
+
+    ipcRenderer.send('editor-changes', nextProps.currEditorVal);
   }
 
   render() {
@@ -80,14 +82,14 @@ class Editor extends Component {
           </Link>
           <GitControlsContainer />
           <MuiThemeProvider>
-            <Tabs>
+            <Tabs value={selectedFileIndex} >
               {
                 currentOpenFiles && currentOpenFiles.map((filePath, index) => (
                   <Tab
                     key={filePath}
                     label={getFileName(filePath)}
                     value={index}
-                    id={filePath}
+                    id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
                     onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
                   />
                 ))
@@ -110,11 +112,7 @@ class Editor extends Component {
               height={'100%'}
               width={'100%'}
               fontSize={15}
-              // Change the contents array, use index
-              // of currently selected file
-              onChange={(newValue, event) => {
-                return changeEditor(newValue, selectedFileIndex, contents)
-              }}
+              onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
               name="UNIQUE_ID_OF_DIV"
               editorProps={{ $blockScrolling: true }}
               showPrintMargin={false}

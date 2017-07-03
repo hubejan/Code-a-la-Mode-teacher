@@ -10,6 +10,7 @@ import gitControls from './gitcontrols-reducer';
 import lessonSession from './lessonSession-reducer';
 import userRepositories from './userRepositories-reducer';
 import electronTree from './electron-tree-reducer';
+import newLessonForm from './newLessonForm-reducer';
 
 const rootReducer = combineReducers({
   router,
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   gitControls,
   lessonSession,
   userRepositories,
-  electronTree
+  electronTree,
+  newLessonForm
 });
 
 export default rootReducer;

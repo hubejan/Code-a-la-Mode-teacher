@@ -58,9 +58,11 @@ export function loadNewFile(selectedFile: selectedFileType, currentOpenFiles: Ar
   };
 }
 
-export function reqAndXmitFile(filePath) {
-  console.log('ffff')
-  readFile(filePath)
+export function reqAndXmitFile(filePath, repositoryPath) {
+  // filePath is the path on the student's HTML5 FS, so something like //app/index.js,
+  // but on the teacher's HD, it's something like /Users/MyName/MyProject/app/index.js
+  // so need to concatenate the paths like so:
+  readFile(repositoryPath + filePath.slice(1))
     .then(contents => {
       const text = contents.toString();
       console.log('xmiting file: ', text);
