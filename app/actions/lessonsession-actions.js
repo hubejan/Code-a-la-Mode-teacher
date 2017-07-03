@@ -7,6 +7,7 @@ export const LOAD_LESSON = 'LOAD_LESSON';
 export const CHECKOUT_NEXT_BRANCH = 'CHECKOUT_NEXT_BRANCH';
 export const CHECKOUT_PREVIOUS_BRANCH = 'CHECKOUT_PREVIOUS_BRANCH';
 export const CANNOT_CHECKOUT = 'CANNOT_CHECKOUT';
+export const ADD_BRANCH = 'ADD_BRANCH';
 
 export const loadUserRepos = (userRepositories: []) => (dispatch: *) => {
   dispatch({ type: LOAD_USER_REPOS, userRepositories });
@@ -77,3 +78,9 @@ export const checkoutPreviousBranch = (lessonInfo: lessonInfoType) => (dispatch:
       }
     });
 };
+
+export const addBranch = (branch, branchName) => ({
+  type: ADD_BRANCH,
+  branch,
+  branchName
+});
