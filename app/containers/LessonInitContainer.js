@@ -8,7 +8,6 @@ import { createNewLesson } from '../actions/lessonsession-actions';
 function mapStateToProps(state) {
   return {
     userRepositories: state.lessonSession.userRepositories,
-    selectedRepository: state.userRepositories.selectedRepository,
     lessonInfo: state.lessonSession.lessonInfo,
     token: state.auth.token
   };
