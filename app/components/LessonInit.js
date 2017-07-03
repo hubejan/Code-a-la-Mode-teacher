@@ -41,6 +41,7 @@ export default class LessonInit extends Component {
         <div>
           <h1>Load from Github</h1>
           <UserRepositoriesContainer
+            history={history}
             repositories={userRepositories}
           />
         </div>

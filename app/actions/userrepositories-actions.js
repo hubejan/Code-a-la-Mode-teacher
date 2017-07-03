@@ -20,7 +20,7 @@ export const openRepoLink = (repoLink: string, event: Object) => (dispatch: *) =
   }
 };
 
-export const loadLesson = (repoLink: string) => (dispatch: *) => {
+export const loadLesson = (repoLink: string, history) => (dispatch: *) => {
   remote.dialog.showSaveDialog({
     title: 'Save Repository',
     defaultPath: getFileName(repoLink),
@@ -31,6 +31,7 @@ export const loadLesson = (repoLink: string) => (dispatch: *) => {
       .clone(repoLink, localFilePath, () => {
         dispatch({ type: CLONED_REPOSITORY, repositoryPath: localFilePath });
         dispatch(loadAfterCloning(localFilePath));
+        history.push('/editor');
       });
   });
 };

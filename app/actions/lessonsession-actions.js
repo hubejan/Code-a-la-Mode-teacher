@@ -114,7 +114,8 @@ export const createNewLesson = (event, newLessonName: string, userToken: string,
           return;
         }
         git(newLessonFilePath)
-          .init();
+          .init()
+          .commit('Initial commit');
       })
       .then(() => {
         const config = {
@@ -131,15 +132,18 @@ export const createNewLesson = (event, newLessonName: string, userToken: string,
         axios.post(`${GITHUB_API_ROOT}/user/repos`, data, config)
           .then((response) => {
             console.log(`Repository successfully created with response status ${response.status}`);
-            dispatch(getUserRepositories(userToken)); // Used to force re-render of user repos
+
+            git(newLessonFilePath)
+              .addRemote('origin', response.data.html_url)
+              .pull('origin', 'master')
+              .push('origin', 'master');
+
+            dispatch(loadAfterCreating(newLessonFilePath));
+            history.push('/editor');
           })
           .catch(error => {
             console.error(error);
           });
-      })
-      .then(() => {
-        dispatch(loadAfterCreating(newLessonFilePath));
-        history.push('/editor');
       })
       .catch(error => console.error(error));
   });
