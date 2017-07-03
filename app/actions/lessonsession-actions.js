@@ -4,6 +4,7 @@ import fs from 'fs';
 
 import { lessonInfoType } from '../reducers/lessonSession-reducer';
 import { makeDirectory } from '../utils/FileSystemUtils';
+import { getUserRepositories } from './gitcontrols-actions';
 
 const git = require('simple-git');
 
@@ -98,17 +99,29 @@ export const createNewLesson = (event, newLessonName: string, userToken: string)
           .init();
       })
       .then(() => {
-
         const config = {
           headers: {
             Authorization: `token ${userToken}`,
           }
         };
-        axios.post(`${GITHUB_API_ROOT}/user/repos`, {
+
+        const data = {
           name: newLessonName,
           gitignore_template: 'Node'
-        }, config);
+        };
+
+        axios.post(`${GITHUB_API_ROOT}/user/repos`, data, config)
+          .then((response) => {
+            console.log(`Repository successfully created with response status ${response.status}`);
+            dispatch(getUserRepositories(userToken)); // Used to force re-render of user repos
+          })
+          .catch(error => {
+            console.error(error);
+          });
       })
+      // .then(() => {
+      //   dispatch({ type: CREATED_NEW_LESSON, });
+      // })
       .catch(error => console.error(error));
   });
 };
