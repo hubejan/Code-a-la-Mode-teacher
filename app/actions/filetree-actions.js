@@ -65,14 +65,12 @@ export function reqAndXmitFile(filePath, repositoryPath) {
   readFile(repositoryPath + filePath.slice(1))
     .then(contents => {
       const text = contents.toString();
-      console.log('xmiting file: ', text);
       return ipcRenderer.send('xmit-file', text);
     })
     .catch(console.error);
 }
 
 export function setFiletree(tree: Object) {
-  console.log('before emit: ', tree);
   ipcRenderer.send('xmit-tree', tree);
   return filetreeChange(tree);
 }
