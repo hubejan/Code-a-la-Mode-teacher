@@ -5,12 +5,11 @@ export default class UserRepositories extends Component {
   props: {
     repository: Object,
     openRepoLink: () => void,
-    selectRepository: () => void,
     loadLesson: () => void
   };
 
   render() {
-    const { repository, openRepoLink, selectRepository, loadLesson } = this.props;
+    const { repository, openRepoLink, loadLesson, history } = this.props;
     const updatedAtObj = new Date(repository.updated_at);
     const updatedAtUTC = updatedAtObj.toUTCString();
     const updatedAtString = `Last updated: ${updatedAtUTC}`;
@@ -33,12 +32,9 @@ export default class UserRepositories extends Component {
         > View on Github </button>
         <button
           onClick={() => {
-            loadLesson(repository.html_url);
+            loadLesson(repository.html_url, history);
           }}
         > Load Lesson </button>
-        <button
-          onClick={() => { selectRepository(repository); }}
-        > Select </button>
       </div>
     );
   }

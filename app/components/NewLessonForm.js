@@ -10,13 +10,14 @@ export default class NewLessonForm extends Component {
   };
 
   render() {
-    const { token, newLessonName, createNewLesson, lessonNameChange } = this.props;
+    const { token, newLessonName, createNewLesson, lessonNameChange, history } = this.props;
 
     return (
-      <form onSubmit={(e) => { createNewLesson(e, newLessonName, token); }}>
+      <form
+        onSubmit={(e) => { createNewLesson(e, newLessonName, token, history); }}>
         <label>
           Lesson Name:
-          <input type="text" value={newLessonName} onChange={(e) => { lessonNameChange(e) }} />
+          <input type="text" value={newLessonName} onChange={(e) => { lessonNameChange(e); }} />
         </label>
         <button type="submit">Submit</button>
       </form>

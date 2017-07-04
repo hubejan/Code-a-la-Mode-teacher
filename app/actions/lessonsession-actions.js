@@ -4,6 +4,7 @@ import fs from 'fs';
 
 import { lessonInfoType } from '../reducers/lessonSession-reducer';
 import { makeDirectory } from '../utils/FileSystemUtils';
+import { getUserRepositories } from './gitcontrols-actions';
 
 const git = require('simple-git');
 
@@ -15,9 +16,27 @@ export const CHECKOUT_NEXT_BRANCH = 'CHECKOUT_NEXT_BRANCH';
 export const CHECKOUT_PREVIOUS_BRANCH = 'CHECKOUT_PREVIOUS_BRANCH';
 export const CANNOT_CHECKOUT = 'CANNOT_CHECKOUT';
 export const ADD_BRANCH = 'ADD_BRANCH';
+export const CREATED_NEW_LESSON = 'CREATED_NEW_LESSON';
 
 export const loadUserRepos = (userRepositories: []) => (dispatch: *) => {
   dispatch({ type: LOAD_USER_REPOS, userRepositories });
+};
+
+export const loadAfterCreating = (lessonFilePath: string) => (dispatch: *) => {
+  git(lessonFilePath)
+      .branch((err, branchSummary) => {
+        const branchIndexArray = Object.keys(branchSummary.branches).map((branchName) => branchName);
+
+        dispatch({
+          type: CREATED_NEW_LESSON,
+          lessonInfo: {
+            branches: branchSummary.branches,
+            branchIndex: 0,
+            repositoryPath: lessonFilePath,
+            branchNames: branchIndexArray,
+            currentBranch: branchSummary.current
+          } });
+      });
 };
 
 export const loadAfterCloning = (lessonFilePath: string) => (dispatch: *) => {
@@ -85,7 +104,7 @@ export const checkoutPreviousBranch = (lessonInfo: lessonInfoType) => (dispatch:
     });
 };
 
-export const createNewLesson = (event, newLessonName: string, userToken: string) => (dispatch: *) => {
+export const createNewLesson = (event, newLessonName: string, userToken: string, history) => (dispatch: *) => {
   event.preventDefault();
   remote.dialog.showSaveDialog({ defaultPath: newLessonName }, (newLessonFilePath) => {
     makeDirectory(newLessonFilePath)
@@ -95,19 +114,36 @@ export const createNewLesson = (event, newLessonName: string, userToken: string)
           return;
         }
         git(newLessonFilePath)
-          .init();
+          .init()
+          .commit('Initial commit');
       })
       .then(() => {
-
         const config = {
           headers: {
             Authorization: `token ${userToken}`,
           }
         };
-        axios.post(`${GITHUB_API_ROOT}/user/repos`, {
+
+        const data = {
           name: newLessonName,
           gitignore_template: 'Node'
-        }, config);
+        };
+
+        axios.post(`${GITHUB_API_ROOT}/user/repos`, data, config)
+          .then((response) => {
+            console.log(`Repository successfully created with response status ${response.status}`);
+
+            git(newLessonFilePath)
+              .addRemote('origin', response.data.html_url)
+              .pull('origin', 'master')
+              .push('origin', 'master');
+
+            dispatch(loadAfterCreating(newLessonFilePath));
+            history.push('/editor');
+          })
+          .catch(error => {
+            console.error(error);
+          });
       })
       .catch(error => console.error(error));
   });
