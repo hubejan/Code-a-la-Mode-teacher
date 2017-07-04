@@ -1,5 +1,5 @@
 // @flow
-import { GOT_USERNAME, FILETREE_CHANGE} from '../actions/filetree-actions';
+import { GOT_USERNAME, FILETREE_CHANGE } from '../actions/filetree-actions';
 
 export type filetreeStateType = {
   username: string,

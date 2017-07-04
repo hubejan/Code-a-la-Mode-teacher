@@ -40,6 +40,7 @@
     "promise/no-native": "off",
     "class-methods-use-this": "warn",
     "array-callback-return": "warn",
+    "object-curly-spacing": "warn",
     "react/sort-comp": ["warn", {
       "order": ["type-annotations", "static-methods", "lifecycle", "everything-else", "render"]
     }],
