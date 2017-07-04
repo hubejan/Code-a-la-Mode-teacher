@@ -34,7 +34,9 @@ type nextPropsType = {
   contents: Array<string>,
   repositoryPath: string,
   changeEditor: () => void,
-  storageLogin: () => Object
+  storageLogin: () => Object,
+  selectedFileIndex: number,
+  currEditorVal?: string
 };
 
 class Editor extends Component {
@@ -45,17 +47,19 @@ class Editor extends Component {
     storageLogin: () => Object,
     currentOpenFiles: Array<string>,
     selectedFileIndex: number,
-    loadFileFromTab: () => void
+    loadFileFromTab: () => void,
+    currEditorVal?: string
   }
 
   componentWillMount() {
     const token = window.localStorage.getItem('token');
     const username = window.localStorage.getItem('username');
-    if (token && username) return this.props.storageLogin(token, username);
+    if (token && username) return this.props.storageLogin(token, username); // eslint-ignore-line
   }
 
   componentWillReceiveProps(nextProps: nextPropsType) {
-    ipcRenderer.send('editor-changes', nextProps.contents);
+
+    ipcRenderer.send('editor-changes', nextProps.currEditorVal);
   }
 
   render() {
@@ -108,7 +112,7 @@ class Editor extends Component {
               height={'100%'}
               width={'100%'}
               fontSize={15}
-              onChange={(newValue, event) => {changeEditor(newValue, selectedFileIndex, contents)}}
+              onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
               name="UNIQUE_ID_OF_DIV"
               editorProps={{ $blockScrolling: true }}
               showPrintMargin={false}
