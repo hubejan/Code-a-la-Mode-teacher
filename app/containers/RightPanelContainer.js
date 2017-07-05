@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Tab, Tabs } from 'material-ui/Tabs';
 import HelpTicketPanel from '../components/HelpTicketPanel';
 import { add, select, remove } from '../actions/tickets-actions';
 import type { ticketsStateType } from '../reducers/tickets-reducer';
@@ -37,23 +38,22 @@ class RightPanelContainer extends Component {
   };
 
   render() {
-    const { panelView, ticketsState, addTicket, selectTicket, removeTicket } = this.props;
+    const { ticketsState, addTicket, selectTicket, removeTicket } = this.props;
 
     return (
       <div>
         <Link to="/">
           <i className="fa fa-arrow-left fa-3x" />
         </Link>
-        <h1>RIGHT PANEL CONTAINER</h1>
-        {
-          panelView === 'HelpTickets'
-            ? <HelpTicketPanel
+        <Tabs>
+          <Tab label="Help Tickets">
+            <HelpTicketPanel
               ticketsState={ticketsState}
               selectTicket={selectTicket}
               removeTicket={removeTicket}
             />
-            : null // fill with History later
-        }
+          </Tab>
+        </Tabs>
       </div>
     );
   }
