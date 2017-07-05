@@ -1,8 +1,10 @@
 import { remote } from 'electron';
 import axios from 'axios';
+import PromiseB from 'bluebird';
 
 import { lessonInfoType } from '../reducers/lessonSession-reducer';
 import { makeDirectory, writeFile } from '../utils/FileSystemUtils';
+import { getLastFromPath } from '../utils/file-functions';
 
 import { clearEditorState } from './editor-actions';
 
@@ -24,38 +26,70 @@ export const loadUserRepos = (userRepositories: []) => (dispatch: *) => {
 };
 
 export const loadAfterCreating = (lessonFilePath: string) => (dispatch: *) => {
-  git(lessonFilePath)
-      .branch((err, branchSummary) => {
-        const branchIndexArray = Object.keys(branchSummary.branches).map((branchName) => branchName);
 
-        dispatch({
-          type: CREATED_NEW_LESSON,
-          lessonInfo: {
-            branches: branchSummary.branches,
-            branchIndex: 0,
-            repositoryPath: lessonFilePath,
-            branchNames: branchIndexArray,
-            currentBranch: branchSummary.current,
-            headHashes: {}
-          } });
-      });
-};
-
-export const loadAfterCloning = (lessonFilePath: string) => (dispatch: *) => {
-  git(lessonFilePath)
+  const lessonGit = git(lessonFilePath);
+  lessonGit
     .branch((err, branchSummary) => {
-      const branchIndexArray = Object.keys(branchSummary.branches).map((branchName) => branchName);
+      const branchNames = Object.keys(branchSummary.branches).map((branchName) => branchName);
 
       dispatch({
-        type: LOAD_LESSON,
+        type: CREATED_NEW_LESSON,
         lessonInfo: {
           branches: branchSummary.branches,
           branchIndex: 0,
           repositoryPath: lessonFilePath,
-          branchNames: branchIndexArray,
+          branchNames: branchNames,
           currentBranch: branchSummary.current,
           headHashes: {}
         } });
+    });
+};
+
+
+export const loadAfterCloning = (lessonFilePath: string) => (dispatch: *) => {
+  const lessonGit = git(lessonFilePath);
+
+  lessonGit
+    .branch((err, branchSummary) => {
+      const promiseCheckout = PromiseB.promisify(lessonGit.checkoutBranch);
+      const checkoutPromises = [];
+      const branchNames = Object.keys(branchSummary.branches).map((branchName) => {
+        const localBranchName = getLastFromPath(branchName);
+
+        // Handling remote branches for local working copy
+        if (localBranchName !== 'master') {
+          checkoutPromises.push(
+            new Promise((resolve, reject) => {
+              lessonGit
+                .checkoutBranch(localBranchName, branchName, (err, success) => {
+                  // Not really using success, just care about err
+                  return err ? console.error(err) : localBranchName;
+                })
+                .exec(resolve());
+            }
+          ));
+        }
+        return localBranchName;
+      });
+
+      return PromiseB.all(checkoutPromises)
+        .then(() => {
+          lessonGit
+            .checkout('master')
+            .exec(() => {
+              dispatch({
+                type: LOAD_LESSON,
+                lessonInfo: {
+                  branches: branchSummary.branches,
+                  branchIndex: 0,
+                  repositoryPath: lessonFilePath,
+                  branchNames: branchNames,
+                  currentBranch: branchSummary.current,
+                  headHashes: {}
+                }
+              });
+            })
+        });
     });
 };
 
@@ -201,10 +235,4 @@ export const saveLesson = (currentOpenFiles: Array<string>, currentEditorValues:
     return writeFile(filePath, newFileContent);
   });
   return Promise.all(writePromises);
-    // .then(() => {
-    //   console.log('Done writing files');
-
-    //   // dispatch({ type: SAVED_FILES, PAYLOAD });
-    // })
-    // .catch(error => console.error(error));
 };

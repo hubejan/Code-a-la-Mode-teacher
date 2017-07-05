@@ -21,7 +21,7 @@ import 'brace/ext/searchbox';
 // import styles from './Home.css';
 import FiletreeContainer from '../containers/FiletreeContainer';
 import GitControlsContainer from '../containers/GitControlsContainer';
-import { getFileName } from '../utils/file-functions';
+import { getLastFromPath } from '../utils/file-functions';
 
 
 /*
@@ -88,30 +88,30 @@ class Editor extends Component {
               currentOpenFiles && currentOpenFiles.map((filePath, index) => (
                 <Tab
                   key={filePath}
-                  label={getFileName(filePath)}
+                  label={getLastFromPath(filePath)}
                   value={index}
                   id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
                   onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
                 >
-                    <AceEditor
-                      mode="javascript"
-                      // orientation="besides"
-                      theme="solarized_dark"
-                      value={contents[selectedFileIndex]}
-                      height={'100%'}
-                      width={'100%'}
-                      fontSize={15}
-                      onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
-                      name="UNIQUE_ID_OF_DIV"
-                      editorProps={{ $blockScrolling: true }}
-                      showPrintMargin={false}
-                      style={{ border: '1px solid gold' }}
-                      wrapEnabled={Boolean(true)}
-                    />
                 </Tab>
               ))
             }
           </Tabs>
+          <AceEditor
+            mode="javascript"
+            // orientation="besides"
+            theme="solarized_dark"
+            value={contents[selectedFileIndex]}
+            height={'100%'}
+            width={'100%'}
+            fontSize={15}
+            onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
+            name="UNIQUE_ID_OF_DIV"
+            editorProps={{ $blockScrolling: true }}
+            showPrintMargin={false}
+            style={{ border: '1px solid gold' }}
+            wrapEnabled={Boolean(true)}
+          />
         </Flexbox>
       </Flexbox>
     );
