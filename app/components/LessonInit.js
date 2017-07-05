@@ -23,7 +23,6 @@ const style = {
 export default class LessonInit extends Component {
   props: {
     userRepositories: Array<Object>,
-    selectedRepository: {},
     lessonInfo: lessonInfoType,
     token: string,
     getUserRepositories: () => void,
@@ -71,8 +70,8 @@ export default class LessonInit extends Component {
         </Dialog>
         <Flexbox>
           <UserRepositoriesContainer
+            history={history}
             repositories={userRepositories}
-            selectedRepository={selectedRepository}
           />
         </Flexbox>
       </div>

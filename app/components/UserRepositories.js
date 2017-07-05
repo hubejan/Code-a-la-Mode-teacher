@@ -18,11 +18,10 @@ export default class UserRepositories extends Component {
     repositories: Array<Object>,
     openRepoLink: (repoLink: string, event: Object) => void,
     loadLesson: (repoLink: string) => void,
-    selectRepository: () => void
   };
 
   render() {
-    const { repositories, openRepoLink, loadLesson, selectRepository } = this.props;
+    const { repositories, openRepoLink, loadLesson, history } = this.props;
 
     return (
       <Table fixedHeader={true} selectable={true} >
@@ -43,13 +42,12 @@ export default class UserRepositories extends Component {
           {
             repositories &&
             repositories.map(repository => (
-                <RepositoryPanel
-                  key={repository.id}
-                  repository={repository}
-                  openRepoLink={openRepoLink}
-                  loadLesson={loadLesson}
-                  selectRepository={selectRepository}
-                />
+              <RepositoryPanel
+                key={repository.id}
+                repository={repository}
+                openRepoLink={openRepoLink}
+                loadLesson={loadLesson}
+              />
             ))
           }
         </TableBody>

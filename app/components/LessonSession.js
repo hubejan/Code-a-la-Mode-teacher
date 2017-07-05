@@ -17,12 +17,11 @@ class LessonSession extends Component {
   props: {
     userRepositories: Array<Object>,
     loadUserRepos: () => void,
-    selectedRepository: {},
     lessonInfo: lessonInfoType
   };
 
   render() {
-    const { userRepositories, selectedRepository, lessonInfo } = this.props;
+    const { userRepositories, lessonInfo } = this.props;
 
     return (
       <Flexbox>
