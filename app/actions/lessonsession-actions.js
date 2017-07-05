@@ -26,7 +26,6 @@ export const loadUserRepos = (userRepositories: []) => (dispatch: *) => {
 };
 
 export const loadAfterCreating = (lessonFilePath: string) => (dispatch: *) => {
-
   const lessonGit = git(lessonFilePath);
   lessonGit
     .branch((err, branchSummary) => {
@@ -51,7 +50,6 @@ export const loadAfterCloning = (lessonFilePath: string) => (dispatch: *) => {
 
   lessonGit
     .branch((err, branchSummary) => {
-      const promiseCheckout = PromiseB.promisify(lessonGit.checkoutBranch);
       const checkoutPromises = [];
       const branchNames = Object.keys(branchSummary.branches).map((branchName) => {
         const localBranchName = getLastFromPath(branchName);
@@ -61,9 +59,9 @@ export const loadAfterCloning = (lessonFilePath: string) => (dispatch: *) => {
           checkoutPromises.push(
             new Promise((resolve, reject) => {
               lessonGit
-                .checkoutBranch(localBranchName, branchName, (err, success) => {
-                  // Not really using success, just care about err
-                  return err ? console.error(err) : localBranchName;
+                .checkoutBranch(localBranchName, branchName, (checkoutError, success) => {
+                  // Not really using success, just care about checkoutError
+                  return checkoutError ? console.error(checkoutError) : localBranchName;
                 })
                 .exec(resolve());
             }
@@ -88,12 +86,14 @@ export const loadAfterCloning = (lessonFilePath: string) => (dispatch: *) => {
                   headHashes: {}
                 }
               });
-            })
+            });
         });
     });
 };
 
-export const checkoutNextBranch = (lessonInfo: lessonInfoType, currentOpenFiles: Array<string>, currentEditorValues: Array<string>) => (dispatch: *) => {
+export const checkoutNextBranch = (lessonInfo: lessonInfoType,
+                                   currentOpenFiles: Array<string>,
+                                   currentEditorValues: Array<string>) => (dispatch: *) => {
   const currentIndex = lessonInfo.branchIndex;
   if (currentIndex === lessonInfo.branches.length) {
     dispatch({
@@ -135,7 +135,9 @@ export const checkoutNextBranch = (lessonInfo: lessonInfoType, currentOpenFiles:
     .catch(error => console.error(error));
 };
 
-export const checkoutPreviousBranch = (lessonInfo: lessonInfoType, currentOpenFiles: Array<string>, currentEditorValues: Array<string>) => (dispatch: *) => {
+export const checkoutPreviousBranch = (lessonInfo: lessonInfoType,
+                                        currentOpenFiles: Array<string>,
+                                        currentEditorValues: Array<string>) => (dispatch: *) => {
   const currentIndex = lessonInfo.branchIndex;
   if (currentIndex === 0) {
     dispatch({
@@ -175,37 +177,12 @@ export const checkoutPreviousBranch = (lessonInfo: lessonInfoType, currentOpenFi
         });
     })
     .catch(error => console.error(error));
-
-    //   git(lessonInfo.repositoryPath)
-    //     .stash('save', { '--include-untracked': null }) // git stash save --include-untracked
-    //     .checkout(previousBranchName, (err) => {
-    //       if (err) {
-    //         dispatch({ type: CANNOT_CHECKOUT });
-    //       } else {
-
-    //         // Going back to a commit that we did not want saved, reset softly
-    //         git(lessonInfo.repositoryPath)
-    //           .revparse((currentHEADHash) => {
-    //             if (lessonInfo.headHashes[previousBranchName] !== currentHEADHash) {
-    //               git(lessonInfo.repositoryPath)
-    //                 .reset('soft');
-    //             }
-    //           });
-
-    //         dispatch(clearEditorState());
-
-    //         dispatch({
-    //           type: CHECKOUT_PREVIOUS_BRANCH,
-    //           currentBranch: previousBranchName,
-    //           newBranchIndex: currentIndex - 1
-    //         });
-    //       }
-    //     });
-    // })
-    // .catch(error => console.error(error));
 };
 
-export const createNewLesson = (event, newLessonName: string, userToken: string, history) => (dispatch: *) => {
+export const createNewLesson = (event: Object,
+                                newLessonName: string,
+                                userToken: string,
+                                history) => (dispatch: *) => {
   event.preventDefault();
   remote.dialog.showSaveDialog({ defaultPath: newLessonName }, (newLessonFilePath) => {
     makeDirectory(newLessonFilePath)
@@ -256,7 +233,7 @@ export const addBranch = (branch, branchName) => ({
   branchName
 });
 
-export const saveLesson = (currentOpenFiles: Array<string>, currentEditorValues: Array<string>) => { //(dispatch: *) => {
+export const saveLesson = (currentOpenFiles: Array<string>, currentEditorValues: Array<string>) => {
   const writePromises = currentOpenFiles.map((filePath, index) => {
     const newFileContent = currentEditorValues[index];
     return writeFile(filePath, newFileContent);

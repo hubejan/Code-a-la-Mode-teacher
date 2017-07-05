@@ -32,7 +32,7 @@ const defaultLessionSessionState = {
     repositoryPath: '',
     branchNames: [],
     currentBranch: '',
-    headHashes: {} // hashes of the actual HEAD refs we want for each branch (need this for changing branches correctly)
+    headHashes: {}// hashes of the refs we want HEAD to point to on each branch
   }
 };
 
@@ -45,7 +45,8 @@ type actionType = {
   newHeadHash?: {}
 };
 
-export default function lessonsession(state: lessonSessionStateType = defaultLessionSessionState, action: actionType){
+export default function lessonsession(state: lessonSessionStateType = defaultLessionSessionState,
+                                      action: actionType) {
   switch (action.type) {
     case LOAD_USER_REPOS:
       return { ...state, userRepositories: action.userRepositories };
@@ -69,8 +70,9 @@ export default function lessonsession(state: lessonSessionStateType = defaultLes
       };
       return { ...state, lessonInfo: previousBranchInfo };
     }
-    case CANNOT_CHECKOUT:
+    case CANNOT_CHECKOUT: {
       return state;
+    }
     case ADD_BRANCH: {
       const newBranchIncluded = {
         ...state.lessonInfo,
@@ -79,12 +81,13 @@ export default function lessonsession(state: lessonSessionStateType = defaultLes
       };
       return { ...state, lessonInfo: newBranchIncluded };
     }
-    case ADD_HEAD_HASH:
+    case ADD_HEAD_HASH: {
       const newHeadIncluded = {
         ...state.lessonInfo,
         headHashes: Object.assign({}, state.lessonInfo.headHashes, action.newHeadHash)
       };
       return { ...state, lessonInfo: newHeadIncluded };
+    }
     default:
       return state;
   }

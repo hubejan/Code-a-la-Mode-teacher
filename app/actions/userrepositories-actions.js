@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { shell, remote } from 'electron';
 import { loadAfterCloning } from './lessonsession-actions';
 import { getLastFromPath } from '../utils/file-functions';
