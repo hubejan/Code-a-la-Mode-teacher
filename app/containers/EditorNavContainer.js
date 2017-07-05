@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import EditorNav from '../components/EditorNav';
 import { open } from '../actions/panelView-actions';
+import { teacherLogout } from '../actions/auth-actions';
 
 function mapStateToProps(state) {
   return {
@@ -12,6 +13,9 @@ function mapDispatchToProps(dispatch) {
   return {
     openPanel() {
       dispatch(open());
+    },
+    githubLogout() {
+      dispatch(teacherLogout());
     }
   };
 }

@@ -7,17 +7,20 @@ import IconButton from 'material-ui/IconButton';
 import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 
 import GitControlsContainer from '../containers/GitControlsContainer';
-
+import NavMenu from './CodingNavMenu';
 
 // need menu for back-to-lesson-page
 // need menu item for logout
 
-const EditorNav = ({ openPanel, allTickets }) => {
+const EditorNav = ({ openPanel, allTickets, githubLogout }) => {
   const unread = allTickets.filter(ticket => ticket.unread === true);
 
   return (
     <Flexbox element="header" height="70px" width="100vw">
-      <AppBar title="Code-a-la-Mode">
+      <AppBar
+        title="Code-a-la-Mode"
+        iconElementLeft={<NavMenu githubLogout={githubLogout}/>}
+      >
         <GitControlsContainer />
         <Badge
           badgeContent={unread.length}

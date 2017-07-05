@@ -35,7 +35,7 @@ function mapDispatchToProps(dispatch: *) {
 
 class RightPanelContainer extends Component {
   props: {
-    panelOpen: string,
+    panelOpen: boolean,
     ticketsState: ticketsStateType,
     selectTicket: () => void,
     removeTicket: () => void,
