@@ -10,6 +10,7 @@ import Flexbox from 'flexbox-react';
 const style = {
   margin: 12,
   borderRadius: 3,
+  color: 'white'
 };
 
 export default class GitControls extends Component {
@@ -36,7 +37,7 @@ export default class GitControls extends Component {
             currentEditorValues } = this.props;
 
     return (
-      <Flexbox flexDirection="row" justifyContent="flex-start" >
+      <Flexbox flexDirection="row" justifyContent="flex-start"  >
         <RaisedButton onClick={() => { checkoutPreviousBranch(lessonInfo, currentOpenFiles, currentEditorValues); }} style={style} alignSelf="center">
           Previous branch
         </RaisedButton>
@@ -48,6 +49,7 @@ export default class GitControls extends Component {
             .then(() => console.log('Saved!'))
             .catch(error => console.error(error));
         }}
+        style={style}
         >
           Save Lesson
         </RaisedButton>
