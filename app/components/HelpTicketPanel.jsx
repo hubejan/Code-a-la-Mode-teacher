@@ -1,8 +1,13 @@
 // @flow
 import React, { Component } from 'react';
 import HelpTicket from './HelpTicket';
-import type { ticketsStateType } from '../reducers/tickets-reducer';
 import Flexbox from 'flexbox-react';
+import Divider from 'material-ui/Divider';
+import type { ticketsStateType } from '../reducers/tickets-reducer';
+
+const dividerStyle = {
+  marginTop: '0px'
+};
 
 class HelpTicketPanel extends Component {
   props: {
@@ -15,8 +20,12 @@ class HelpTicketPanel extends Component {
     const { allTickets } = this.props.ticketsState;
     return (
       <Flexbox flexDirection="column" >
-        { allTickets.map(ticket =>
-          <HelpTicket key={ticket.question} ticket={ticket} />)
+        { allTickets.map(ticket => (
+          <div>
+            <HelpTicket key={ticket.question} ticket={ticket} />
+            <Divider style={dividerStyle} />
+          </div>
+          ))
         }
       </Flexbox>
     );
