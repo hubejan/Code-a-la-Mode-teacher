@@ -11,6 +11,7 @@ import SplitPane from 'react-split-pane';
 // Material-UI
 import { Tabs, Tab } from 'material-ui/Tabs';
 import AppBar from 'material-ui/AppBar';
+import Paper from 'material-ui/Paper';
 
 // Required to get Material-UI tabs working
 const injectTapEventPlugin = require('react-tap-event-plugin');
@@ -32,7 +33,9 @@ import colors from '../public/colors';
 
   const AceSplitEditor = require('react-ace').split;
 */
-
+const style = {
+  margin: 12,
+};
 const titleStyles = {
   // a cool font could be nice- using Bones default to match student for now
   position: 'absolute',
@@ -85,9 +88,9 @@ class Editor extends Component {
     const { changeEditor, contents, currentOpenFiles, selectedFileIndex, repositoryPath, loadFileFromTab } = this.props;
 
     return (
-      <Flexbox flexDirection="row" minHeight="100vh" minWidth="100vw" flexWrap="wrap" alignContent="flex-start">
-        <Flexbox width="100vw" alignItems="center" >
-          <AppBar style={{ width: '100%' }} showMenuIconButton={false}>
+      <Flexbox display="flex" flexDirection="row" flexGrow={1} flexWrap="wrap" marginTop="auto" marginBottom="auto" width="100vw" maxHeight="100vh">
+        <Flexbox width="100vw">
+          <AppBar style={{ width: '100%', height: "70px" }} showMenuIconButton={false} alignItems="center">
             <div style={titleStyles}>
               <span style={{ color: colors.cyan }}>Code </span>
               <span style={{ color: colors.green }}>à </span>
@@ -114,57 +117,60 @@ class Editor extends Component {
           </AppBar>
         </Flexbox>
 
-        <Flexbox flexGrow={1} style={{ border: '1px solid tomato', width: '12%', height: '90%' }}>
-          <FiletreeContainer />
-          <Flexbox>
-            <SplitPane split="vertical" defaultSize="50vw" onChange={this.handleResize} >
-              <AceEditor
-                value={contents[selectedFileIndex]}
-                mode="javascript"
-                theme="solarized_dark"
-                width={this.state.editorSize}
-                onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
-                wrapEnabled={true}
-                editorProps={{ $blockScrolling: Infinity }}
-                name="UNIQUE_ID_OF_DIV"
-                style={{ border: '1px solid silver' }}
-
-              />
-              <AceEditor
-                wrapEnabled={Boolean(true)}
-                onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
-                value={contents[selectedFileIndex]}
-                mode="javascript"
-                width={window.innerWidth - this.state.editorSize - 30}
-                theme="solarized_dark"
-                style={{ border: '1px solid gold' }}
-                editorProps={{ $blockScrolling: Infinity }
-                }
-              />
+        <Flexbox flexDirection="row" justifyContent="space-around">
+          <div position="relative">
+            <SplitPane split="vertical" defaultSize="240" onChange={this.handleResize} >
+              <Paper style={style} zDepth={2}>
+                <FiletreeContainer directory={'/'} socket={this.socket} />
+              </Paper>
+              <SplitPane split="vertical" defaultSize="500" onChange={this.handleResize} >
+                <Paper style={style} zDepth={2} >
+                  <AceEditor
+                    value={contents[selectedFileIndex]}
+                    mode="javascript"
+                    theme="solarized_dark"
+                    width={this.state.editorSize}
+                    onChange={this.editor1Change}
+                    name="UNIQUE_ID_OF_DIV"
+                    wrapEnabled={true}
+                    editorProps={{ $blockScrolling: Infinity }}
+                  />
+                </Paper>
+                <Paper style={style} zDepth={2} >
+                  <AceEditor
+                    wrapEnabled={Boolean(true)}
+                    onChange={this.editor2Change}
+                    mode="javascript"
+                    width={window.innerWidth - this.state.editorSize - 30}
+                    theme="solarized_dark"
+                    editorProps={{ $blockScrolling: Infinity }
+                    }
+                  />
+                </Paper>
+              </SplitPane>
             </SplitPane>
-          </Flexbox>
+          </div>
         </Flexbox>
-        {/*<Flexbox flexGrow={4} height={'90vh'} >
-          <AceEditor
-            mode="javascript"
-            // orientation="besides"
-            theme="solarized_dark"
-            value={contents[selectedFileIndex]}
-            height={'100%'}
-            width={'100%'}
-            fontSize={15}
-            onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
-            name="UNIQUE_ID_OF_DIV"
-            editorProps={{ $blockScrolling: true }}
-            showPrintMargin={false}
-            style={{ border: '1px solid gold' }}
-            wrapEnabled={Boolean(true)}
-          />
-        </Flexbox>*/}
-
       </Flexbox>
     );
   }
 }
 
 export default Editor;
+        // <Flexbox flexGrow={4} height={'90vh'} >
+        //   <AceEditor
+        //     mode="javascript"
+        //     // orientation="besides"
+        //     theme="solarized_dark"
+        //     value={contents[selectedFileIndex]}
+        //     height={'100%'}
+        //     width={'100%'}
+        //     fontSize={15}
+        //     onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
+        //     name="UNIQUE_ID_OF_DIV"
+        //     editorProps={{ $blockScrolling: true }}
+        //     showPrintMargin={false}
+        //     style={{ border: '1px solid gold' }}
+        //     wrapEnabled={Boolean(true)}
+        //   />
+        // </Flexbox>
