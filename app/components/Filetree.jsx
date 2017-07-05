@@ -42,7 +42,7 @@ export default class Filetree extends Component {
 
         { /* Giving currentBranch as a prop to the FileTree component to force a re-render */ }
         <ElectronTreeContainer
-          directory={'/users/jchoe/documents/react-router'}
+          directory={path}
           onFileClick={(selectedFile) => {
             loadInEditor(selectedFile, currentOpenFiles, currentEditorValues);
           }}

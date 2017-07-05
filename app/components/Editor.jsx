@@ -114,35 +114,35 @@ class Editor extends Component {
           </AppBar>
         </Flexbox>
 
-        <Flexbox flexGrow={1} style={{ border: '1px solid tomato', width: '5%', height: '90%' }}>
+        <Flexbox flexGrow={1} style={{ border: '1px solid tomato', width: '12%', height: '90%' }}>
           <FiletreeContainer />
-        </Flexbox>
-        <Flexbox>
-          <SplitPane split="vertical" defaultSize="50vw" onChange={this.handleResize} >
-            <AceEditor
-              value={contents[selectedFileIndex]}
-              mode="javascript"
-              theme="solarized_dark"
-              width={this.state.editorSize}
-              onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
-              wrapEnabled={true}
-              editorProps={{ $blockScrolling: Infinity }}
-              name="UNIQUE_ID_OF_DIV"
-              style={{ border: '1px solid silver' }}
+          <Flexbox>
+            <SplitPane split="vertical" defaultSize="50vw" onChange={this.handleResize} >
+              <AceEditor
+                value={contents[selectedFileIndex]}
+                mode="javascript"
+                theme="solarized_dark"
+                width={this.state.editorSize}
+                onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
+                wrapEnabled={true}
+                editorProps={{ $blockScrolling: Infinity }}
+                name="UNIQUE_ID_OF_DIV"
+                style={{ border: '1px solid silver' }}
 
-            />
-            <AceEditor
-              wrapEnabled={Boolean(true)}
-              onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
-              value={contents[selectedFileIndex]}
-              mode="javascript"
-              width={window.innerWidth - this.state.editorSize - 30}
-              theme="solarized_dark"
-              style={{ border: '1px solid gold' }}
-              editorProps={{ $blockScrolling: Infinity }
-              }
-            />
-          </SplitPane>
+              />
+              <AceEditor
+                wrapEnabled={Boolean(true)}
+                onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
+                value={contents[selectedFileIndex]}
+                mode="javascript"
+                width={window.innerWidth - this.state.editorSize - 30}
+                theme="solarized_dark"
+                style={{ border: '1px solid gold' }}
+                editorProps={{ $blockScrolling: Infinity }
+                }
+              />
+            </SplitPane>
+          </Flexbox>
         </Flexbox>
         {/*<Flexbox flexGrow={4} height={'90vh'} >
           <AceEditor
