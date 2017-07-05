@@ -7,13 +7,16 @@ import Flexbox from 'flexbox-react';
 import Resizable from 'react-resizable-box';
 import AceEditor from 'react-ace';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import AppBar from 'material-ui/AppBar';
+
 import 'brace/mode/javascript';
 import 'brace/theme/solarized_dark';
 import 'brace/ext/searchbox';
-import styles from './Home.css';
+// import styles from './Home.css';
 import FiletreeContainer from '../containers/FiletreeContainer';
 import GitControlsContainer from '../containers/GitControlsContainer';
 import { getFileName } from '../utils/file-functions';
+
 
 /*
   Error with Webpack and how split is exported out, using require instead
@@ -60,19 +63,16 @@ class Editor extends Component {
     return (
       <Flexbox flexDirection="row" minHeight="100vh" flexWrap="wrap" alignContent="flex-start">
 
-        { /* Editor tab bar */ }
-
-        {
-          /*
-            PLACE HOLDER FOR COMMENTS
-          */
-        }
+        <Flexbox element="header" height="70px" width="100vw">
+          <AppBar title="Code-a-la-Mode" iconClassNameRight="muidocs-icon-navigation-expand-more">
+            <Link to="/">
+              <i className="fa fa-arrow-left fa-3x" />
+            </Link>
+            <GitControlsContainer />
+          </AppBar>
+        </Flexbox>
 
         <Flexbox element="header" height="70px" width="100vw">
-          <Link to="/">
-            <i className="fa fa-arrow-left fa-3x" />
-          </Link>
-          <GitControlsContainer />
           <Tabs value={selectedFileIndex} >
             {
               currentOpenFiles && currentOpenFiles.map((filePath, index) => (

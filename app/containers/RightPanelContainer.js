@@ -6,6 +6,8 @@ import { Tab, Tabs } from 'material-ui/Tabs';
 import HelpTicketPanel from '../components/HelpTicketPanel';
 import { add, select, remove } from '../actions/tickets-actions';
 import type { ticketsStateType } from '../reducers/tickets-reducer';
+import Drawer from 'material-ui/Drawer';
+import AppBar from 'material-ui/AppBar';
 
 function mapStateToProps(state) {
   return {
@@ -38,10 +40,15 @@ class RightPanelContainer extends Component {
   };
 
   render() {
-    const { ticketsState, addTicket, selectTicket, removeTicket } = this.props;
+    const { panelView, ticketsState, addTicket, selectTicket, removeTicket, open } = this.props;
 
     return (
       <div>
+        <Drawer width={400} openSecondary={true} open={open} >
+          <AppBar title="AppBar" />
+        </Drawer>
+
+
         <Link to="/">
           <i className="fa fa-arrow-left fa-3x" />
         </Link>
