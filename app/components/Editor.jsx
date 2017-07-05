@@ -82,7 +82,11 @@ class Editor extends Component {
           <FiletreeContainer />
         </Flexbox>
 
-        <Flexbox flexGrow={4} height={'50vh'} width={'50vw'} >
+        <Flexbox element="header" height="70px" width="100vw">
+          <Link to="/">
+            <i className="fa fa-arrow-left fa-3x" />
+          </Link>
+          <GitControlsContainer />
           <Tabs value={selectedFileIndex} >
             {
               currentOpenFiles && currentOpenFiles.map((filePath, index) => (
@@ -92,27 +96,36 @@ class Editor extends Component {
                   value={index}
                   id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
                   onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
-                >
-                    <AceEditor
-                      mode="javascript"
-                      // orientation="besides"
-                      theme="solarized_dark"
-                      value={contents[selectedFileIndex]}
-                      height={'100%'}
-                      width={'100%'}
-                      fontSize={15}
-                      onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
-                      name="UNIQUE_ID_OF_DIV"
-                      editorProps={{ $blockScrolling: true }}
-                      showPrintMargin={false}
-                      style={{ border: '1px solid gold' }}
-                      wrapEnabled={Boolean(true)}
-                    />
-                </Tab>
+                />
               ))
             }
           </Tabs>
         </Flexbox>
+
+        <Flexbox flexGrow={1} style={{ border: '1px solid gold', width: '5%', height: '90%' }}>
+          <FiletreeContainer />
+        </Flexbox>
+
+        <Flexbox flexGrow={4} height={'90vh'} >
+          <Resizable width={'100%'} height={'100%'}>
+            <AceEditor
+              mode="javascript"
+              // orientation="besides"
+              theme="solarized_dark"
+              value={contents[selectedFileIndex]}
+              height={'100%'}
+              width={'100%'}
+              fontSize={15}
+              onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
+              name="UNIQUE_ID_OF_DIV"
+              editorProps={{ $blockScrolling: true }}
+              showPrintMargin={false}
+              style={{ border: '1px solid gold' }}
+              wrapEnabled={Boolean(true)}
+            />
+          </Resizable>
+        </Flexbox>
+
       </Flexbox>
     );
   }
