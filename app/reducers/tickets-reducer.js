@@ -11,7 +11,7 @@ export type ticketsStateType = {
 };
 
 type addAction = { type: 'ADD_TICKET', ticket: ticketType };
-type selectAction = { type: 'SELECT_TICKET' };
+type selectAction = { type: 'SELECT_TICKET', ticket: ticketType };
 type removeAction = { type: 'REMOVE_TICKET', ticket: ticketType };
 
 type ticketAction =
@@ -23,18 +23,15 @@ type ticketAction =
   // { type: string } would make our more specific action types less useful, but this
   // subtype will let us have nice action typing for different switch cases
 
-const test1 = {
-  question: 'Short question?'
-};
-
-const test2 = {
-  question: 'How can anyone even go far as to look like a long question?'
-};
-
 const defaultTickets = {
   selectedTicket: {},
-  allTickets: [test1, test2]
+  allTickets: []
 };
+
+const readOne = (tickets, thisTicket) => tickets.map(ticket =>
+  ticket.question === thisTicket.question
+  ? { question: ticket.question, unread: false }
+  : ticket);
 
 function ticketsReducer(state: ticketsStateType = defaultTickets, action: ticketAction) {
   switch (action.type) {
@@ -46,7 +43,10 @@ function ticketsReducer(state: ticketsStateType = defaultTickets, action: ticket
     case SELECT_TICKET:
       return {
         ...state,
-        selectedTicket: action.ticket
+        selectedTicket: action.ticket,
+        allTickets: action.ticket.unread === true
+          ? readOne(state.allTickets, action.ticket)
+          : [...state.allTickets]
       };
     case REMOVE_TICKET:
       return {

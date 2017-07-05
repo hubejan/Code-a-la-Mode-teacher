@@ -19,7 +19,7 @@ const EditorNav = ({ openPanel, allTickets, githubLogout }) => {
     <Flexbox element="header" height="70px" width="100vw">
       <AppBar
         title="Code-a-la-Mode"
-        iconElementLeft={<NavMenu githubLogout={githubLogout}/>}
+        iconElementLeft={<NavMenu githubLogout={githubLogout} />}
       >
         <GitControlsContainer />
         <Badge

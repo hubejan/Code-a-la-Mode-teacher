@@ -13,7 +13,6 @@ import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import HelpIcon from 'material-ui/svg-icons/action/help-outline';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 
 const stylePaper = {
@@ -25,34 +24,7 @@ const stylePaper = {
 };
 
 
-const tempStyle = {
-  position: 'absolute',
-  top: '30%',
-  left: '30%',
-  textAlign: 'left'
-};
-
-const btnStyle = {
-  position: 'right',
-  top: '2%',
-  left: '2%'
-};
-
-const style = {
-  margin: 14,
-};
-
 export default class Home extends Component {
-  props: {
-    username: string,
-    githubLogout: () => void
-  };
-
-
-  state = { open: false };
-
-  handleToggle = () => this.setState({ open: !this.state.open });
-
   render() {
     return (
       <Flexbox display="flex" flexDirection="column">

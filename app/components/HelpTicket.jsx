@@ -11,11 +11,10 @@ const cardBackground = {
   backgroundColor: warmBlack
 };
 
-
 const truncate = (question: string) => `${question.slice(0, 15)}...`;
 
-const HelpTicket = ({ ticket }: {ticket: ticketType}) => (
-  <Card>
+const HelpTicket = ({ ticket, selectTicket }) => (
+  <Card onExpandChange={() => selectTicket(ticket)}>
     <CardHeader
       style={cardBackground}
       title={ticket.question.length > 15 ? truncate(ticket.question) : ticket.question}

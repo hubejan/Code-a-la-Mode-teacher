@@ -22,8 +22,15 @@ class HelpTicketPanel extends Component {
       <Flexbox flexDirection="column" >
         { allTickets.map(ticket => (
           <div>
-            <HelpTicket key={ticket.question} ticket={ticket} />
-            <Divider style={dividerStyle} />
+            <HelpTicket
+              key={ticket.question}
+              ticket={ticket}
+              selectTicket={this.props.selectTicket}
+            />
+            <Divider
+              key={`div ${ticket.question}`}
+              style={dividerStyle}
+            />
           </div>
           ))
         }
