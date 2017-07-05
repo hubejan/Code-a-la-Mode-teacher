@@ -16,24 +16,40 @@ export default class GitControls extends Component {
 
   props: {
     token: string,
+    repositoryPath: string,
     checkoutNextBranch: () => void,
     checkoutPreviousBranch: () => void,
-    lessonInfo: lessonInfoType
+    saveLesson: () => void,
+    lessonInfo: lessonInfoType,
+    currentOpenFiles: Array<string>,
+    currentEditorValues: Array<string>
   };
 
   render() {
     const { token,
+            repositoryPath,
             checkoutNextBranch,
             checkoutPreviousBranch,
-            lessonInfo } = this.props;
+            lessonInfo,
+            saveLesson,
+            currentOpenFiles,
+            currentEditorValues } = this.props;
 
     return (
       <Flexbox flexDirection="row" justifyContent="flex-start" >
-        <RaisedButton onClick={() => { checkoutPreviousBranch(lessonInfo); }} style={style} alignSelf="center">
+        <RaisedButton onClick={() => { checkoutPreviousBranch(lessonInfo, currentOpenFiles, currentEditorValues); }} style={style} alignSelf="center">
           Previous branch
         </RaisedButton>
-        <RaisedButton onClick={() => { checkoutNextBranch(lessonInfo); }} style={style} alignSelf="center">
+        <RaisedButton onClick={() => { checkoutNextBranch(lessonInfo, currentOpenFiles, currentEditorValues); }} style={style} alignSelf="center">
           Next branch
+        </RaisedButton>
+        <RaisedButton onClick={() => {
+          saveLesson(currentOpenFiles, currentEditorValues)
+            .then(() => console.log('Saved!'))
+            .catch(error => console.error(error));
+        }}
+        >
+          Save Lesson
         </RaisedButton>
       </Flexbox>
     );

@@ -67,13 +67,8 @@ class Editor extends Component {
     const { changeEditor, contents, currentOpenFiles, selectedFileIndex, repositoryPath, loadFileFromTab } = this.props;
 
     return (
-      <Flexbox display="flex" minHeight="100vh" flexWrap="wrap" alignContent="flex-start">
-        { /* Editor tab bar */ }
-        {
-          /*
-            PLACE HOLDER FOR COMMENTS
-          */
-        }
+      <Flexbox flexDirection="row" minHeight="100vh" flexWrap="wrap" alignContent="flex-start">
+
         <Flexbox element="header" height="70px" width="100vw">
           <AppBar title="Code-a-la-Mode" iconClassNameRight="muidocs-icon-navigation-expand-more">
             <Link to="/">

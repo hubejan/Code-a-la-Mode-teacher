@@ -1,5 +1,5 @@
 // @flow
-import { EDITOR_CHANGE, LOAD_OPENED_FILE } from '../actions/editor-actions';
+import { EDITOR_CHANGE, LOAD_OPENED_FILE, CLEAR_EDITOR } from '../actions/editor-actions';
 import { OPEN_FILE } from '../actions/filetree-actions';
 
 export type editorStateType = {
@@ -31,6 +31,8 @@ export default function editorValue(state: editorStateType = defaultEditorState,
       return action.newEditorState;
     case LOAD_OPENED_FILE:
       return action.newEditorState;
+    case CLEAR_EDITOR:
+      return defaultEditorState;
     default:
       return state;
   }
