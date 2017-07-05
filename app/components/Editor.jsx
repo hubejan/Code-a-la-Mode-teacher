@@ -20,7 +20,7 @@ injectTapEventPlugin();
 import 'brace/mode/javascript';
 import 'brace/theme/solarized_dark';
 import 'brace/ext/searchbox';
-import styles from './Home.css';
+// import styles from './Home.css';
 import FiletreeContainer from '../containers/FiletreeContainer';
 import GitControlsContainer from '../containers/GitControlsContainer';
 import { getFileName } from '../utils/file-functions';
@@ -124,6 +124,19 @@ class Editor extends Component {
               }
             </Tabs>
       </MuiThemeProvider>
+          <Tabs value={selectedFileIndex} >
+            {
+              currentOpenFiles && currentOpenFiles.map((filePath, index) => (
+                <Tab
+                  key={filePath}
+                  label={getFileName(filePath)}
+                  value={index}
+                  id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
+                  onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
+                />
+              ))
+            }
+          </Tabs>
         </Flexbox>
       </Flexbox>
     );

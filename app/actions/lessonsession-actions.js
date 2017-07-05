@@ -4,7 +4,7 @@ import fs from 'fs';
 
 import { lessonInfoType } from '../reducers/lessonSession-reducer';
 import { makeDirectory } from '../utils/FileSystemUtils';
-import { getUserRepositories } from './gitcontrols-actions';
+// import { getUserRepositories } from './gitcontrols-actions';
 
 const git = require('simple-git');
 
