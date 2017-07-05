@@ -8,7 +8,6 @@ import Resizable from 'react-resizable-box';
 import AceEditor from 'react-ace';
 
 // Material-UI
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Tabs, Tab } from 'material-ui/Tabs';
 
 // Required to get Material-UI tabs working
@@ -18,7 +17,7 @@ injectTapEventPlugin();
 import 'brace/mode/javascript';
 import 'brace/theme/solarized_dark';
 import 'brace/ext/searchbox';
-import styles from './Home.css';
+// import styles from './Home.css';
 import FiletreeContainer from '../containers/FiletreeContainer';
 import GitControlsContainer from '../containers/GitControlsContainer';
 import { getFileName } from '../utils/file-functions';
@@ -81,21 +80,19 @@ class Editor extends Component {
             <i className="fa fa-arrow-left fa-3x" />
           </Link>
           <GitControlsContainer />
-          <MuiThemeProvider>
-            <Tabs value={selectedFileIndex} >
-              {
-                currentOpenFiles && currentOpenFiles.map((filePath, index) => (
-                  <Tab
-                    key={filePath}
-                    label={getFileName(filePath)}
-                    value={index}
-                    id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
-                    onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
-                  />
-                ))
-              }
-            </Tabs>
-          </MuiThemeProvider>
+          <Tabs value={selectedFileIndex} >
+            {
+              currentOpenFiles && currentOpenFiles.map((filePath, index) => (
+                <Tab
+                  key={filePath}
+                  label={getFileName(filePath)}
+                  value={index}
+                  id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
+                  onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
+                />
+              ))
+            }
+          </Tabs>
         </Flexbox>
 
         <Flexbox flexGrow={1} style={{ border: '1px solid gold', width: '5%', height: '90%' }}>

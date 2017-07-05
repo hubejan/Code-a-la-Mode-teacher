@@ -8,6 +8,17 @@ import NewLessonFormContainer from '../containers/NewLessonFormContainer';
 
 import styles from './UserRepositories.css';
 import { lessonInfoType } from '../reducers/lessonSession-reducer';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import NavigationClose from 'material-ui/svg-icons/navigation/arrow-back';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
+import Flexbox from 'flexbox-react';
+
+const style = {
+  margin: 12,
+};
 
 export default class LessonInit extends Component {
   props: {
@@ -15,36 +26,56 @@ export default class LessonInit extends Component {
     lessonInfo: lessonInfoType,
     token: string,
     getUserRepositories: () => void,
-    createNewLesson: () => void
+    createNewLesson: () => void,
+    open?: boolean
+  };
+
+  state = {
+    open: false,
   };
 
   componentDidMount() {
     this.props.getUserRepositories(this.props.token);
   }
 
+  handleOpen = () => { this.setState({ open: true }); };
+  handleClose = () => { this.setState({ open: false }); };
+
   render() {
-    const { userRepositories, lessonInfo, createNewLesson, token, history } = this.props;
+    const { userRepositories, selectedRepository, lessonInfo, createNewLesson, token, open, history } = this.props;
+
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+    ];
 
     // TODO: Re-route to Editor after creating/selecting a lesson
     return (
       <div>
-        <h1>Create A Lesson</h1>
-        <Link to="/">
-          <i className="fa fa-arrow-left fa-3x" />
-        </Link>
-        <div>
-          <h1>Load from Local</h1>
-          <NewLessonFormContainer
-            history={history} // Passing this so we can re-route to Editor, React-Router v4 I love you, but you're bringing me down...
-          />
-        </div>
-        <div>
-          <h1>Load from Github</h1>
+        <AppBar title="Create A Lesson"
+              showMenuIconButton="false"
+              iconElementLeft={<IconButton><Link to="/"><NavigationClose /></Link></IconButton>}
+              onLeftIconButtonTouchTap={() => {}}
+        >
+          <RaisedButton label="cal" style={style} onClick={() => { this.handleOpen(); }} />
+        </AppBar>
+        <Dialog
+          title="Load from Local"
+          actions={actions}
+          modal={Boolean(true)}
+          open={this.state.open}
+        >
+          <NewLessonFormContainer />
+        </Dialog>
+        <Flexbox>
           <UserRepositoriesContainer
             history={history}
             repositories={userRepositories}
           />
-        </div>
+        </Flexbox>
       </div>
     );
   }
