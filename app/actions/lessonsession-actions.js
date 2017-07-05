@@ -117,7 +117,6 @@ export const checkoutNextBranch = (lessonInfo: lessonInfoType, currentOpenFiles:
             if (!Object.prototype.hasOwnProperty.call(lessonInfo.headHashes, nextBranchName)) {
               git(lessonInfo.repositoryPath)
                 .revparse(['master'], (error, headHash) => {
-                  console.log(headHash); // currently returning NULL
                   const newHeadHash = { [nextBranchName]: headHash };
                   dispatch({ type: ADD_HEAD_HASH, newHeadHash });
                 });
@@ -150,20 +149,20 @@ export const checkoutPreviousBranch = (lessonInfo: lessonInfoType, currentOpenFi
       const previousBranchName = lessonInfo.branchNames[currentIndex - 1];
 
       git(lessonInfo.repositoryPath)
-        .stash('save', { '--include-untracked': null }) // git stash save --include-untracked
+        .add('./*')
+        .commit(`Temporary commit for branch ${lessonInfo.branchNames[currentIndex]}`)
         .checkout(previousBranchName, (err) => {
           if (err) {
             dispatch({ type: CANNOT_CHECKOUT });
           } else {
-
-            // Going back to a commit that we did not want saved, reset softly
-            git(lessonInfo.repositoryPath)
-              .revparse((currentHEADHash) => {
-                if (lessonInfo.headHashes[previousBranchName] !== currentHEADHash) {
-                  git(lessonInfo.repositoryPath)
-                    .reset('soft');
-                }
-              });
+            // First time seeing a branch, store the commit hash of the HEAD
+            if (!Object.prototype.hasOwnProperty.call(lessonInfo.headHashes, previousBranchName)) {
+              git(lessonInfo.repositoryPath)
+                .revparse(['master'], (error, headHash) => {
+                  const newHeadHash = { [previousBranchName]: headHash };
+                  dispatch({ type: ADD_HEAD_HASH, newHeadHash });
+                });
+            }
 
             dispatch(clearEditorState());
 
@@ -176,6 +175,34 @@ export const checkoutPreviousBranch = (lessonInfo: lessonInfoType, currentOpenFi
         });
     })
     .catch(error => console.error(error));
+
+    //   git(lessonInfo.repositoryPath)
+    //     .stash('save', { '--include-untracked': null }) // git stash save --include-untracked
+    //     .checkout(previousBranchName, (err) => {
+    //       if (err) {
+    //         dispatch({ type: CANNOT_CHECKOUT });
+    //       } else {
+
+    //         // Going back to a commit that we did not want saved, reset softly
+    //         git(lessonInfo.repositoryPath)
+    //           .revparse((currentHEADHash) => {
+    //             if (lessonInfo.headHashes[previousBranchName] !== currentHEADHash) {
+    //               git(lessonInfo.repositoryPath)
+    //                 .reset('soft');
+    //             }
+    //           });
+
+    //         dispatch(clearEditorState());
+
+    //         dispatch({
+    //           type: CHECKOUT_PREVIOUS_BRANCH,
+    //           currentBranch: previousBranchName,
+    //           newBranchIndex: currentIndex - 1
+    //         });
+    //       }
+    //     });
+    // })
+    // .catch(error => console.error(error));
 };
 
 export const createNewLesson = (event, newLessonName: string, userToken: string, history) => (dispatch: *) => {
