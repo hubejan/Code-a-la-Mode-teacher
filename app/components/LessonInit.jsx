@@ -60,7 +60,7 @@ export default class LessonInit extends Component {
               iconElementLeft={<IconButton><Link to="/"><NavigationClose /></Link></IconButton>}
               onLeftIconButtonTouchTap={() => {}}
         >
-          <RaisedButton label="cal" style={style} onClick={() => { this.handleOpen(); }} />
+          <RaisedButton label="Load from local" style={style} onClick={() => { this.handleOpen(); }} />
         </AppBar>
         <Dialog
           title="Load from Local"
