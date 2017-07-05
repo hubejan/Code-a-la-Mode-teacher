@@ -35,7 +35,8 @@ export const loadAfterCreating = (lessonFilePath: string) => (dispatch: *) => {
             branchIndex: 0,
             repositoryPath: lessonFilePath,
             branchNames: branchIndexArray,
-            currentBranch: branchSummary.current
+            currentBranch: branchSummary.current,
+            headHashes: {}
           } });
       });
 };

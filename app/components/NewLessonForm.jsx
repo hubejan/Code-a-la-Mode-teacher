@@ -15,7 +15,7 @@ export default class NewLessonForm extends Component {
     const { token, newLessonName, createNewLesson, lessonNameChange, history } = this.props;
 
     return (
-      <form onSubmit={(e) => { createNewLesson(e, newLessonName, token); }}>
+      <form onSubmit={(e) => { createNewLesson(e, newLessonName, token, history); }}>
         <TextField hintText="Lesson Name:" type="text" value={newLessonName} onChange={(e) => { lessonNameChange(e) }} />
         <RaisedButton type="submit">Submit</RaisedButton>
       </form>
