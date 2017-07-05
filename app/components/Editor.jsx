@@ -9,6 +9,8 @@ import AceEditor from 'react-ace';
 
 // Material-UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import { Tabs, Tab } from 'material-ui/Tabs';
 
 // Required to get Material-UI tabs working
@@ -22,6 +24,7 @@ import styles from './Home.css';
 import FiletreeContainer from '../containers/FiletreeContainer';
 import GitControlsContainer from '../containers/GitControlsContainer';
 import { getFileName } from '../utils/file-functions';
+
 
 /*
   Error with Webpack and how split is exported out, using require instead
@@ -66,8 +69,7 @@ class Editor extends Component {
     const { changeEditor, contents, currentOpenFiles, selectedFileIndex, repositoryPath, loadFileFromTab } = this.props;
 
     return (
-      <Flexbox flexDirection="row" minHeight="100vh" flexWrap="wrap" alignContent="flex-start">
-
+      <Flexbox display="flex" minHeight="100vh" flexWrap="wrap" alignContent="flex-start">
         { /* Editor tab bar */ }
 
         {
@@ -81,7 +83,14 @@ class Editor extends Component {
             <i className="fa fa-arrow-left fa-3x" />
           </Link>
           <GitControlsContainer />
-          <MuiThemeProvider>
+        </Flexbox>
+
+        <Flexbox flexGrow={1} style={{ border: '1px solid tomato', width: '5%', height: '90%' }}>
+          <FiletreeContainer />
+        </Flexbox>
+
+        <Flexbox flexGrow={4} height={'90vh'} >
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
             <Tabs value={selectedFileIndex} >
               {
                 currentOpenFiles && currentOpenFiles.map((filePath, index) => (
@@ -91,37 +100,31 @@ class Editor extends Component {
                     value={index}
                     id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
                     onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
-                  />
+                  >
+                  <Resizable width={'100%'} height={'100%'}>
+                    <AceEditor
+                      mode="javascript"
+                      // orientation="besides"
+                      theme="solarized_dark"
+                      value={contents[selectedFileIndex]}
+                      height={'100%'}
+                      width={'100%'}
+                      fontSize={15}
+                      onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
+                      name="UNIQUE_ID_OF_DIV"
+                      editorProps={{ $blockScrolling: true }}
+                      showPrintMargin={false}
+                      style={{ border: '1px solid gold' }}
+                      wrapEnabled={Boolean(true)}
+                    />
+
+                  </Resizable>
+                  </Tab>
                 ))
               }
             </Tabs>
-          </MuiThemeProvider>
+      </MuiThemeProvider>
         </Flexbox>
-
-        <Flexbox flexGrow={1} style={{ border: '1px solid gold', width: '5%', height: '90%' }}>
-          <FiletreeContainer />
-        </Flexbox>
-
-        <Flexbox flexGrow={4} height={'90vh'} >
-          <Resizable width={'100%'} height={'100%'}>
-            <AceEditor
-              mode="javascript"
-              // orientation="besides"
-              theme="solarized_dark"
-              value={contents[selectedFileIndex]}
-              height={'100%'}
-              width={'100%'}
-              fontSize={15}
-              onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
-              name="UNIQUE_ID_OF_DIV"
-              editorProps={{ $blockScrolling: true }}
-              showPrintMargin={false}
-              style={{ border: '1px solid gold' }}
-              wrapEnabled={Boolean(true)}
-            />
-          </Resizable>
-        </Flexbox>
-
       </Flexbox>
     );
   }
