@@ -42,7 +42,7 @@ export default class Filetree extends Component {
 
         { /* Giving currentBranch as a prop to the FileTree component to force a re-render */ }
         <ElectronTreeContainer
-          directory={path}
+          directory={'/home/hubert/Desktop/Fullstack/capstone/tmp/'}
           onFileClick={(selectedFile) => {
             loadInEditor(selectedFile, currentOpenFiles, currentEditorValues);
           }}

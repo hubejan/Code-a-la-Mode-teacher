@@ -67,27 +67,21 @@ class Editor extends Component {
     const { changeEditor, contents, currentOpenFiles, selectedFileIndex, repositoryPath, loadFileFromTab } = this.props;
 
     return (
-      <Flexbox display="flex" minHeight="100vh" flexWrap="wrap" alignContent="flex-start">
+      <Flexbox flexDirection="row" minHeight="100vh" flexWrap="wrap" alignContent="flex-start">
+
         { /* Editor tab bar */ }
+
         {
           /*
             PLACE HOLDER FOR COMMENTS
           */
         }
+
         <Flexbox element="header" height="70px" width="100vw">
-          <AppBar title="Code-a-la-Mode" iconClassNameRight="muidocs-icon-navigation-expand-more">
-            <Link to="/">
-              <i className="fa fa-arrow-left fa-3x" />
-            </Link>
-            <GitControlsContainer />
-          </AppBar>
-        </Flexbox>
-
-        <Flexbox flexGrow={1} style={{ border: '1px solid tomato', width: '5%', height: '90%' }}>
-          <FiletreeContainer />
-        </Flexbox>
-
-        <Flexbox flexGrow={4} height={'50vh'} width={'50vw'} >
+          <Link to="/">
+            <i className="fa fa-arrow-left fa-3x" />
+          </Link>
+          <GitControlsContainer />
           <Tabs value={selectedFileIndex} >
             {
               currentOpenFiles && currentOpenFiles.map((filePath, index) => (
@@ -97,27 +91,36 @@ class Editor extends Component {
                   value={index}
                   id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
                   onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
-                >
-                    <AceEditor
-                      mode="javascript"
-                      // orientation="besides"
-                      theme="solarized_dark"
-                      value={contents[selectedFileIndex]}
-                      height={'100%'}
-                      width={'100%'}
-                      fontSize={15}
-                      onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
-                      name="UNIQUE_ID_OF_DIV"
-                      editorProps={{ $blockScrolling: true }}
-                      showPrintMargin={false}
-                      style={{ border: '1px solid gold' }}
-                      wrapEnabled={Boolean(true)}
-                    />
-                </Tab>
+                />
               ))
             }
           </Tabs>
         </Flexbox>
+
+        <Flexbox flexGrow={1} style={{ border: '1px solid gold', width: '5%', height: '90%' }}>
+          <FiletreeContainer />
+        </Flexbox>
+
+        <Flexbox flexGrow={4} height={'90vh'} >
+          <Resizable width={'100%'} height={'100%'}>
+            <AceEditor
+              mode="javascript"
+              // orientation="besides"
+              theme="solarized_dark"
+              value={contents[selectedFileIndex]}
+              height={'100%'}
+              width={'100%'}
+              fontSize={15}
+              onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
+              name="UNIQUE_ID_OF_DIV"
+              editorProps={{ $blockScrolling: true }}
+              showPrintMargin={false}
+              style={{ border: '1px solid gold' }}
+              wrapEnabled={Boolean(true)}
+            />
+          </Resizable>
+        </Flexbox>
+
       </Flexbox>
     );
   }

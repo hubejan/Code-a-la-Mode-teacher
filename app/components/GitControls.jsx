@@ -29,10 +29,10 @@ export default class GitControls extends Component {
 
     return (
       <Flexbox flexDirection="row" justifyContent="flex-start" >
-        <RaisedButton onClick={() => { checkoutPreviousBranch(lessonInfo); }} style={style} alignSelf="center">
+        <RaisedButton onClick={() => { checkoutPreviousBranch(lessonInfo); }} style={style} >
           Previous branch
         </RaisedButton>
-        <RaisedButton onClick={() => { checkoutNextBranch(lessonInfo); }} style={style} alignSelf="center">
+        <RaisedButton onClick={() => { checkoutNextBranch(lessonInfo); }} style={style} >
           Next branch
         </RaisedButton>
       </Flexbox>
