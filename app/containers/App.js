@@ -5,6 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
+import CodeTheme from '../utils/codeTheme';
 
 export default class App extends Component {
   props: {
@@ -14,7 +15,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <MuiThemeProvider muiTheme={getMuiTheme(CodeTheme)}>
           {this.props.children}
         </MuiThemeProvider>
       </div>

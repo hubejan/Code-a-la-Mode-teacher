@@ -26,7 +26,8 @@ export default class LessonInit extends Component {
     lessonInfo: lessonInfoType,
     token: string,
     getUserRepositories: () => void,
-    createNewLesson: () => void
+    createNewLesson: () => void,
+    open?: boolean
   };
 
   state = {
@@ -41,7 +42,7 @@ export default class LessonInit extends Component {
   handleClose = () => { this.setState({ open: false }); };
 
   render() {
-    const { userRepositories, selectedRepository, lessonInfo, createNewLesson, token, open } = this.props;
+    const { userRepositories, selectedRepository, lessonInfo, createNewLesson, token, open, history } = this.props;
 
     const actions = [
       <FlatButton
@@ -57,14 +58,15 @@ export default class LessonInit extends Component {
         <AppBar title="Create A Lesson"
               showMenuIconButton="false"
               iconElementLeft={<IconButton><Link to="/"><NavigationClose /></Link></IconButton>}
-              onLeftIconButtonTouchTap={()=>{}}
+              onLeftIconButtonTouchTap={() => {}}
         >
-          <RaisedButton label="Load from Local" style={style} onClick={() => { this.handleOpen(); }} />
+          <RaisedButton label="cal" style={style} onClick={() => { this.handleOpen(); }} />
         </AppBar>
-        <Dialog title="Load from Local"
-                actions={actions}
-                modal={true}
-                open={this.state.open}
+        <Dialog
+          title="Load from Local"
+          actions={actions}
+          modal={Boolean(true)}
+          open={this.state.open}
         >
           <NewLessonFormContainer />
         </Dialog>

@@ -17,7 +17,8 @@ export default class UserRepositories extends Component {
   props: {
     repositories: Array<Object>,
     openRepoLink: (repoLink: string, event: Object) => void,
-    loadLesson: (repoLink: string) => void,
+    loadLesson: (repoLink: string, history: Object) => void,
+    history: Object
   };
 
   render() {
@@ -43,6 +44,7 @@ export default class UserRepositories extends Component {
             repositories &&
             repositories.map(repository => (
               <RepositoryPanel
+                history={history}
                 key={repository.id}
                 repository={repository}
                 openRepoLink={openRepoLink}

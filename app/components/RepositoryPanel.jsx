@@ -55,7 +55,7 @@ export default class UserRepositories extends Component {
           > View on Github </RaisedButton>
           <RaisedButton
             onClick={() => {
-              loadLesson(repository.html_url);
+              loadLesson(repository.html_url, history);
             }}
           > Load Lesson </RaisedButton>
           {/* <RaisedButton
