@@ -78,15 +78,7 @@ class Editor extends Component {
           </AppBar>
         </Flexbox>
 
-        <Flexbox flexGrow={1} style={{ border: '1px solid tomato', width: '5%', height: '90%' }}>
-          <FiletreeContainer />
-        </Flexbox>
-
         <Flexbox element="header" height="70px" width="100vw">
-          <Link to="/">
-            <i className="fa fa-arrow-left fa-3x" />
-          </Link>
-          <GitControlsContainer />
           <Tabs value={selectedFileIndex} >
             {
               currentOpenFiles && currentOpenFiles.map((filePath, index) => (
