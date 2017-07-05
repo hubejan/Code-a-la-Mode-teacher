@@ -9,7 +9,9 @@ function mapStateToProps(state) {
   return {
     token: state.auth.token,
     repositoryPath: state.lessonSession.lessonInfo.repositoryPath,
-    lessonInfo: state.lessonSession.lessonInfo
+    lessonInfo: state.lessonSession.lessonInfo,
+    currentOpenFiles: state.editor.currentOpenFiles,
+    currentEditorValues: state.editor.contents
   };
 }
 

@@ -68,7 +68,9 @@ export default class LessonInit extends Component {
           modal={Boolean(true)}
           open={this.state.open}
         >
-          <NewLessonFormContainer />
+          <NewLessonFormContainer
+            history={history}
+          />
         </Dialog>
         <Flexbox>
           <UserRepositoriesContainer

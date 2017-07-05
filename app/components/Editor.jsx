@@ -69,13 +69,18 @@ class Editor extends Component {
     return (
       <Flexbox flexDirection="row" minHeight="100vh" flexWrap="wrap" alignContent="flex-start">
 
-        { /* Editor tab bar */ }
+        <Flexbox element="header" height="70px" width="100vw">
+          <AppBar title="Code-a-la-Mode" iconClassNameRight="muidocs-icon-navigation-expand-more">
+            <Link to="/">
+              <i className="fa fa-arrow-left fa-3x" />
+            </Link>
+            <GitControlsContainer />
+          </AppBar>
+        </Flexbox>
 
-        {
-          /*
-            PLACE HOLDER FOR COMMENTS
-          */
-        }
+        <Flexbox flexGrow={1} style={{ border: '1px solid tomato', width: '5%', height: '90%' }}>
+          <FiletreeContainer />
+        </Flexbox>
 
         <Flexbox element="header" height="70px" width="100vw">
           <Link to="/">

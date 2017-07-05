@@ -1,10 +1,10 @@
 import { remote } from 'electron';
 import axios from 'axios';
-import fs from 'fs';
 
 import { lessonInfoType } from '../reducers/lessonSession-reducer';
-import { makeDirectory } from '../utils/FileSystemUtils';
-// import { getUserRepositories } from './gitcontrols-actions';
+import { makeDirectory, writeFile } from '../utils/FileSystemUtils';
+
+import { clearEditorState } from './editor-actions';
 
 const git = require('simple-git');
 
@@ -17,6 +17,7 @@ export const CHECKOUT_PREVIOUS_BRANCH = 'CHECKOUT_PREVIOUS_BRANCH';
 export const CANNOT_CHECKOUT = 'CANNOT_CHECKOUT';
 export const ADD_BRANCH = 'ADD_BRANCH';
 export const CREATED_NEW_LESSON = 'CREATED_NEW_LESSON';
+export const ADD_HEAD_HASH = 'ADD_HEAD_HASH';
 
 export const loadUserRepos = (userRepositories: []) => (dispatch: *) => {
   dispatch({ type: LOAD_USER_REPOS, userRepositories });
@@ -34,7 +35,8 @@ export const loadAfterCreating = (lessonFilePath: string) => (dispatch: *) => {
             branchIndex: 0,
             repositoryPath: lessonFilePath,
             branchNames: branchIndexArray,
-            currentBranch: branchSummary.current
+            currentBranch: branchSummary.current,
+            headHashes: {}
           } });
       });
 };
@@ -51,12 +53,13 @@ export const loadAfterCloning = (lessonFilePath: string) => (dispatch: *) => {
           branchIndex: 0,
           repositoryPath: lessonFilePath,
           branchNames: branchIndexArray,
-          currentBranch: branchSummary.current
+          currentBranch: branchSummary.current,
+          headHashes: {}
         } });
     });
 };
 
-export const checkoutNextBranch = (lessonInfo: lessonInfoType) => (dispatch: *) => {
+export const checkoutNextBranch = (lessonInfo: lessonInfoType, currentOpenFiles: Array<string>, currentEditorValues: Array<string>) => (dispatch: *) => {
   const currentIndex = lessonInfo.branchIndex;
   if (currentIndex === lessonInfo.branches.length) {
     dispatch({
@@ -65,22 +68,41 @@ export const checkoutNextBranch = (lessonInfo: lessonInfoType) => (dispatch: *) 
     return;
   }
 
-  const nextBranchName = lessonInfo.branchNames[currentIndex + 1];
-  git(lessonInfo.repositoryPath)
-    .checkout(nextBranchName, (err) => {
-      if (err) {
-        dispatch({ type: CANNOT_CHECKOUT });
-      } else {
-        dispatch({
-          type: CHECKOUT_NEXT_BRANCH,
-          currentBranch: nextBranchName,
-          newBranchIndex: currentIndex + 1
+  saveLesson(currentOpenFiles, currentEditorValues)
+    .then(() => {
+      const nextBranchName = lessonInfo.branchNames[currentIndex + 1];
+
+      git(lessonInfo.repositoryPath)
+        .add('./*')
+        .commit(`Temporary commit for branch ${lessonInfo.branchNames[currentIndex]}`)
+        .checkout(nextBranchName, (err) => {
+          if (err) {
+            dispatch({ type: CANNOT_CHECKOUT });
+          } else {
+            // First time seeing a branch, store the commit hash of the HEAD
+            if (!Object.prototype.hasOwnProperty.call(lessonInfo.headHashes, nextBranchName)) {
+              git(lessonInfo.repositoryPath)
+                .revparse(['master'], (error, headHash) => {
+                  console.log(headHash); // currently returning NULL
+                  const newHeadHash = { [nextBranchName]: headHash };
+                  dispatch({ type: ADD_HEAD_HASH, newHeadHash });
+                });
+            }
+
+            dispatch(clearEditorState());
+
+            dispatch({
+              type: CHECKOUT_NEXT_BRANCH,
+              currentBranch: nextBranchName,
+              newBranchIndex: currentIndex + 1
+            });
+          }
         });
-      }
-    });
+    })
+    .catch(error => console.error(error));
 };
 
-export const checkoutPreviousBranch = (lessonInfo: lessonInfoType) => (dispatch: *) => {
+export const checkoutPreviousBranch = (lessonInfo: lessonInfoType, currentOpenFiles: Array<string>, currentEditorValues: Array<string>) => (dispatch: *) => {
   const currentIndex = lessonInfo.branchIndex;
   if (currentIndex === 0) {
     dispatch({
@@ -89,19 +111,37 @@ export const checkoutPreviousBranch = (lessonInfo: lessonInfoType) => (dispatch:
     return;
   }
 
-  const previousBranchName = lessonInfo.branchNames[currentIndex - 1];
-  git(lessonInfo.repositoryPath)
-    .checkout(previousBranchName, (err) => {
-      if (err) {
-        dispatch({ type: CANNOT_CHECKOUT });
-      } else {
-        dispatch({
-          type: CHECKOUT_PREVIOUS_BRANCH,
-          currentBranch: previousBranchName,
-          newBranchIndex: currentIndex - 1
+  saveLesson(currentOpenFiles, currentEditorValues)
+    .then(() => {
+      const previousBranchName = lessonInfo.branchNames[currentIndex - 1];
+
+      git(lessonInfo.repositoryPath)
+        .stash('save', { '--include-untracked': null }) // git stash save --include-untracked
+        .checkout(previousBranchName, (err) => {
+          if (err) {
+            dispatch({ type: CANNOT_CHECKOUT });
+          } else {
+
+            // Going back to a commit that we did not want saved, reset softly
+            git(lessonInfo.repositoryPath)
+              .revparse((currentHEADHash) => {
+                if (lessonInfo.headHashes[previousBranchName] !== currentHEADHash) {
+                  git(lessonInfo.repositoryPath)
+                    .reset('soft');
+                }
+              });
+
+            dispatch(clearEditorState());
+
+            dispatch({
+              type: CHECKOUT_PREVIOUS_BRANCH,
+              currentBranch: previousBranchName,
+              newBranchIndex: currentIndex - 1
+            });
+          }
         });
-      }
-    });
+    })
+    .catch(error => console.error(error));
 };
 
 export const createNewLesson = (event, newLessonName: string, userToken: string, history) => (dispatch: *) => {
@@ -154,3 +194,17 @@ export const addBranch = (branch, branchName) => ({
   branch,
   branchName
 });
+
+export const saveLesson = (currentOpenFiles: Array<string>, currentEditorValues: Array<string>) => { //(dispatch: *) => {
+  const writePromises = currentOpenFiles.map((filePath, index) => {
+    const newFileContent = currentEditorValues[index];
+    return writeFile(filePath, newFileContent);
+  });
+  return Promise.all(writePromises);
+    // .then(() => {
+    //   console.log('Done writing files');
+
+    //   // dispatch({ type: SAVED_FILES, PAYLOAD });
+    // })
+    // .catch(error => console.error(error));
+};

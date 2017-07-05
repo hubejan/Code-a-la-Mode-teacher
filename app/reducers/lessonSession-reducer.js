@@ -6,7 +6,8 @@ import {
   CHECKOUT_PREVIOUS_BRANCH,
   CANNOT_CHECKOUT,
   ADD_BRANCH,
-  CREATED_NEW_LESSON
+  CREATED_NEW_LESSON,
+  ADD_HEAD_HASH
 } from '../actions/lessonsession-actions';
 
 export type lessonInfoType = {
@@ -14,7 +15,8 @@ export type lessonInfoType = {
   branchIndex: number,
   repositoryPath: string,
   branchNames: [],
-  currentBranch: string
+  currentBranch: string,
+  headHashes: {}
 };
 
 export type lessonSessionStateType = {
@@ -30,6 +32,7 @@ const defaultLessionSessionState = {
     repositoryPath: '',
     branchNames: [],
     currentBranch: '',
+    headHashes: {} // hashes of the actual HEAD refs we want for each branch (need this for changing branches correctly)
   }
 };
 
@@ -38,7 +41,8 @@ type actionType = {
   lessonInfo?: lessonInfoType,
   userRepositories?: Array<Object>,
   currentBranch?: string,
-  newBranchIndex?: number
+  newBranchIndex?: number,
+  newHeadHash?: {}
 };
 
 export default function lessonsession(state: lessonSessionStateType = defaultLessionSessionState, action: actionType){
@@ -75,6 +79,12 @@ export default function lessonsession(state: lessonSessionStateType = defaultLes
       };
       return { ...state, lessonInfo: newBranchIncluded };
     }
+    case ADD_HEAD_HASH:
+      const newHeadIncluded = {
+        ...state.lessonInfo,
+        headHashes: Object.assign({}, state.lessonInfo.headHashes, action.newHeadHash)
+      };
+      return { ...state, lessonInfo: newHeadIncluded };
     default:
       return state;
   }
