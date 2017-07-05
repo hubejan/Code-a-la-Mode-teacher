@@ -98,25 +98,27 @@ class Editor extends Component {
                   id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
                   onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
                 >
-                    <AceEditor
-                      mode="javascript"
-                      // orientation="besides"
-                      theme="solarized_dark"
-                      value={contents[selectedFileIndex]}
-                      height={'100%'}
-                      width={'100%'}
-                      fontSize={15}
-                      onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
-                      name="UNIQUE_ID_OF_DIV"
-                      editorProps={{ $blockScrolling: true }}
-                      showPrintMargin={false}
-                      style={{ border: '1px solid gold' }}
-                      wrapEnabled={Boolean(true)}
-                    />
-                </Tab>
+                                </Tab>
+
+
               ))
             }
           </Tabs>
+          <AceEditor
+            mode="javascript"
+            // orientation="besides"
+            theme="solarized_dark"
+            value={contents[selectedFileIndex]}
+            height={'100%'}
+            width={'100%'}
+            fontSize={15}
+            onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
+            name="UNIQUE_ID_OF_DIV"
+            editorProps={{ $blockScrolling: true }}
+            showPrintMargin={false}
+            style={{ border: '1px solid gold' }}
+            wrapEnabled={Boolean(true)}
+          />
         </Flexbox>
       </Flexbox>
     );
