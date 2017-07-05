@@ -62,7 +62,6 @@ export function reqAndXmitFile(filePath, repositoryPath) {
   // filePath is the path on the student's HTML5 FS, so something like //app/index.js,
   // but on the teacher's HD, it's something like /Users/MyName/MyProject/app/index.js
   // so need to concatenate the paths like so:
-  console.log('path is: ', filePath, 'repo path: ', repositoryPath, 'sliced path: ', repositoryPath + filePath.slice(1));
 
   readFile(repositoryPath + filePath.slice(1))
     .then(contents => {

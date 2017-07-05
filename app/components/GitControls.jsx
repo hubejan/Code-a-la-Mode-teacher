@@ -5,7 +5,12 @@ import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/av/skip-previous';
+import Flexbox from 'flexbox-react';
 
+const style = {
+  margin: 12,
+  borderRadius: 3,
+};
 
 export default class GitControls extends Component {
 
@@ -23,14 +28,14 @@ export default class GitControls extends Component {
             lessonInfo } = this.props;
 
     return (
-      <AppBar iconElementLeft={<IconButton><NavigationClose /></IconButton>}>
-        <RaisedButton onClick={() => { checkoutPreviousBranch(lessonInfo); }} >
+      <Flexbox flexDirection="row" justifyContent="flex-start" >
+        <RaisedButton onClick={() => { checkoutPreviousBranch(lessonInfo); }} style={style} alignSelf="center">
           Previous branch
         </RaisedButton>
-        <RaisedButton onClick={() => { checkoutNextBranch(lessonInfo); }} >
+        <RaisedButton onClick={() => { checkoutNextBranch(lessonInfo); }} style={style} alignSelf="center">
           Next branch
         </RaisedButton>
-      </AppBar>
+      </Flexbox>
     );
   }
 }
