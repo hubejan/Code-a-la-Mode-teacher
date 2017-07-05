@@ -9,18 +9,36 @@ import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import GitControlsContainer from '../containers/GitControlsContainer';
 import NavMenu from './CodingNavMenu';
 
-// need menu for back-to-lesson-page
-// need menu item for logout
+import colors from '../public/colors';
+
+const appBarStyles = {
+  width: '100%', 
+  height: "70px",
+  alignItems: "center"
+};
+
+const titleStyles = {
+  // a cool font could be nice- using Bones default to match student for now
+  fontFamily: 'Monaco',
+  fontSize: '35px'
+};
+
+const Title = () => (
+  <div style={titleStyles}>
+    <span style={{ color: colors.cyan }}>Code </span>
+    <span style={{ color: colors.green }}>à </span>
+    <span style={{ color: colors.orange }}>la </span>
+    <span style={{ color: colors.magenta }}>Mode</span>
+  </div>
+);
 
 const EditorNav = ({ openPanel, allTickets, githubLogout }) => {
   const unread = allTickets.filter(ticket => ticket.unread === true);
 
   return (
     <Flexbox element="header" height="70px" width="100vw">
-      <AppBar
-        title="Code-a-la-Mode"
-        iconElementLeft={<NavMenu githubLogout={githubLogout} />}
-      >
+      <AppBar iconElementLeft={<NavMenu githubLogout={githubLogout} />}>
+        <Title />
         <GitControlsContainer />
         <Badge
           badgeContent={unread.length}
@@ -37,3 +55,13 @@ const EditorNav = ({ openPanel, allTickets, githubLogout }) => {
 };
 
 export default EditorNav;
+
+      // <Flexbox display="flex" flexDirection="row" flexGrow={1} flexWrap="wrap" marginTop="auto" marginBottom="auto" width="100vw" maxHeight="100vh">
+      //   <Flexbox width="100vw">
+      //     <AppBar style={{ width: '100%', height: "70px" }} showMenuIconButton={false} alignItems="center">
+            // <div style={titleStyles}>
+            //   <span style={{ color: colors.cyan }}>Code </span>
+            //   <span style={{ color: colors.green }}>à </span>
+            //   <span style={{ color: colors.orange }}>la </span>
+            //   <span style={{ color: colors.magenta }}>Mode</span>
+            // </div>

@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import brace from 'brace';
 import { ipcRenderer } from 'electron';
 import Flexbox from 'flexbox-react';
@@ -8,7 +7,6 @@ import Flexbox from 'flexbox-react';
 import AceEditor from 'react-ace';
 import SplitPane from 'react-split-pane';
 
-import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
 import { Tab, Tabs } from 'material-ui/Tabs';
 
@@ -21,9 +19,7 @@ import FiletreeContainer from '../containers/FiletreeContainer';
 import RightPanelContainer from '../containers/RightPanelContainer';
 import EditorNavContainer from '../containers/EditorNavContainer';
 
-import GitControlsContainer from '../containers/GitControlsContainer';
 import { getLastFromPath } from '../utils/file-functions';
-import colors from '../public/colors';
 
 
 /*
@@ -34,13 +30,6 @@ import colors from '../public/colors';
 */
 const style = {
   margin: 12,
-};
-const titleStyles = {
-  // a cool font could be nice- using Bones default to match student for now
-  position: 'absolute',
-  top: '10%',
-  fontFamily: 'Monaco',
-  fontSize: '35px'
 };
 
 type nextPropsType = {
@@ -91,19 +80,6 @@ class Editor extends Component {
         <Flexbox flexDirection="row" minHeight="100vh" flexWrap="wrap" alignContent="flex-start">
           <EditorNavContainer />
           <Flexbox element="header" height="70px" width="100vw">
-            <Tabs value={selectedFileIndex} >
-              {
-                currentOpenFiles && currentOpenFiles.map((filePath, index) => (
-                  <Tab
-                    key={filePath}
-                    label={getLastFromPath(filePath)}
-                    value={index}
-                    id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
-                    onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
-                  />
-                ))
-              }
-            </Tabs>
           </Flexbox>
 
           <Flexbox flexDirection="row" justifyContent="space-around">
@@ -112,31 +88,31 @@ class Editor extends Component {
                 <Paper style={style} zDepth={2}>
                   <FiletreeContainer directory={'/'} socket={this.socket} />
                 </Paper>
-                <SplitPane split="vertical" defaultSize="500" onChange={this.handleResize} >
                   <Paper style={style} zDepth={2} >
+                    <Tabs value={selectedFileIndex} >
+                      {
+                        currentOpenFiles && currentOpenFiles.map((filePath, index) => (
+                          <Tab
+                            key={filePath}
+                            label={getLastFromPath(filePath)}
+                            value={index}
+                            id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
+                            onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
+                          />
+                        ))
+                      }
+                    </Tabs>
                     <AceEditor
                       value={contents[selectedFileIndex]}
                       mode="javascript"
                       theme="solarized_dark"
-                      width={this.state.editorSize}
+                      width={'100%'}
                       onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents)} }
                       name="UNIQUE_ID_OF_DIV"
                       wrapEnabled={true}
                       editorProps={{ $blockScrolling: Infinity }}
                     />
                   </Paper>
-                  <Paper style={style} zDepth={2} >
-                    <AceEditor
-                      wrapEnabled={Boolean(true)}
-                      onChange={this.editor2Change}
-                      mode="javascript"
-                      width={window.innerWidth - this.state.editorSize - 30}
-                      theme="solarized_dark"
-                      editorProps={{ $blockScrolling: Infinity }
-                      }
-                    />
-                  </Paper>
-                </SplitPane>
               </SplitPane>
             </div>
           </Flexbox>
