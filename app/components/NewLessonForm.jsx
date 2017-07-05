@@ -8,8 +8,9 @@ export default class NewLessonForm extends Component {
     createNewLesson: () => void,
     token: string,
     newLessonName: string,
-    lessonNameChange: () => void
-  };
+    lessonNameChange: () => void,
+    history: Object
+  }
 
   render() {
     const { token, newLessonName, createNewLesson, lessonNameChange, history } = this.props;
