@@ -19,7 +19,8 @@ export default class ElectronTree extends Component {
     isVisible?: Object,
     directoryTheme?: string,
     isChildFiletree?: boolean,
-    isRoot?: string
+    isRoot?: string,
+    currentBranch: string
   }
   constructor() {
     super();
@@ -39,8 +40,9 @@ export default class ElectronTree extends Component {
         })
         .catch(console.error);
   }
+
   componentWillReceiveProps(nextProps) {
-    if (this.props.directory !== nextProps.directory) {
+    if (this.props.directory !== nextProps.directory || this.props.currentBranch !== nextProps.currentBranch) {
       return nextProps.directory && getAllFiles(nextProps.directory)
         .then(files => {
           if (!this.props.isChildFiletree) this.props.dispatchSetFiletree(files);
@@ -49,6 +51,7 @@ export default class ElectronTree extends Component {
         .catch(console.error);
     }
   }
+
   setVisibility(filePath) {
     this.props.toggleVisibility(filePath);
   }

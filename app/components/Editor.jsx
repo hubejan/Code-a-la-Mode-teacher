@@ -23,7 +23,7 @@ import 'brace/ext/searchbox';
 // import styles from './Home.css';
 import FiletreeContainer from '../containers/FiletreeContainer';
 import GitControlsContainer from '../containers/GitControlsContainer';
-import { getFileName } from '../utils/file-functions';
+import { getLastFromPath } from '../utils/file-functions';
 import colors from '../public/colors';
 
 
@@ -102,7 +102,7 @@ class Editor extends Component {
                 currentOpenFiles && currentOpenFiles.map((filePath, index) => (
                   <Tab
                     key={filePath}
-                    label={getFileName(filePath)}
+                    label={getLastFromPath(filePath)}
                     value={index}
                     id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
                     onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
@@ -130,7 +130,7 @@ class Editor extends Component {
                     mode="javascript"
                     theme="solarized_dark"
                     width={this.state.editorSize}
-                    onChange={this.editor1Change}
+                    onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents)} }
                     name="UNIQUE_ID_OF_DIV"
                     wrapEnabled={true}
                     editorProps={{ $blockScrolling: Infinity }}
