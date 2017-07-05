@@ -46,7 +46,7 @@ class RightPanelContainer extends Component {
     const { ticketsState, selectTicket, removeTicket, panelOpen, closePanel } = this.props;
 
     return (
-      <Drawer width={400} openSecondary={true} open={panelOpen} >
+      <Drawer width={300} openSecondary={true} open={panelOpen} >
         <AppBar
           title="Help Tickets"
           iconElementLeft={<IconButton><NavigationClose /></IconButton>}

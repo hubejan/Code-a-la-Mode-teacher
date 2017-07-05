@@ -23,9 +23,17 @@ type ticketAction =
   // { type: string } would make our more specific action types less useful, but this
   // subtype will let us have nice action typing for different switch cases
 
+const test1 = {
+  question: 'Short question?'
+};
+
+const test2 = {
+  question: 'How can anyone even go far as to look like a long question?'
+};
+
 const defaultTickets = {
   selectedTicket: {},
-  allTickets: []
+  allTickets: [test1, test2]
 };
 
 function ticketsReducer(state: ticketsStateType = defaultTickets, action: ticketAction) {

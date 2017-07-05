@@ -14,8 +14,7 @@ class HelpTicketPanel extends Component {
   render() {
     const { allTickets } = this.props.ticketsState;
     return (
-      <Flexbox>
-        <h4>HelpTicketPanel Component</h4>
+      <Flexbox flexDirection="column" >
         { allTickets.map(ticket =>
           <HelpTicket key={ticket.question} ticket={ticket} />)
         }
