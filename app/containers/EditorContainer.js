@@ -9,6 +9,7 @@ function mapStateToProps(state) {
   return {
     contents: state.editor.contents,
     repositoryPath: state.lessonSession.lessonInfo.repositoryPath,
+    currEditorVal: state.editor.contents[state.editor.selectedFileIndex],
     currentOpenFiles: state.editor.currentOpenFiles,
     selectedFileIndex: state.editor.selectedFileIndex
   };

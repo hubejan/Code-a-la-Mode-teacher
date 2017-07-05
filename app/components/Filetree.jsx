@@ -2,14 +2,13 @@
 import React, { Component } from 'react';
 import Resizable from 'react-resizable-box';
 
-import ElectronTree from '../containers/ElectronTreeContainer';
-import FileTree from 'react-filetree-electron';
+import ElectronTreeContainer from '../containers/ElectronTreeContainer';
 import { selectedFileType } from '../actions/filetree-actions';
 
 
 export default class Filetree extends Component {
   props: {
-    loadInEditor:
+    loadInEditor: // eslint-disable-line flowtype/space-after-type-colon
     (
       selectedFile: selectedFileType,
       currentOpenFiles: Array<string>,
@@ -42,7 +41,7 @@ export default class Filetree extends Component {
         }
 
         { /* Giving currentBranch as a prop to the FileTree component to force a re-render */ }
-        <FileTree
+        <ElectronTreeContainer
           directory={path}
           onFileClick={(selectedFile) => {
             loadInEditor(selectedFile, currentOpenFiles, currentEditorValues);

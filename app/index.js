@@ -24,7 +24,7 @@ ipcRenderer.on('newTicket', (event, ticket) => {
   }
 });
 
-ipcRenderer.on('fileReq', (event, filePath) => reqAndXmitFile(filePath));
+ipcRenderer.on('fileReq', (event, filePath) => reqAndXmitFile(filePath, store.getState().lessonSession.lessonInfo.repositoryPath));
 
 if (module.hot) {
   module.hot.accept('./containers/Root', () => {

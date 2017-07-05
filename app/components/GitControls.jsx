@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import { lessonInfoType } from '../reducers/lessonSession-reducer';
+import RaisedButton from 'material-ui/RaisedButton';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import NavigationClose from 'material-ui/svg-icons/av/skip-previous';
+
 
 export default class GitControls extends Component {
 
@@ -25,24 +31,22 @@ export default class GitControls extends Component {
             currentEditorValues } = this.props;
 
     return (
-      <div>
-        <button onClick={() => { checkoutPreviousBranch(lessonInfo, currentOpenFiles, currentEditorValues); }} >
-          Previous Branch
-        </button>
-
-        <button onClick={() => { checkoutNextBranch(lessonInfo, currentOpenFiles, currentEditorValues); }} >
-          Next Branch
-        </button>
-
-        <button onClick={() => {
+      <AppBar iconElementLeft={<IconButton><NavigationClose /></IconButton>}>
+        <RaisedButton onClick={() => { checkoutPreviousBranch(lessonInfo, currentOpenFiles, currentEditorValues); }} >
+          Previous branch
+        </RaisedButton>
+        <RaisedButton onClick={() => { checkoutNextBranch(lessonInfo, currentOpenFiles, currentEditorValues); }} >
+          Next branch
+        </RaisedButton>
+        <RaisedButton onClick={() => {
           saveLesson(currentOpenFiles, currentEditorValues)
             .then(() => console.log('Saved!'))
             .catch(error => console.error(error));
         }}
         >
           Save Lesson
-        </button>
-      </div>
+        </RaisedButton>
+      </AppBar>
     );
   }
 }
