@@ -11,7 +11,7 @@ export type ticketsStateType = {
 };
 
 type addAction = { type: 'ADD_TICKET', ticket: ticketType };
-type selectAction = { type: 'SELECT_TICKET' };
+type selectAction = { type: 'SELECT_TICKET', ticket: ticketType };
 type removeAction = { type: 'REMOVE_TICKET', ticket: ticketType };
 
 type ticketAction =
@@ -28,6 +28,11 @@ const defaultTickets = {
   allTickets: []
 };
 
+const readOne = (tickets, thisTicket) => tickets.map(ticket =>
+  ticket.question === thisTicket.question
+  ? { question: ticket.question, unread: false }
+  : ticket);
+
 function ticketsReducer(state: ticketsStateType = defaultTickets, action: ticketAction) {
   switch (action.type) {
     case ADD_TICKET:
@@ -38,7 +43,10 @@ function ticketsReducer(state: ticketsStateType = defaultTickets, action: ticket
     case SELECT_TICKET:
       return {
         ...state,
-        selectedTicket: action.ticket
+        selectedTicket: action.ticket,
+        allTickets: action.ticket.unread === true
+          ? readOne(state.allTickets, action.ticket)
+          : [...state.allTickets]
       };
     case REMOVE_TICKET:
       return {
