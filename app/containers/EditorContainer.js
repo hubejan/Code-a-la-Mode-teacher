@@ -11,7 +11,8 @@ function mapStateToProps(state) {
     repositoryPath: state.lessonSession.lessonInfo.repositoryPath,
     currEditorVal: state.editor.contents[state.editor.selectedFileIndex],
     currentOpenFiles: state.editor.currentOpenFiles,
-    selectedFileIndex: state.editor.selectedFileIndex
+    selectedFileIndex: state.editor.selectedFileIndex,
+    unread: state.tickets.allTickets.filter(ticket => ticket.unread === true)
   };
 }
 
