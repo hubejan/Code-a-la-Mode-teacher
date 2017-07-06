@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { shell } from 'electron';
+
+import { GithubIcon } from './LoginComponent';
+
+import { orange } from '../public/colors';
+
 import {
   Table,
   TableBody,
@@ -11,7 +16,14 @@ import {
 } from 'material-ui/Table';
 
 import RepositoryPanel from './RepositoryPanel';
-// import styles from './UserRepositories.css';
+
+const iconStyle = {
+  height: 60,
+  width: 60,
+  verticalAlign: 'middle',
+  paddingTop: 10,
+  paddingLeft: 10
+};
 
 export default class UserRepositories extends Component {
   props: {
@@ -25,18 +37,38 @@ export default class UserRepositories extends Component {
     const { repositories, openRepoLink, loadLesson, history } = this.props;
 
     return (
-      <Table fixedHeader={true} selectable={true} >
-        <TableHeader>
+      <Table fixedHeader={true} selectable={true} showCheckboxes={false} >
+        <TableHeader enableSelectAll={false} displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
-            <TableHeaderColumn colSpan="4" tooltip="Load from Github" style={{ textAlign: 'center' }}>
-                <h3>Load from Github</h3>
+            <TableHeaderColumn
+              colSpan="3"
+              style={{ textAlign: 'center', fontSize: 30, color: orange }}>
+                Load from Github
+                <GithubIcon style={iconStyle}/>
             </TableHeaderColumn>
           </TableRow>
           <TableRow>
-            <TableHeaderColumn tooltip="Repository Name">Name</TableHeaderColumn>
-            <TableHeaderColumn tooltip="Repository url">URL</TableHeaderColumn>
-            <TableHeaderColumn tooltip="Last updated">Updated</TableHeaderColumn>
-            <TableHeaderColumn tooltip="Actions">Actions</TableHeaderColumn>
+            <TableHeaderColumn
+              style={{
+                fontSize: 28,
+                color: orange
+              }}>Name</TableHeaderColumn>
+            <TableHeaderColumn
+              style={
+                {
+                  textAlign: 'center',
+                  fontSize: 28,
+                  color: orange
+                }
+              }>Updated</TableHeaderColumn>
+            <TableHeaderColumn
+              style={
+                {
+                textAlign: 'center',
+                fontSize: 28,
+                color: orange
+              }
+              }>Actions</TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody showRowHover={true} stripedRows={true} >

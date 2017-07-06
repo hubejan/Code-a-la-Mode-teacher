@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-// import styles from './UserRepositories.css';
+import { GithubIcon } from './LoginComponent';
+import FileFileDownload from 'material-ui/svg-icons/file/file-download';
+import { cyan, green, yellow } from '../public/colors';
+
 import {
   Table,
   TableBody,
@@ -13,11 +16,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Flexbox from 'flexbox-react';
 import FontIcon from 'material-ui/FontIcon';
 
-import { GithubIcon } from './LoginComponent';
-
 const styles = {
   button: {
-    margin: 14,
+    margin: 2,
+    border: 2,
+    borderStyle: 'solid'
   },
   exampleImageInput: {
     cursor: 'pointer',
@@ -29,8 +32,12 @@ const styles = {
     width: '100%',
     opacity: 0,
   },
+  icon: {
+    height: 30,
+    paddingLeft: 5,
+    paddingTop: 5
+  }
 };
-
 
 export default class UserRepositories extends Component {
   props: {
@@ -47,22 +54,41 @@ export default class UserRepositories extends Component {
 
     return (
       <TableRow key={repository.id}>
-        <TableRowColumn>{ repository.name }</TableRowColumn>
-        <TableRowColumn>{ repository.html_url }</TableRowColumn>
-        <TableRowColumn>{ updatedAtString }</TableRowColumn>
-        <TableRowColumn>
+        <TableRowColumn
+          style={
+            {
+              fontSize: 20,
+              color: yellow
+            }
+          }>{ repository.name }</TableRowColumn>
+        <TableRowColumn
+          style={
+            {
+              textAlign: 'center',
+              fontSize: 14,
+              color: yellow
+            }
+          }>{ updatedAtString }</TableRowColumn>
+        <TableRowColumn
+          style={
+            {
+              textAlign: 'right'
+            }
+          }>
           <RaisedButton
-            icon={<GithubIcon />}
             onClick={(e) => { openRepoLink(repository.html_url, e); }}
-          > View on Github </RaisedButton>
+            label="View on Github"
+            style={styles.button}
+            icon = {<GithubIcon />}
+          ></RaisedButton>
           <RaisedButton
             onClick={() => {
               loadLesson(repository.html_url, history);
             }}
-          > Load Lesson </RaisedButton>
-          {/* <RaisedButton
-            onClick={() => { selectRepository(repository); }}
-          > Select </RaisedButton>*/}
+            label="Load Lesson"
+            style={styles.button}
+            icon={<FileFileDownload />}
+          ></RaisedButton>
         </TableRowColumn>
       </TableRow>
     );

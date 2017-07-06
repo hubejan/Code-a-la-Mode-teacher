@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import brace from 'brace';
 import { ipcRenderer } from 'electron';
 import Flexbox from 'flexbox-react';
-// import Resizable from 'react-resizable-box';
 import AceEditor from 'react-ace';
 import SplitPane from 'react-split-pane';
 
@@ -14,7 +13,6 @@ import { Tab, Tabs } from 'material-ui/Tabs';
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
 import 'brace/ext/searchbox';
-// import styles from './Home.css';
 import FiletreeContainer from '../containers/FiletreeContainer';
 
 import RightPanelContainer from '../containers/RightPanelContainer';
@@ -23,14 +21,8 @@ import EditorNavContainer from '../containers/EditorNavContainer';
 import { getLastFromPath } from '../utils/file-functions';
 import { yellow } from '../public/colors';
 
-/*
-  Error with Webpack and how split is exported out, using require instead
-  Keeping it here in case we might use it later
-
-  const AceSplitEditor = require('react-ace').split;
-*/
 const style = {
-  margin: 12,
+  margin: 12
 };
 
 const snackTextStyles = {
@@ -81,6 +73,7 @@ class Editor extends Component {
     if (nextProps.unread.length > this.props.unread.length) this.setState({ open: true });
     ipcRenderer.send('editor-changes', nextProps.currEditorVal);
   }
+
   handleResize = (size) => this.setState({ editorSize: size });
 
   handleRequestClose() {

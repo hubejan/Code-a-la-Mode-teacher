@@ -37,9 +37,11 @@ const EditorNav = ({ openPanel, allTickets, githubLogout }) => {
 
   return (
     <Flexbox element="header" height="70px" width="100vw">
-      <AppBar iconElementLeft={<NavMenu githubLogout={githubLogout} />}>
-        <Title />
-        <GitControlsContainer />
+      <AppBar
+        iconElementLeft={ <NavMenu githubLogout={githubLogout}/> }
+        title={<Title />}
+        iconElementRight={ <GitControlsContainer /> }
+      >
         <Badge
           badgeContent={unread.length}
           secondary={true}

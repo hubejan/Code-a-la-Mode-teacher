@@ -7,10 +7,12 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/av/skip-previous';
 import Flexbox from 'flexbox-react';
 
+import { green, warmBlack } from '../public/colors'
+
 const style = {
   margin: 12,
-  borderRadius: 3,
-  color: 'white'
+  borderRadius: 3
+
 };
 
 export default class GitControls extends Component {
@@ -38,20 +40,31 @@ export default class GitControls extends Component {
 
     return (
       <Flexbox flexDirection="row" justifyContent="flex-start"  >
-        <RaisedButton onClick={() => { checkoutPreviousBranch(lessonInfo, currentOpenFiles, currentEditorValues); }} style={style} alignSelf="center">
-          Previous branch
-        </RaisedButton>
-        <RaisedButton onClick={() => { checkoutNextBranch(lessonInfo, currentOpenFiles, currentEditorValues); }} style={style} alignSelf="center">
-          Next branch
-        </RaisedButton>
-        <RaisedButton onClick={() => {
-          saveLesson(currentOpenFiles, currentEditorValues)
-            .then(() => console.log('Saved!'))
-            .catch(error => console.error(error));
-        }}
-        style={style}
+        <RaisedButton
+          onClick={() => { checkoutPreviousBranch(lessonInfo, currentOpenFiles, currentEditorValues); }}
+          backgroundColor={green}
+          style={style}
+          alignSelf="center"
+          label="Previous Branch"
+          labelColor={warmBlack}
         >
-          Save Lesson
+        </RaisedButton>
+        <RaisedButton
+          onClick={() => { checkoutNextBranch(lessonInfo, currentOpenFiles, currentEditorValues); }}
+          backgroundColor={green}
+          style={style}
+          alignSelf="center"
+          label="Next Branch"
+          labelColor={warmBlack}
+        >
+        </RaisedButton>
+        <RaisedButton
+          onClick={() => { saveLesson(repositoryPath, lessonInfo); }}
+          backgroundColor={green}
+          style={style}
+          label="Save Lesson"
+          labelColor={warmBlack}
+        >
         </RaisedButton>
       </Flexbox>
     );

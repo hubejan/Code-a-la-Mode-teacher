@@ -12,7 +12,7 @@ const branchify = (question) =>
   question.replace(/[^\w\s]|_/g, '')
           .replace(/\s+/g, '-');
 
-const saveToDisk = () => {
+export const saveToDisk = () => {
   const editorInfo = store.getState().editor;
   const editedPaths = editorInfo.currentOpenFiles;
   const editedContents = editorInfo.contents;
