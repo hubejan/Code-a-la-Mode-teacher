@@ -29,6 +29,7 @@ class LandingPage extends Component {
   props: {
     loggedIn: boolean,
     username: ?string,
+    history: Object,
     alreadyLoggedIn: () => void,
     githubLogin: () => void,
     githubLogout: () => void
@@ -43,7 +44,7 @@ class LandingPage extends Component {
   render() {
     const { loggedIn, username, githubLogin, githubLogout, history } = this.props;
     return loggedIn
-      ? <LessonInitContainer githubLogout={githubLogout} username={username} history={history}/>
+      ? <LessonInitContainer githubLogout={githubLogout} username={username} history={history} />
       : <Login githubLogin={githubLogin} />;
   }
 }
