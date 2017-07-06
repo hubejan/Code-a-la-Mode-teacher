@@ -57,14 +57,11 @@ export default class GitControls extends Component {
         </RaisedButton>
         <RaisedButton
           onClick={() => {
-            // saveLesson(currentOpenFiles, currentEditorValues)
-            //   .then(() => console.log('Saved!'))
-            //   .catch(error => console.error(error));
             saveLesson(repositoryPath, lessonInfo);
           }}
           style={style}
+          label="Save Lesson"
         >
-          Save Lesson
         </RaisedButton>
       </Flexbox>
     );
