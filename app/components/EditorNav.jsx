@@ -12,7 +12,7 @@ import NavMenu from './CodingNavMenu';
 import colors from '../public/colors';
 
 const appBarStyles = {
-  width: '100%', 
+  width: '100%',
   height: "70px",
   alignItems: "center"
 };
