@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import brace from 'brace';
 import { ipcRenderer } from 'electron';
 import Flexbox from 'flexbox-react';
-// import Resizable from 'react-resizable-box';
 import AceEditor from 'react-ace';
 import SplitPane from 'react-split-pane';
 
@@ -20,19 +19,11 @@ injectTapEventPlugin();
 import 'brace/mode/javascript';
 import 'brace/theme/solarized_dark';
 import 'brace/ext/searchbox';
-// import styles from './Home.css';
 import FiletreeContainer from '../containers/FiletreeContainer';
 import GitControlsContainer from '../containers/GitControlsContainer';
 import { getLastFromPath } from '../utils/file-functions';
 import colors from '../public/colors';
 
-
-/*
-  Error with Webpack and how split is exported out, using require instead
-  Keeping it here in case we might use it later
-
-  const AceSplitEditor = require('react-ace').split;
-*/
 const style = {
   margin: 12,
 };
@@ -78,9 +69,9 @@ class Editor extends Component {
   }
 
   componentWillReceiveProps(nextProps: nextPropsType) {
-
     ipcRenderer.send('editor-changes', nextProps.currEditorVal);
   }
+
   handleToggle = () => this.setState({ open: !this.state.open });
   handleResize = (size) => this.setState({ editorSize: size });
 
@@ -157,20 +148,3 @@ class Editor extends Component {
 }
 
 export default Editor;
-        // <Flexbox flexGrow={4} height={'90vh'} >
-        //   <AceEditor
-        //     mode="javascript"
-        //     // orientation="besides"
-        //     theme="solarized_dark"
-        //     value={contents[selectedFileIndex]}
-        //     height={'100%'}
-        //     width={'100%'}
-        //     fontSize={15}
-        //     onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents); }}
-        //     name="UNIQUE_ID_OF_DIV"
-        //     editorProps={{ $blockScrolling: true }}
-        //     showPrintMargin={false}
-        //     style={{ border: '1px solid gold' }}
-        //     wrapEnabled={Boolean(true)}
-        //   />
-        // </Flexbox>
