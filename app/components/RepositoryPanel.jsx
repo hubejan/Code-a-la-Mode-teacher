@@ -16,8 +16,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Flexbox from 'flexbox-react';
 import FontIcon from 'material-ui/FontIcon';
 
-import { GithubIcon } from './LoginComponent';
-
 const styles = {
   button: {
     margin: 2,

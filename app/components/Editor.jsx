@@ -19,26 +19,12 @@ import RightPanelContainer from '../containers/RightPanelContainer';
 import EditorNavContainer from '../containers/EditorNavContainer';
 
 import { getLastFromPath } from '../utils/file-functions';
-<<<<<<< HEAD
-
-=======
 import { yellow } from '../public/colors';
 
-/*
-  Error with Webpack and how split is exported out, using require instead
-  Keeping it here in case we might use it later
-
-  const AceSplitEditor = require('react-ace').split;
-*/
->>>>>>> master
 const style = {
-  margin: 12,
+  margin: 12
 };
 
-<<<<<<< HEAD
-const tabStyle = {
-  color: 'rgb(249, 139, 32)'
-=======
 const snackTextStyles = {
   textAlign: 'center',
   fontSize: '15px',
@@ -47,7 +33,6 @@ const snackTextStyles = {
 
 const snackBgStyles = {
   backgroundColor: yellow
->>>>>>> master
 };
 
 type nextPropsType = {
@@ -85,13 +70,10 @@ class Editor extends Component {
   }
 
   componentWillReceiveProps(nextProps: nextPropsType) {
-    ipcRenderer.send('editor-changes', nextProps.currEditorVal);
-  }
-
-  handleToggle = () => this.setState({ open: !this.state.open });
     if (nextProps.unread.length > this.props.unread.length) this.setState({ open: true });
     ipcRenderer.send('editor-changes', nextProps.currEditorVal);
   }
+
   handleResize = (size) => this.setState({ editorSize: size });
 
   handleRequestClose() {
@@ -120,7 +102,6 @@ class Editor extends Component {
                           <Tab
                             key={filePath}
                             label={getLastFromPath(filePath)}
-                            style={tabStyle}
                             value={index}
                             id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
                             onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
