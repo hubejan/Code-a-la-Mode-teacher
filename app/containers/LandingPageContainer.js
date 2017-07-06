@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Home from '../components/Home';
+import LessonInitContainer from '../containers/LessonInitContainer';
 import Login from '../components/LoginComponent';
 import { teacherLogin, teacherLogout, storageLogin } from '../actions/auth-actions';
 
@@ -43,7 +43,7 @@ class LandingPage extends Component {
   render() {
     const { loggedIn, username, githubLogin, githubLogout } = this.props;
     return loggedIn
-      ? <Home githubLogout={githubLogout} username={username} />
+      ? <LessonInitContainer githubLogout={githubLogout} username={username} />
       : <Login githubLogin={githubLogin} />;
   }
 }
