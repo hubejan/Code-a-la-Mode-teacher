@@ -5,6 +5,7 @@ import { ipcRenderer } from 'electron';
 
 import UserRepositoriesContainer from '../containers/UserRepositoriesContainer';
 import NewLessonFormContainer from '../containers/NewLessonFormContainer';
+import NavMenu from './CodingNavMenu';
 
 import styles from './UserRepositories.css';
 import { lessonInfoType } from '../reducers/lessonSession-reducer';
@@ -42,7 +43,7 @@ export default class LessonInit extends Component {
   handleClose = () => { this.setState({ open: false }); };
 
   render() {
-    const { userRepositories, selectedRepository, lessonInfo, createNewLesson, token, open, history } = this.props;
+    const { userRepositories, githubLogout, lessonInfo, createNewLesson, token, open, history } = this.props;
 
     const actions = [
       <FlatButton
@@ -57,8 +58,7 @@ export default class LessonInit extends Component {
       <div>
         <AppBar title="Create A Lesson"
               showMenuIconButton="false"
-              iconElementLeft={<IconButton><Link to="/"><NavigationClose /></Link></IconButton>}
-              onLeftIconButtonTouchTap={() => {}}
+              iconElementLeft={<NavMenu githubLogout={githubLogout} view="lesson" />}
         >
           <RaisedButton label="Load from local" style={style} onClick={() => { this.handleOpen(); }} />
         </AppBar>
