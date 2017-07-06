@@ -16,6 +16,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Flexbox from 'flexbox-react';
 import FontIcon from 'material-ui/FontIcon';
 
+import { GithubIcon } from './LoginComponent';
+
 const styles = {
   button: {
     margin: 2,
@@ -76,7 +78,6 @@ export default class UserRepositories extends Component {
             }
           }>
           <RaisedButton
-            // icon={<FontIcon className="muidocs-icon-custom-github" />}
             onClick={(e) => { openRepoLink(repository.html_url, e); }}
             label="View on Github"
             style={styles.button}

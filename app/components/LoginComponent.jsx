@@ -5,6 +5,7 @@ import SvgIcon from 'material-ui/SvgIcon';
 import IconButton from 'material-ui/IconButton';
 
 import handleAuth from '../utils/auth';
+import Logo from '../components/Logo';
 import { cyan, green, orange, magenta } from '../public/colors';
 
 const titleStyles = {
@@ -47,6 +48,7 @@ export default class LoginComponent extends React.Component {
   render() {
     return (
       <Flexbox style={flexStyles} flexDirection="column" justifyContent="center" alignItems="center">
+        <Logo />
         <div style={titleStyles}>
           <span style={{ color: 'whitesmoke' }}>Welcome to </span>
           <span style={{ color: cyan }}>Code </span>
