@@ -55,13 +55,3 @@ const EditorNav = ({ openPanel, allTickets, githubLogout }) => {
 };
 
 export default EditorNav;
-
-      // <Flexbox display="flex" flexDirection="row" flexGrow={1} flexWrap="wrap" marginTop="auto" marginBottom="auto" width="100vw" maxHeight="100vh">
-      //   <Flexbox width="100vw">
-      //     <AppBar style={{ width: '100%', height: "70px" }} showMenuIconButton={false} alignItems="center">
-            // <div style={titleStyles}>
-            //   <span style={{ color: colors.cyan }}>Code </span>
-            //   <span style={{ color: colors.green }}>à </span>
-            //   <span style={{ color: colors.orange }}>la </span>
-            //   <span style={{ color: colors.magenta }}>Mode</span>
-            // </div>
