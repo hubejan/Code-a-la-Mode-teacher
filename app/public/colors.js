@@ -9,7 +9,7 @@ const yellow = '#dadb74';
 const warmBlack = '#262822';
 const green = '#92e600';
 const orange = '#f98b20';
-const codeTheme = '#3D3F2F';
+const codeTheme = '#1e1f1a';
 
 module.exports = {
   red,
