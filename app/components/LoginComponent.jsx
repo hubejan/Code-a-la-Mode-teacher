@@ -3,7 +3,6 @@ import Flexbox from 'flexbox-react';
 
 import SvgIcon from 'material-ui/SvgIcon';
 import IconButton from 'material-ui/IconButton';
-import RaisedButton from 'material-ui/RaisedButton';
 
 import handleAuth from '../utils/auth';
 import { cyan, green, orange, magenta } from '../public/colors';
@@ -57,7 +56,7 @@ export default class LoginComponent extends React.Component {
           <span style={{ color: orange }}>la </span>
           <span style={{ color: magenta }}>Mode</span>
         </div>
-        <div >
+        <div>
           <IconButton
             style={buttonStyles}
             iconStyle={iconStyles}
