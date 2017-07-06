@@ -7,10 +7,12 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/av/skip-previous';
 import Flexbox from 'flexbox-react';
 
+import { yellow } from '../public/colors'
+
 const style = {
   margin: 12,
-  borderRadius: 3,
-  color: 'white'
+  borderRadius: 3
+
 };
 
 export default class GitControls extends Component {
@@ -38,11 +40,20 @@ export default class GitControls extends Component {
 
     return (
       <Flexbox flexDirection="row" justifyContent="flex-start"  >
-        <RaisedButton onClick={() => { checkoutPreviousBranch(lessonInfo, currentOpenFiles, currentEditorValues); }} style={style} alignSelf="center">
-          Previous branch
+        <RaisedButton
+          onClick={() => { checkoutPreviousBranch(lessonInfo, currentOpenFiles, currentEditorValues); }}
+          backgroundColor="#a4c639"
+          style={style}
+          alignSelf="center"
+          label="Previous Branch"
+        >
         </RaisedButton>
-        <RaisedButton onClick={() => { checkoutNextBranch(lessonInfo, currentOpenFiles, currentEditorValues); }} style={style} alignSelf="center">
-          Next branch
+        <RaisedButton
+          onClick={() => { checkoutNextBranch(lessonInfo, currentOpenFiles, currentEditorValues); }}
+          style={style}
+          alignSelf="center"
+          label="Next Branch"
+        >
         </RaisedButton>
         <RaisedButton
           onClick={() => {

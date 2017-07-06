@@ -23,6 +23,10 @@ const style = {
   margin: 12,
 };
 
+const tabStyle = {
+  color: 'rgb(249, 139, 32)'
+};
+
 type nextPropsType = {
   contents: Array<string>,
   repositoryPath: string,
@@ -86,6 +90,7 @@ class Editor extends Component {
                           <Tab
                             key={filePath}
                             label={getLastFromPath(filePath)}
+                            style={tabStyle}
                             value={index}
                             id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
                             onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
@@ -98,6 +103,7 @@ class Editor extends Component {
                       mode="javascript"
                       theme="solarized_dark"
                       width={'100%'}
+                      height='900'
                       onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents)} }
                       name="UNIQUE_ID_OF_DIV"
                       wrapEnabled={true}
