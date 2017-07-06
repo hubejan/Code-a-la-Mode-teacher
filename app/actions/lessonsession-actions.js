@@ -5,11 +5,12 @@ import PromiseB from 'bluebird';
 import { lessonInfoType } from '../reducers/lessonSession-reducer';
 import { makeDirectory, writeFile } from '../utils/FileSystemUtils';
 import { getLastFromPath } from '../utils/file-functions';
+import { saveToDisk } from '../utils/gitHelpers';
 
 import { clearEditorState } from './editor-actions';
 
 const git = require('simple-git');
-
+const x = 'x';
 const GITHUB_API_ROOT = 'https://api.github.com';
 
 export const LOAD_USER_REPOS = 'LOAD_USER_REPOS';
@@ -102,7 +103,8 @@ export const checkoutNextBranch = (lessonInfo: lessonInfoType,
     return;
   }
 
-  saveLesson(currentOpenFiles, currentEditorValues)
+  // saveLesson(currentOpenFiles, currentEditorValues)
+  saveToDisk()
     .then(() => {
       const nextBranchName = lessonInfo.branchNames[currentIndex + 1];
 
@@ -146,7 +148,8 @@ export const checkoutPreviousBranch = (lessonInfo: lessonInfoType,
     return;
   }
 
-  saveLesson(currentOpenFiles, currentEditorValues)
+  // saveLesson(currentOpenFiles, currentEditorValues)
+  saveToDisk()
     .then(() => {
       const previousBranchName = lessonInfo.branchNames[currentIndex - 1];
 
@@ -233,10 +236,13 @@ export const addBranch = (branch, branchName) => ({
   branchName
 });
 
-export const saveLesson = (currentOpenFiles: Array<string>, currentEditorValues: Array<string>) => {
-  const writePromises = currentOpenFiles.map((filePath, index) => {
-    const newFileContent = currentEditorValues[index];
-    return writeFile(filePath, newFileContent);
-  });
-  return Promise.all(writePromises);
-};
+// export const saveLesson = (currentOpenFiles: Array<string>, currentEditorValues: Array<string>) => {
+  // const writePromises = currentOpenFiles.map((filePath, index) => {
+  //   const newFileContent = currentEditorValues[index];
+  //   return writeFile(filePath, newFileContent);
+  // });
+  // return Promise.all(writePromises);
+
+  // Go through all branches visited, checkout each (Any changes should be saved to FS by this time)
+  // Push up to Github
+// };

@@ -1,67 +1,63 @@
 // @flow
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import HelpTicketPanel from '../components/HelpTicketPanel';
-import { add, select, remove } from '../actions/tickets-actions';
-import type { ticketsStateType } from '../reducers/tickets-reducer';
+
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import IconButton from 'material-ui/IconButton';
+
+import HelpTicketPanel from '../components/HelpTicketPanel';
+import { select, remove } from '../actions/tickets-actions';
+import { close } from '../actions/panelView-actions';
+import type { ticketsStateType } from '../reducers/tickets-reducer';
 
 function mapStateToProps(state) {
   return {
-    panelView: state.panelView,
+    panelOpen: state.panelOpen,
     ticketsState: state.tickets
   };
 }
 
 function mapDispatchToProps(dispatch: *) {
   return {
-    addTicket(ticket) {
-      dispatch(add(ticket));
-    },
     selectTicket(ticket) {
       dispatch(select(ticket));
     },
     removeTicket(ticket) {
       dispatch(remove(ticket));
+    },
+    closePanel() {
+      dispatch(close());
     }
   };
 }
 
 class RightPanelContainer extends Component {
   props: {
-    panelView: string,
+    panelOpen: boolean,
     ticketsState: ticketsStateType,
-    addTicket: () => void,
     selectTicket: () => void,
-    removeTicket: () => void
+    removeTicket: () => void,
+    closePanel: () => void
   };
 
   render() {
-    const { panelView, ticketsState, addTicket, selectTicket, removeTicket, open } = this.props;
+    const { ticketsState, selectTicket, removeTicket, panelOpen, closePanel } = this.props;
 
     return (
-      <div>
-        <Drawer width={400} openSecondary={true} open={open} >
-          <AppBar title="AppBar" />
-        </Drawer>
-
-
-        <Link to="/">
-          <i className="fa fa-arrow-left fa-3x" />
-        </Link>
-        <h1>RIGHT PANEL CONTAINER</h1>
-        {
-          panelView === 'HelpTickets'
-            ? <HelpTicketPanel
-              ticketsState={ticketsState}
-              selectTicket={selectTicket}
-              removeTicket={removeTicket}
-            />
-            : null // fill with History later
-        }
-      </div>
+      <Drawer width={300} openSecondary={true} open={panelOpen} >
+        <AppBar
+          title="Help Tickets"
+          iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+          onLeftIconButtonTouchTap={() => closePanel()}
+        />
+        <HelpTicketPanel
+          ticketsState={ticketsState}
+          selectTicket={selectTicket}
+          removeTicket={removeTicket}
+        />
+      </Drawer>
     );
   }
 }

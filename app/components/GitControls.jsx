@@ -44,12 +44,14 @@ export default class GitControls extends Component {
         <RaisedButton onClick={() => { checkoutNextBranch(lessonInfo, currentOpenFiles, currentEditorValues); }} style={style} alignSelf="center">
           Next branch
         </RaisedButton>
-        <RaisedButton onClick={() => {
-          saveLesson(currentOpenFiles, currentEditorValues)
-            .then(() => console.log('Saved!'))
-            .catch(error => console.error(error));
-        }}
-        style={style}
+        <RaisedButton
+          onClick={() => {
+            // saveLesson(currentOpenFiles, currentEditorValues)
+            //   .then(() => console.log('Saved!'))
+            //   .catch(error => console.error(error));
+            saveLesson(repositoryPath, lessonInfo);
+          }}
+          style={style}
         >
           Save Lesson
         </RaisedButton>
