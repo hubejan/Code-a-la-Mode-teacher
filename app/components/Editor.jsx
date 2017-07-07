@@ -105,6 +105,9 @@ class Editor extends Component {
                             value={index}
                             id={filePath} // TODO: Preferably not on id but this stops throwing an error for now
                             onActive={(tab) => loadFileFromTab(tab.props.id, currentOpenFiles, contents)}
+                            style={{
+                              color: 'white'
+                            }}
                           />
                         ))
                       }
