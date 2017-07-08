@@ -56,9 +56,10 @@ export default class LessonInit extends Component {
     // TODO: Re-route to Editor after creating/selecting a lesson
     return (
       <div>
-        <AppBar title="Create A Lesson"
-              showMenuIconButton="false"
-              iconElementLeft={<NavMenu githubLogout={githubLogout} view="lesson" />}
+        <AppBar
+          title="Create A Lesson"
+          showMenuIconButton={false}
+          iconElementLeft={<NavMenu githubLogout={githubLogout} view="lesson" />}
         >
           <RaisedButton label="Load from local" style={style} onClick={() => { this.handleOpen(); }} />
         </AppBar>

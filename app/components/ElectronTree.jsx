@@ -74,16 +74,7 @@ export default class ElectronTree extends Component {
 
     return (
       // Animate a list of items as they are added
-      <Transition
-        component="ul"
-        enter={{
-          opacity: 1,
-        }}
-        leave={{
-          opacity: 0,
-        }}
-      >
-      { files.length > 0 &&
+      files.length > 0 &&
       <ul className="_fileTree" style={fileTreeStyle} >
         {files.map(file => {
           const filePath = file.filePath;
@@ -124,8 +115,6 @@ export default class ElectronTree extends Component {
         })
         }
       </ul>
-      }
-      </Transition>
     );
   }
 }

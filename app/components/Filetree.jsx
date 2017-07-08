@@ -22,10 +22,6 @@ export default class Filetree extends Component {
     selectedFileIndex: number
   };
 
-  componentDidMount() {
-    // this.props.dispatchGetUsername();
-  }
-
   render() {
     const { loadInEditor,
             path,
@@ -35,7 +31,7 @@ export default class Filetree extends Component {
             selectedFileIndex } = this.props;
 
     return (
-      <Resizable width={'100%'} height={'100%'}>
+      <div>
         {
           currentBranch && <h3>{ currentBranch }</h3>
         }
@@ -48,7 +44,7 @@ export default class Filetree extends Component {
           }}
           currentBranch={currentBranch}
         />
-      </Resizable>
+      </div>
     );
   }
 }

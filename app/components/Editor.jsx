@@ -90,7 +90,7 @@ class Editor extends Component {
           <EditorNavContainer />
           <Flexbox height="70px" width="100vh" />
           <Flexbox flexDirection="row" justifyContent="space-around">
-            <div position="relative">
+            <div>
               <SplitPane split="vertical" defaultSize="240" onChange={this.handleResize} >
                 <Paper style={style} zDepth={2}>
                   <FiletreeContainer directory={'/'} socket={this.socket} />
