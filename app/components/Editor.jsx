@@ -22,7 +22,7 @@ import { getLastFromPath } from '../utils/file-functions';
 import { yellow } from '../public/colors';
 
 const style = {
-  margin: 12
+
 };
 
 const snackTextStyles = {
