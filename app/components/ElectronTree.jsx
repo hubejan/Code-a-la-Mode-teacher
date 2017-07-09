@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import FadeIn from 'react-fade-in';
 import Directory from './Directory';
 import File from './File';
 import { getAllFiles } from '../utils/file-functions';
@@ -20,7 +20,7 @@ export default class ElectronTree extends Component {
     directoryTheme?: string,
     isChildFiletree?: boolean,
     isRoot?: string,
-    currentBranch: string
+    currentBranch?: string
   }
   constructor() {
     super();
@@ -73,13 +73,15 @@ export default class ElectronTree extends Component {
       defaultStyles.fileStyle, this.props.fileStyle) : defaultStyles.fileStyle;
 
     return (
-      // Animate a list of items as they are added
+
+// ...
       files.length > 0 &&
       <ul className="_fileTree" style={fileTreeStyle} >
         {files.map(file => {
           const filePath = file.filePath;
           const fileName = filePath.split('/').slice(-1).join('');
           return file.isDirectory ?
+    <FadeIn>
             <li className="_directory" key={`${filePath} Directory`} style={directoryStyle}>
               <div onClick={() => this.setVisibility(file.filePath)} role="menuitem" tabIndex={0}>
                 <Directory
@@ -103,7 +105,9 @@ export default class ElectronTree extends Component {
                 isChildFiletree={Boolean(true)}
               />}
             </li>
+            </FadeIn>
             :
+            <FadeIn>
             <li
               className="_file"
               key={filePath}
@@ -111,7 +115,8 @@ export default class ElectronTree extends Component {
               onClick={() => this.onFileClick(file)}
               style={fileStyle}
             >
-              <File className="file" />{`               ${fileName}`}</li>;
+              <File className="file" />{`               ${fileName}`}</li>
+              </FadeIn>
         })
         }
       </ul>

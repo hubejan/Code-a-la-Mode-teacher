@@ -91,7 +91,7 @@ class Editor extends Component {
           <Flexbox height="70px" width="100vh" />
           <Flexbox flexDirection="row" justifyContent="space-around">
             <div>
-              <SplitPane split="vertical" defaultSize="240" onChange={this.handleResize} >
+              <SplitPane split="vertical" defaultSize="240px" onChange={this.handleResize} >
                 <Paper style={style} zDepth={2}>
                   <FiletreeContainer directory={'/'} socket={this.socket} />
                 </Paper>
@@ -114,7 +114,7 @@ class Editor extends Component {
                       mode="javascript"
                       theme="monokai"
                       width={'100%'}
-                      height="920"
+                      height="920px"
                       onChange={(newValue, event) => { changeEditor(newValue, selectedFileIndex, contents)} }
                       name="UNIQUE_ID_OF_DIV"
                       wrapEnabled={true}
