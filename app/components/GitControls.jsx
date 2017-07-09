@@ -22,6 +22,7 @@ export default class GitControls extends Component {
     repositoryPath: string,
     checkoutNextBranch: () => void,
     checkoutPreviousBranch: () => void,
+    checkoutLessonBranch: () => void,
     saveLesson: () => void,
     lessonInfo: lessonInfoType,
     currentOpenFiles: Array<string>,
@@ -33,6 +34,7 @@ export default class GitControls extends Component {
             repositoryPath,
             checkoutNextBranch,
             checkoutPreviousBranch,
+            checkoutLessonBranch,
             lessonInfo,
             saveLesson,
             currentOpenFiles,
@@ -59,6 +61,7 @@ export default class GitControls extends Component {
         >
         </RaisedButton>
         <RaisedButton
+          onClick={() => { checkoutLessonBranch(lessonInfo); }}
           backgroundColor={warmBlack}
           style={style}
           label="Lesson Branch"

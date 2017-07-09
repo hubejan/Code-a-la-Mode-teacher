@@ -4,6 +4,7 @@ import {
   LOAD_LESSON,
   CHECKOUT_NEXT_BRANCH,
   CHECKOUT_PREVIOUS_BRANCH,
+  CHECKOUT_MASTER,
   CANNOT_CHECKOUT,
   ADD_BRANCH,
   CREATED_NEW_LESSON,
@@ -69,6 +70,14 @@ export default function lessonsession(state: lessonSessionStateType = defaultLes
         branchIndex: action.newBranchIndex
       };
       return { ...state, lessonInfo: previousBranchInfo };
+    }
+    case CHECKOUT_MASTER: {
+      const masterBranchInfo = {
+        ...state.lessonInfo,
+        currentBranch: action.currentBranch,
+        branchIndex: action.newBranchIndex
+      }
+      return { ...state, lessonInfo: masterBranchInfo };
     }
     case CANNOT_CHECKOUT: {
       return state;
