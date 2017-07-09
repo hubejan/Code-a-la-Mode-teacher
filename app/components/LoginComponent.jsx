@@ -3,6 +3,7 @@ import Flexbox from 'flexbox-react';
 
 import SvgIcon from 'material-ui/SvgIcon';
 import IconButton from 'material-ui/IconButton';
+import Paper from 'material-ui/Paper';
 
 import handleAuth from '../utils/auth';
 import Logo from '../components/Logo';
@@ -18,14 +19,16 @@ const flexStyles = {
 };
 
 const buttonStyles = {
-  width: 120,
-  height: 120,
-  padding: 20
+  width: 130,
+  height: 130,
+  padding: '7px',
+  color: 'rgba(255, 255, 255, 1)',
+  boxShadow: '0 5px 15px rgba(145, 92, 182, .4)'
 };
 
 const iconStyles = {
-  width: 120,
-  height: 120
+  width: 140,
+  height: 140,
 };
 
 export const GithubIcon = (props) => (
@@ -56,15 +59,19 @@ export default class LoginComponent extends React.Component {
           <span style={{ color: orange }}>la </span>
           <span style={{ color: magenta }}>Mode</span>
         </div>
-        <div>
-          <IconButton
-            style={buttonStyles}
-            iconStyle={iconStyles}
-            onTouchTap={() => handleAuth(this.props.githubLogin)}
-          >
-            <GithubIcon />
-          </IconButton>
-        </div>
+        <Flexbox style={flexStyles} >
+            <Flexbox alignSelf="center" >
+          <Paper style={buttonStyles} zDepth={5} circle={true} className="glowbutton" >
+            <IconButton
+
+              iconStyle={iconStyles}
+              onTouchTap={() => handleAuth(this.props.githubLogin)}
+            >
+              <GithubIcon />
+            </IconButton>
+          </Paper>
+            </Flexbox>
+        </Flexbox>
         <h3 style={{ marginTop: '-20px' }}>Log in with Github</h3>
       </Flexbox>
     );
