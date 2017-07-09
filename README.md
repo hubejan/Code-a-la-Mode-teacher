@@ -17,7 +17,6 @@
 
 ## Screenshot
 
-![Electron Boilerplate Demo](https://cloud.githubusercontent.com/assets/3382565/10557547/b1f07a4e-74e3-11e5-8d27-79ab6947d429.gif)
 
 ## Install
 
@@ -197,12 +196,6 @@ This project comes with Flow support out of the box! You can annotate your code 
 ## Native-like UI
 
 If you want to have native-like User Interface (OS X El Capitan and Windows 10), [react-desktop](https://github.com/gabrielbull/react-desktop) may perfect suit for you.
-
-## Dispatching redux actions from main process
-
-see discusses in [#118](https://github.com/chentsulin/electron-react-boilerplate/issues/118) and [#108](https://github.com/chentsulin/electron-react-boilerplate/issues/108)
-
-
 
 ## Maintainers
 
