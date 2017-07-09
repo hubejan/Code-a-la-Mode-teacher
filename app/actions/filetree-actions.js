@@ -40,13 +40,14 @@ export function loadNewFile(selectedFile: selectedFileType, currentOpenFiles: Ar
     }
 
     // Opening a new file, load it into the Editor
-    // TODO: Need to sync active tab with this newly opened file
     readFile(selectedFile.filePath)
       .then(contents => {
         const allOpenFiles = currentOpenFiles.concat(loadedFilePath);
         const text = contents.toString();
-        const newEditorValues = currentEditorValues.concat([text]);
+        let newEditorValues;
         const indexOfNewFile = currentOpenFiles.length; // New file gets pushed to end of array (zero-based indexing)
+        if (indexOfNewFile === 0) newEditorValues = [text];
+        else newEditorValues = currentEditorValues.concat([text]);
         const newEditorState = {
           contents: newEditorValues,
           currentOpenFiles: allOpenFiles,

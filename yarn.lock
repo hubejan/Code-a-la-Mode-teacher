@@ -7220,6 +7220,10 @@ react-event-listener@^0.4.5:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
+react-fade-in@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/react-fade-in/-/react-fade-in-0.1.4.tgz#b2b986dd5bcabdb126beb7cf1eb4d1ae40142bcc"
+
 react-hot-loader@3.0.0-beta.6:
   version "3.0.0-beta.6"
   resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-3.0.0-beta.6.tgz#463fac0bfc8b63a8385258af20c91636abce75f4"

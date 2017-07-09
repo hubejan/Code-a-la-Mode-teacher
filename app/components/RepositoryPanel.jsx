@@ -79,7 +79,7 @@ export default class UserRepositories extends Component {
             onClick={(e) => { openRepoLink(repository.html_url, e); }}
             label="View on Github"
             style={styles.button}
-            icon = {<GithubIcon />}
+            icon={<GithubIcon />}
           ></RaisedButton>
           <RaisedButton
             onClick={() => {

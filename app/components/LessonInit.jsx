@@ -62,10 +62,10 @@ export default class LessonInit extends Component {
           showMenuIconButton="false"
           iconElementLeft={<NavMenu githubLogout={githubLogout} view="lesson" />}
         >
-          <RaisedButton label="Create A Lesson" style={style} onClick={() => { this.handleOpen(); }} />
+          <RaisedButton label="New Lesson" style={style} onClick={() => { this.handleOpen(); }} />
         </AppBar>
         <Dialog
-          title="Create A Lesson"
+          title="New Lesson"
           actions={actions}
           modal={Boolean(true)}
           open={this.state.open}

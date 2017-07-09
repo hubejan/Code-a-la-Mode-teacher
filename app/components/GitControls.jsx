@@ -46,7 +46,6 @@ export default class GitControls extends Component {
           onClick={() => { checkoutPreviousBranch(lessonInfo, currentOpenFiles, currentEditorValues); }}
           backgroundColor={warmBlack}
           style={style}
-          alignSelf="center"
           label="Prev Branch"
           labelColor={cyan}
         >
@@ -55,7 +54,6 @@ export default class GitControls extends Component {
           onClick={() => { checkoutNextBranch(lessonInfo, currentOpenFiles, currentEditorValues); }}
           backgroundColor={warmBlack}
           style={style}
-          alignSelf="center"
           label="Next Branch"
           labelColor={green}
         >

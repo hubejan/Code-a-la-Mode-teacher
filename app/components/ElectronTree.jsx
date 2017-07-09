@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import FadeIn from 'react-fade-in';
 import Directory from './Directory';
 import File from './File';
 import { getAllFiles } from '../utils/file-functions';
@@ -20,7 +20,7 @@ export default class ElectronTree extends Component {
     directoryTheme?: string,
     isChildFiletree?: boolean,
     isRoot?: string,
-    currentBranch: string
+    currentBranch?: string
   }
   constructor() {
     super();
@@ -73,59 +73,51 @@ export default class ElectronTree extends Component {
       defaultStyles.fileStyle, this.props.fileStyle) : defaultStyles.fileStyle;
 
     return (
-      // Animate a list of items as they are added
-      <Transition
-        component="ul"
-        enter={{
-          opacity: 1,
-        }}
-        leave={{
-          opacity: 0,
-        }}
-      >
-      { files.length > 0 &&
+      files.length > 0 &&
       <ul className="_fileTree" style={fileTreeStyle} >
         {files.map(file => {
           const filePath = file.filePath;
           const fileName = filePath.split('/').slice(-1).join('');
           return file.isDirectory ?
-            <li className="_directory" key={`${filePath} Directory`} style={directoryStyle}>
-              <div onClick={() => this.setVisibility(file.filePath)} role="menuitem" tabIndex={0}>
-                <Directory
-                  className="directory"
-                  visible={this.props.isVisible[file.filePath]}
-                  theme={this.props.directoryTheme}
-                />
-                {`               ${fileName}`}
-              </div>
-              {this.props.isVisible[file.filePath] &&
-              <ElectronTree
-                directory={file.filePath}
-                onFileClick={this.props.onFileClick}
-                toggleVisibility={this.props.toggleVisibility}
-                directoryTheme={this.props.directoryTheme || 'light'}
-                isVisible={this.props.isVisible}
-                fileTreeStyle={this.props.fileTreeStyle}
-                directoryStyle={this.props.directoryStyle}
-                fileStyle={this.props.fileStyle}
-                dispatchSetFiletree={this.props.dispatchSetFiletree}
-                isChildFiletree={Boolean(true)}
-              />}
-            </li>
+            <FadeIn>
+              <li className="_directory" key={`${filePath} Directory`} style={directoryStyle}>
+                <div onClick={() => this.setVisibility(file.filePath)} role="menuitem" tabIndex={0}>
+                  <Directory
+                    className="directory"
+                    visible={this.props.isVisible[file.filePath]}
+                    theme={this.props.directoryTheme}
+                  />
+                  {` ${fileName}`}
+                </div>
+                {this.props.isVisible[file.filePath] &&
+                <ElectronTree
+                  directory={file.filePath}
+                  onFileClick={this.props.onFileClick}
+                  toggleVisibility={this.props.toggleVisibility}
+                  directoryTheme={this.props.directoryTheme || 'light'}
+                  isVisible={this.props.isVisible}
+                  fileTreeStyle={this.props.fileTreeStyle}
+                  directoryStyle={this.props.directoryStyle}
+                  fileStyle={this.props.fileStyle}
+                  dispatchSetFiletree={this.props.dispatchSetFiletree}
+                  isChildFiletree={Boolean(true)}
+                />}
+              </li>
+            </FadeIn>
             :
-            <li
-              className="_file"
-              key={filePath}
-              role="menuitem"
-              onClick={() => this.onFileClick(file)}
-              style={fileStyle}
-            >
-              <File className="file" />{`               ${fileName}`}</li>;
+            <FadeIn>
+              <li
+                className="_file"
+                key={filePath}
+                role="menuitem"
+                onClick={() => this.onFileClick(file)}
+                style={fileStyle}
+              >
+                <File className="file" />{` ${fileName}`}</li>
+            </FadeIn>;
         })
         }
       </ul>
-      }
-      </Transition>
     );
   }
 }
