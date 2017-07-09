@@ -23,7 +23,7 @@ const titleStyles = {
   fontSize: '35px'
 };
 
-const Title = () => (
+export const Title = () => (
   <div style={titleStyles}>
     <span style={{ color: colors.cyan }}>Code </span>
     <span style={{ color: colors.green }}>à </span>

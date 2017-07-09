@@ -73,8 +73,6 @@ export default class ElectronTree extends Component {
       defaultStyles.fileStyle, this.props.fileStyle) : defaultStyles.fileStyle;
 
     return (
-
-// ...
       files.length > 0 &&
       <ul className="_fileTree" style={fileTreeStyle} >
         {files.map(file => {

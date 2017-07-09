@@ -6,6 +6,7 @@ import { ipcRenderer } from 'electron';
 import UserRepositoriesContainer from '../containers/UserRepositoriesContainer';
 import NewLessonFormContainer from '../containers/NewLessonFormContainer';
 import NavMenu from './CodingNavMenu';
+import { Title } from './EditorNav';
 
 import styles from './UserRepositories.css';
 import { lessonInfoType } from '../reducers/lessonSession-reducer';
@@ -57,14 +58,14 @@ export default class LessonInit extends Component {
     return (
       <div>
         <AppBar
-          title="Create A Lesson"
-          showMenuIconButton={false}
+          title={<Title />}
+          showMenuIconButton="false"
           iconElementLeft={<NavMenu githubLogout={githubLogout} view="lesson" />}
         >
-          <RaisedButton label="Load from local" style={style} onClick={() => { this.handleOpen(); }} />
+          <RaisedButton label="New Lesson" style={style} onClick={() => { this.handleOpen(); }} />
         </AppBar>
         <Dialog
-          title="Load from Local"
+          title="New Lesson"
           actions={actions}
           modal={Boolean(true)}
           open={this.state.open}
