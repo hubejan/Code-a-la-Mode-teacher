@@ -6,6 +6,7 @@ import { ipcRenderer } from 'electron';
 import UserRepositoriesContainer from '../containers/UserRepositoriesContainer';
 import NewLessonFormContainer from '../containers/NewLessonFormContainer';
 import NavMenu from './CodingNavMenu';
+import { Title } from './EditorNav';
 
 import styles from './UserRepositories.css';
 import { lessonInfoType } from '../reducers/lessonSession-reducer';
@@ -56,14 +57,15 @@ export default class LessonInit extends Component {
     // TODO: Re-route to Editor after creating/selecting a lesson
     return (
       <div>
-        <AppBar title="Create A Lesson"
-              showMenuIconButton="false"
-              iconElementLeft={<NavMenu githubLogout={githubLogout} view="lesson" />}
+        <AppBar
+          title={<Title />}
+          showMenuIconButton="false"
+          iconElementLeft={<NavMenu githubLogout={githubLogout} view="lesson" />}
         >
-          <RaisedButton label="Load from local" style={style} onClick={() => { this.handleOpen(); }} />
+          <RaisedButton label="Create A Lesson" style={style} onClick={() => { this.handleOpen(); }} />
         </AppBar>
         <Dialog
-          title="Load from Local"
+          title="Create A Lesson"
           actions={actions}
           modal={Boolean(true)}
           open={this.state.open}
