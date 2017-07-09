@@ -5,7 +5,7 @@ import File from './File';
 import { getAllFiles } from '../utils/file-functions';
 import { mergeStyleObjects } from '../utils/helpers';
 import defaultStyles from '../utils/defaultStyles';
-
+import Transition from 'react-motion-ui-pack'
 export default class ElectronTree extends Component {
   props: {
     toggleVisibility: () => void,
@@ -73,7 +73,17 @@ export default class ElectronTree extends Component {
       defaultStyles.fileStyle, this.props.fileStyle) : defaultStyles.fileStyle;
 
     return (
-      files.length > 0 &&
+      // Animate a list of items as they are added
+      <Transition
+        component="ul"
+        enter={{
+          opacity: 1,
+        }}
+        leave={{
+          opacity: 0,
+        }}
+      >
+      { files.length > 0 &&
       <ul className="_fileTree" style={fileTreeStyle} >
         {files.map(file => {
           const filePath = file.filePath;
@@ -114,6 +124,8 @@ export default class ElectronTree extends Component {
         })
         }
       </ul>
+      }
+      </Transition>
     );
   }
 }
