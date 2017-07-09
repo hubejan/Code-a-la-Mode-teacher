@@ -10,13 +10,13 @@ import { saveToDisk } from '../utils/gitHelpers';
 import { clearEditorState } from './editor-actions';
 
 const git = require('simple-git');
-const x = 'x';
 const GITHUB_API_ROOT = 'https://api.github.com';
 
 export const LOAD_USER_REPOS = 'LOAD_USER_REPOS';
 export const LOAD_LESSON = 'LOAD_LESSON';
 export const CHECKOUT_NEXT_BRANCH = 'CHECKOUT_NEXT_BRANCH';
 export const CHECKOUT_PREVIOUS_BRANCH = 'CHECKOUT_PREVIOUS_BRANCH';
+export const CHECKOUT_MASTER = 'CHECKOUT_MASTER';
 export const CANNOT_CHECKOUT = 'CANNOT_CHECKOUT';
 export const ADD_BRANCH = 'ADD_BRANCH';
 export const CREATED_NEW_LESSON = 'CREATED_NEW_LESSON';
@@ -92,6 +92,31 @@ export const loadAfterCloning = (lessonFilePath: string) => (dispatch: *) => {
     });
 };
 
+export const checkoutLessonBranch = (lessonInfo: lessonInfoType) => (dispatch: *) => {
+  const currentIndex = lessonInfo.branchIndex;
+
+  saveToDisk()
+    .then(() => {
+      git(lessonInfo.repositoryPath)
+        .add('./*')
+        .commit(`Temporary commit for branch ${lessonInfo.branchNames[currentIndex]}`)
+        .checkout('master', (err) => {
+          if (err) {
+            dispatch({ type: CANNOT_CHECKOUT});
+          } else {
+            dispatch(clearEditorState());
+
+            dispatch({
+              type: CHECKOUT_MASTER,
+              currentBranch: 'master',
+              newBranchIndex: 0 // master branch should always be the first one
+            });
+          }
+        })
+    })
+    .catch(error => console.error);
+}
+
 export const checkoutNextBranch = (lessonInfo: lessonInfoType,
                                    currentOpenFiles: Array<string>,
                                    currentEditorValues: Array<string>) => (dispatch: *) => {
@@ -103,7 +128,6 @@ export const checkoutNextBranch = (lessonInfo: lessonInfoType,
     return;
   }
 
-  // saveLesson(currentOpenFiles, currentEditorValues)
   saveToDisk()
     .then(() => {
       const nextBranchName = lessonInfo.branchNames[currentIndex + 1];
@@ -148,7 +172,6 @@ export const checkoutPreviousBranch = (lessonInfo: lessonInfoType,
     return;
   }
 
-  // saveLesson(currentOpenFiles, currentEditorValues)
   saveToDisk()
     .then(() => {
       const previousBranchName = lessonInfo.branchNames[currentIndex - 1];
@@ -235,14 +258,3 @@ export const addBranch = (branch, branchName) => ({
   branch,
   branchName
 });
-
-// export const saveLesson = (currentOpenFiles: Array<string>, currentEditorValues: Array<string>) => {
-  // const writePromises = currentOpenFiles.map((filePath, index) => {
-  //   const newFileContent = currentEditorValues[index];
-  //   return writeFile(filePath, newFileContent);
-  // });
-  // return Promise.all(writePromises);
-
-  // Go through all branches visited, checkout each (Any changes should be saved to FS by this time)
-  // Push up to Github
-// };
