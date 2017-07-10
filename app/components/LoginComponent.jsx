@@ -59,20 +59,17 @@ export default class LoginComponent extends React.Component {
           <span style={{ color: orange }}>la </span>
           <span style={{ color: magenta }}>Mode</span>
         </div>
-        <Flexbox style={flexStyles} >
-            <Flexbox alignSelf="center" >
+        <Flexbox style={flexStyles} flexDirection="column" alignItems="center">
           <Paper style={buttonStyles} zDepth={5} circle={true} className="glowbutton" >
             <IconButton
-
               iconStyle={iconStyles}
               onTouchTap={() => handleAuth(this.props.githubLogin)}
             >
               <GithubIcon />
             </IconButton>
           </Paper>
-            </Flexbox>
+          <h3 style={{ marginTop: '5px' }}>Log in with Github</h3>
         </Flexbox>
-        <h3 style={{ marginTop: '-20px' }}>Log in with Github</h3>
       </Flexbox>
     );
   }
